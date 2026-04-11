@@ -237,12 +237,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="features">Features</a></li>
                     <li class="nav-item"><a class="nav-link" href="#process">How It Works</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
                 <div class="d-flex">
-                    <a href="#" class="btn btn-outline-custom">Login</a>
+
+                    <form action="login" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-outline-custom">Login</button>
+                    </form>
+
                     <a href="#" class="btn btn-primary-custom">Get Started</a>
                 </div>
             </div>

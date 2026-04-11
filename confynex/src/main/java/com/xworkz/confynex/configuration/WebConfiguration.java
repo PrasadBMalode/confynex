@@ -29,7 +29,7 @@ public class WebConfiguration {
     @Bean
     public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-        factoryBean.setPackagesToScan("com.xworkz.xworkz_Prasad_Modules.entity");
+        factoryBean.setPackagesToScan("com.xworkz.confynex.entity");
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaProperties(properties());
