@@ -263,7 +263,7 @@
                       <h5 style="color:green" class="text-center">${registerSuccess}</h5>
                       <h5 style="color:red" class="text-center">${registerFailed}</h5>
                       <h5 style="color:red" class="text-center">${existData}</h5>
-                      
+
             <div class="auth-toggle">
                 <button class="active" id="tab-login" onclick="switchForm('login')">Sign In</button>
                 <button id="tab-register" onclick="switchForm('register')">Create Account</button>
