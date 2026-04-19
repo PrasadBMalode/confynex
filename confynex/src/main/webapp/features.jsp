@@ -211,7 +211,7 @@
                 </div>
 
                 <!-- Feature 2 -->
-                <div class="col-lg-4 col-md-6 reveal">
+                <!-- <div class="col-lg-4 col-md-6 reveal">
                     <div class="feature-card">
                         <div class="icon-circle">
                             <i class="fas fa-id-badge"></i>
@@ -219,7 +219,7 @@
                         <h4>Instant Badge Printing</h4>
                         <p class="text-muted">Connect any thermal printer to generate professional name badges on-demand. Includes QR codes for quick scanning.</p>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Feature 3 -->
                 <div class="col-lg-4 col-md-6 reveal">
