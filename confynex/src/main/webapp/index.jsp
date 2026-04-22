@@ -361,7 +361,7 @@
                     </div>
                 </div>
                 <!-- Feature 5 -->
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <div class="feature-card">
                         <div class="icon-box">
                             <i class="fas fa-qrcode"></i>
@@ -369,7 +369,7 @@
                         <h4>QR Check-in</h4>
                         <p class="text-muted">Speed up entry lines with our mobile-friendly QR code scanning system. Compatible with any smartphone or tablet.</p>
                     </div>
-                </div>
+                </div> -->
                 <!-- Feature 6 -->
                 <div class="col-md-4">
                     <div class="feature-card">
