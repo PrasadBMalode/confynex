@@ -304,7 +304,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 mt-2">
-                        Sign In to Dashboard
+                        Sign In
                     </button>
                 </form>
             </div>
