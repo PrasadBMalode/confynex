@@ -291,11 +291,11 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-3 mb-4 mb-md-0">
-                    <div class="stat-number">500+</div>
+                    <div class="stat-number">50+</div>
                     <div class="text-white-50">Events Managed</div>
                 </div>
                 <div class="col-md-3 mb-4 mb-md-0">
-                    <div class="stat-number">50k+</div>
+                    <div class="stat-number">5k+</div>
                     <div class="text-white-50">Delegates Registered</div>
                 </div>
                 <div class="col-md-3 mb-4 mb-md-0">
