@@ -313,7 +313,7 @@
             <div class="row align-items-center">
                 <!-- Order swapped for desktop: Image Right -->
                 <div class="col-lg-6 order-lg-2 mb-4 mb-lg-0 reveal">
-                    <img src="https://picsum.photos/seed/email/600/400" alt="Email Communication" class="zz-img">
+                    <img src="https://t4.ftcdn.net/jpg/17/52/06/41/240_F_1752064174_ouXvmNE4JfDllnXAASAOZGhzuVIrwZc0.jpg" alt="Email Communication" class="zz-img">
                 </div>
                 <div class="col-lg-6 order-lg-1 pe-lg-5 reveal">
                     <h2 class="fw-bold mb-3">Keep Everyone Informed</h2>
