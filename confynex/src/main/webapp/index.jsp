@@ -258,28 +258,17 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <span class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill">
-                        <i class="fas fa-rocket me-2"></i> v2.0 Now Available
-                    </span>
+
                     <h1 class="hero-title">Effortless Conference Delegate Management</h1>
                     <p class="hero-subtitle">
                         A robust, Java-powered solution to streamline registrations, track attendees, and print badges in real-time. Focus on your event, we'll handle the data.
                     </p>
-                    <!-- <div class="d-flex gap-3 hero-btn-group">
-                        <a href="#" class="btn btn-primary-custom btn-lg">Start Free Trial</a>
-                        <a href="#" class="btn btn-outline-light btn-lg" style="border: 1px solid #cbd5e1; color: var(--text-dark);">
-                            <i class="fas fa-play-circle me-2"></i> Watch Demo
-                        </a>
-                    </div> -->
-                    <!-- <div class="mt-4 text-muted small">
-                        <i class="fas fa-check-circle text-success me-1"></i> No credit card required &nbsp;
-                        <i class="fas fa-check-circle text-success me-1"></i> 14-day free trial
-                    </div> -->
+
                 </div>
                 <div class="col-lg-6">
                     <div class="hero-img-container">
                         <!-- Placeholder for Dashboard UI -->
-                        <img src="https://picsum.photos/seed/conference/600/400" alt="Dashboard Interface" class="img-fluid hero-img">
+                        <img src="https://media.istockphoto.com/id/1482844702/photo/crowd-of-smart-tech-people-applauding-in-dark-conference-hall-during-a-motivational-keynote.jpg?s=612x612&w=0&k=20&c=MT4NoWUMEWyUpY5kZhknLMrguapPvYgOjrY8ggqcwWg=" alt="Dashboard Interface" class="img-fluid hero-img">
                     </div>
                 </div>
             </div>
@@ -331,7 +320,7 @@
                     </div>
                 </div>
                 <!-- Feature 2 -->
-                <div class="col-md-4">
+                <!--<div class="col-md-4">
                     <div class="feature-card">
                         <div class="icon-box">
                             <i class="fas fa-id-badge"></i>
@@ -339,7 +328,7 @@
                         <h4>Instant Badge Printing</h4>
                         <p class="text-muted">Generate and print professional badges on-demand with QR codes for instant check-in verification.</p>
                     </div>
-                </div>
+                </div>-->
                 <!-- Feature 3 -->
                 <div class="col-md-4">
                     <div class="feature-card">

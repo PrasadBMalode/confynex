@@ -33,7 +33,6 @@ public class WebConfiguration {
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaProperties(properties());
-
         return factoryBean;
     }
 
@@ -43,13 +42,11 @@ public class WebConfiguration {
         dataSource.setUrl("jdbc:mysql://localhost:3306/confynex_db");
         dataSource.setUsername("root");
         dataSource.setPassword("Prasad@123");
-
         return dataSource;
     }
     public Properties properties(){
         Properties properties=new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto","update");
-
         return properties;
     }
 
