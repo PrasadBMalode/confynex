@@ -279,7 +279,7 @@
                         <label class="form-label small fw-bold text-secondary">Email Address</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-envelope text-muted"></i></span>
-                            <input type="email" class="form-control" placeholder="admin@conference.com" required>
+                            <input type="email" class="form-control" placeholder="Enter your Email" required>
                         </div>
                     </div>
 
@@ -312,11 +312,7 @@
             <!-- ==================== REGISTER FORM ==================== -->
             <div id="register-form" class="d-none">
 
-
-
-
-
-                <h3 class="fw-bold mb-1">Create Account</h3>
+                  <h3 class="fw-bold mb-1">Create Account</h3>
                 <p class="text-muted small mb-3">Select your role and complete your profile.</p>
 
                 <!-- Role Selector -->
@@ -324,9 +320,7 @@
                     <button class="role-btn active" onclick="switchRole('host', this)">
                         <i class="fas fa-user-tie me-1"></i> Host
                     </button>
-                    <button class="role-btn" onclick="switchRole('delegate', this)">
-                        <i class="fas fa-id-badge me-1"></i> Delegate
-                    </button>
+
                     <button class="role-btn" onclick="switchRole('admin', this)">
                         <i class="fas fa-shield-alt me-1"></i> Admin
                     </button>
@@ -447,93 +441,7 @@
                     </form>
                 </div>
 
-                <!-- -------- DELEGATE FORM -------- -->
-                <div id="delegate-fields" class="role-fields">
-                    <form action="registerDelegate" method="post" onsubmit="handleRegister(event)">
-                        <input type="hidden" name="role" value="delegate">
 
-                        <div class="row g-2 mb-2">
-                            <div class="col-6">
-                                <label class="form-label small fw-bold text-secondary">Delegate ID</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-hashtag text-muted"></i></span>
-                                    <input type="number" class="form-control" name="delegateId" placeholder="e.g. 2001" required>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label small fw-bold text-secondary">Delegate Name</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-user text-muted"></i></span>
-                                    <input type="text" class="form-control" name="delegateName" placeholder="Full name" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row g-2 mb-2">
-                            <div class="col-6">
-                                <label class="form-label small fw-bold text-secondary">Email</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-envelope text-muted"></i></span>
-                                    <input type="email" class="form-control" name="email" placeholder="you@email.com" required>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label small fw-bold text-secondary">Phone Number</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-phone text-muted"></i></span>
-                                    <input type="tel" class="form-control" name="phNumber" placeholder="+91 XXXXX" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label small fw-bold text-secondary">Organization</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-building text-muted"></i></span>
-                                <input type="text" class="form-control" name="organization" placeholder="Your organization" required>
-                            </div>
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label small fw-bold text-secondary">Conference ID to Join</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-key text-muted"></i></span>
-                                <input type="number" class="form-control" name="conferenceId" placeholder="ID provided by the host" required>
-                            </div>
-                        </div>
-
-                        <div class="row g-2 mb-3">
-                            <div class="col-6">
-                                <label class="form-label small fw-bold text-secondary">Password</label>
-                                <div class="position-relative">
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-lock text-muted"></i></span>
-                                        <input type="password" class="form-control" id="delPass" name="password" placeholder="Create password" required>
-                                    </div>
-                                    <button type="button" class="password-toggle-btn" onclick="togglePassword('delPass', this)">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label small fw-bold text-secondary">Confirm Password</label>
-                                <div class="position-relative">
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-lock text-muted"></i></span>
-                                        <input type="password" class="form-control" id="delConfPass" name="confirmPassword" placeholder="Re-enter" required>
-                                    </div>
-                                    <button type="button" class="password-toggle-btn" onclick="togglePassword('delConfPass', this)">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-id-badge me-2"></i>Register as Delegate
-                        </button>
-                    </form>
-                </div>
 
                 <!-- -------- ADMIN FORM -------- -->
                 <div id="admin-fields" class="role-fields">
@@ -541,15 +449,15 @@
                         <input type="hidden" name="role" value="admin">
 
                         <div class="row g-2 mb-2">
-                            <div class="col-6">
+                            <!--<div class="col-6">
                                 <label class="form-label small fw-bold text-secondary">Admin ID</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-hashtag text-muted"></i></span>
                                     <input type="number" class="form-control" name="adminId" placeholder="e.g. 3001" required>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="col-6">
-                                <label class="form-label small fw-bold text-secondary">Admin Name</label>
+                                <label class="form-label small fw-bold text-secondary">Full Name</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-user text-muted"></i></span>
                                     <input type="text" class="form-control" name="adminName" placeholder="Full name" required>
@@ -638,7 +546,7 @@
         }
     }
 
-    // Switch between Host / Delegate / Admin role fields
+    // Switch between Host / Admin role fields
     function switchRole(role, clickedBtn) {
         document.querySelectorAll('.role-fields').forEach(function(el) {
             el.classList.remove('active');
@@ -666,21 +574,7 @@
         }
     }
 
-    // Mock Login Handler
-    function handleLogin(e) {
-        e.preventDefault();
-        const btn = e.target.querySelector('button[type="submit"]');
-        const originalText = btn.innerHTML;
 
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Authenticating...';
-        btn.disabled = true;
-
-        setTimeout(() => {
-            alert("Login Successful! Redirecting to Dashboard...");
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }, 1500);
-    }
 
     // Mock Register Handler
     function handleRegister(e) {
