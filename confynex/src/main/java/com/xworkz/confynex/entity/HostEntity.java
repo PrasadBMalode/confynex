@@ -3,6 +3,7 @@ package com.xworkz.confynex.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,5 +29,14 @@ public class HostEntity {
     private Date conferenceDate;
     private String venue;
     private String password;
+    //private Integer loginAttempts;
+    //private Boolean accountLocked=false;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "deligate_file_id")
+    @ToString.Exclude
+    private FileEntity fileEntity;
+
+
 
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -53,6 +54,8 @@ public class HostDTO {
 
     @NotBlank(message = "Confirm password is required")
     private String confirmPassword;
+
+    private MultipartFile excelFile;
 
 
 }
