@@ -37,6 +37,7 @@ public class WebConfiguration {
         return factoryBean;
     }
 
+    @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource=new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");

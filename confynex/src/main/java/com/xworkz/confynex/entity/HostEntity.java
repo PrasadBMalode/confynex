@@ -32,7 +32,7 @@ public class HostEntity {
     //private Integer loginAttempts;
     //private Boolean accountLocked=false;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "deligate_file_id")
     @ToString.Exclude
     private FileEntity fileEntity;

@@ -17,17 +17,21 @@ public class HostDAOImpl implements HostDAO {
 
     @Override
     public HostEntity checkExistUserByEmail(String email) {
+
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+
         try {
-            EntityTransaction transaction = entityManager.getTransaction();
-            transaction.begin();
             Query query = entityManager.createNamedQuery("findByEmail");
             query.setParameter("byEmail", email);
-            HostEntity singleResult = (HostEntity) query.getSingleResult();
-            return singleResult;
+
+            return (HostEntity) query.getSingleResult();
+
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return null;
+
+        } finally {
+            entityManager.close();
         }
     }
 
@@ -35,15 +39,28 @@ public class HostDAOImpl implements HostDAO {
     public Boolean hostSaveDB(HostEntity hostEntity) {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
         try {
-            EntityTransaction transaction = entityManager.getTransaction();
+
             transaction.begin();
+
             entityManager.persist(hostEntity);
+
             transaction.commit();
+
             return true;
+
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            e.printStackTrace();
+
             return false;
+
         } finally {
             entityManager.close();
         }

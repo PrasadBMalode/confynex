@@ -43,9 +43,9 @@ public class HostController {
             }
 
             if (bindingResult.hasFieldErrors("phNumber")) {
-                model.addAttribute("phoneError", bindingResult.getFieldError("phNumber").getDefaultMessage());
+                model.addAttribute("phNumberError", bindingResult.getFieldError("phNumber").getDefaultMessage());
             } else {
-                model.addAttribute("phoneError", "");
+                model.addAttribute("phNumberError", "");
             }
 
             if (bindingResult.hasFieldErrors("title")) {
