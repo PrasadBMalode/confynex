@@ -1,506 +1,1018 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DelegatePro | Conference Management System</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confynex – Conference Delegate Management</title>
 
-    <!-- Bootstrap 5 CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --gold:    #C9A84C;
+      --gold-lt: #E8C97A;
+      --navy:    #0B1D3A;
+      --navy-lt: #122451;
+      --cream:   #F9F5EE;
+      --dark:    #070F1E;
+      --text:    #3A3A4A;
+      --muted:   #7A8399;
+    }
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <style>
-        :root {
-            --primary-color: #2563eb;       /* Professional Blue */
-            --secondary-color: #1e293b;     /* Dark Slate */
-            --accent-color: #0ea5e9;        /* Light Blue */
-            --light-bg: #f8fafc;
-            --text-dark: #334155;
-            --text-light: #94a3b8;
-        }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: #fff;
+      overflow-x: hidden;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-dark);
-            overflow-x: hidden;
-        }
+    h1,h2,h3,h4,h5 { font-family: 'Playfair Display', serif; }
 
-        /* --- Navbar Styles --- */
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            padding: 1rem 0;
-        }
+    /* ── NAVBAR ── */
+    .navbar {
+      background: rgba(7,15,30,.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,.18);
+      padding: 14px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: var(--gold) !important;
+      letter-spacing: .04em;
+    }
+    .navbar-brand span { color: #fff; }
+    .nav-link {
+      color: rgba(255,255,255,.82) !important;
+      font-weight: 500;
+      font-size: .88rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 6px 14px !important;
+      transition: color .25s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--gold) !important; }
+    .dropdown-menu {
+      background: var(--navy);
+      border: 1px solid rgba(201,168,76,.2);
+      border-radius: 8px;
+      min-width: 160px;
+    }
+    .dropdown-item {
+      color: rgba(255,255,255,.82);
+      font-size: .88rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      padding: 10px 20px;
+      transition: background .2s, color .2s;
+    }
+    .dropdown-item:hover { background: rgba(201,168,76,.12); color: var(--gold); }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      color: var(--navy);
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      padding: 9px 26px;
+      font-size: .88rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: opacity .25s, transform .2s;
+    }
+    .btn-gold:hover { opacity: .88; transform: translateY(-1px); color: var(--navy); }
+    .navbar-toggler { border-color: rgba(201,168,76,.4); }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(201,168,76,0.9)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
 
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      background:
+        linear-gradient(160deg, rgba(7,15,30,.88) 55%, rgba(11,29,58,.72) 100%),
+        url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&auto=format&fit=crop') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    #home::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(201,168,76,.08), transparent);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(201,168,76,.15);
+      border: 1px solid rgba(201,168,76,.35);
+      color: var(--gold);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border-radius: 50px;
+      padding: 6px 18px;
+      margin-bottom: 22px;
+    }
+    .hero-title {
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.12rem;
+      color: rgba(255,255,255,.65);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 38px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 36px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+    }
+    .stat-lbl { font-size: .8rem; color: rgba(255,255,255,.5); letter-spacing: .08em; text-transform: uppercase; }
 
-        .nav-link {
-            color: var(--secondary-color) !important;
-            font-weight: 500;
-            margin: 0 10px;
-            transition: color 0.3s;
-        }
+    /* ── SECTION SHARED ── */
+    section { padding: 100px 0; }
+    .sec-tag {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .sec-title { font-size: clamp(1.9rem, 3.5vw, 2.8rem); color: var(--navy); line-height: 1.2; margin-bottom: 18px; }
+    .sec-sub { color: var(--muted); font-size: 1.05rem; line-height: 1.8; }
 
-        .nav-link:hover {
-            color: var(--primary-color) !important;
-        }
+    /* ── WHO WE ARE ── */
+    #who { background: var(--cream); }
+    .who-img {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(11,29,58,.18);
+    }
+    .who-img img { width: 100%; height: 480px; object-fit: cover; }
+    .who-badge {
+      position: absolute;
+      bottom: 28px; left: -24px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 14px;
+      padding: 18px 28px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.25);
+    }
+    .who-badge .num { font-family:'Playfair Display',serif; font-size:2.2rem; color:var(--gold); font-weight:900; }
+    .who-badge .lbl { font-size:.8rem; color:rgba(255,255,255,.6); letter-spacing:.08em; text-transform:uppercase; }
+    .check-list { list-style: none; padding: 0; margin: 28px 0; }
+    .check-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      font-size: .95rem; color: var(--text);
+    }
+    .check-list li i { color: var(--gold); font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
 
-        .btn-primary-custom {
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            border: none;
-            padding: 10px 25px;
-            border-radius: 50px;
-            color: white;
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+    /* ── WHAT WE DO ── */
+    #what { background: #fff; }
+    .do-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.07);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+      height: 100%;
+    }
+    .do-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(11,29,58,.1); }
+    .do-card img { width: 100%; height: 200px; object-fit: cover; }
+    .do-card-body { padding: 24px; }
+    .do-icon {
+      width: 48px; height: 48px;
+      background: rgba(201,168,76,.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 1.3rem; margin-bottom: 14px;
+    }
+    .do-card-body h5 { font-size: 1.15rem; color: var(--navy); margin-bottom: 8px; }
+    .do-card-body p { font-size: .9rem; color: var(--muted); line-height: 1.7; margin: 0; }
 
-        .btn-primary-custom:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
-            color: white;
-        }
+    /* ── HOW WE DO IT ── */
+    #how { background: var(--navy); }
+    #how .sec-title { color: #fff; }
+    #how .sec-sub { color: rgba(255,255,255,.55); }
+    .step-wrap { position: relative; }
+    .step-line {
+      position: absolute;
+      left: 36px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--gold) 0%, rgba(201,168,76,.08) 100%);
+    }
+    .step-item {
+      display: flex; gap: 28px;
+      padding: 0 0 40px 0;
+      position: relative;
+    }
+    .step-num {
+      width: 72px; height: 72px; flex-shrink: 0;
+      background: rgba(201,168,76,.1);
+      border: 2px solid rgba(201,168,76,.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 900;
+      color: var(--gold);
+      position: relative; z-index: 1;
+    }
+    .step-content h5 { color: #fff; font-size: 1.1rem; margin-bottom: 8px; }
+    .step-content p { color: rgba(255,255,255,.5); font-size: .9rem; line-height: 1.75; margin: 0; }
+    .how-img { border-radius: 20px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.4); }
+    .how-img img { width: 100%; height: 520px; object-fit: cover; }
 
-        .btn-outline-custom {
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 8px 23px;
-            border-radius: 50px;
-            font-weight: 600;
-            margin-right: 10px;
-            transition: all 0.3s;
-        }
+    /* ── OUR WORK ── */
+    #work { background: #fff; }
+    .work-card {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .work-card img { width: 100%; height: 280px; object-fit: cover; transition: transform .4s; }
+    .work-card:hover img { transform: scale(1.06); }
+    .work-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(0deg, rgba(7,15,30,.9) 0%, transparent 60%);
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      opacity: 0; transition: opacity .3s;
+    }
+    .work-card:hover .work-overlay { opacity: 1; }
+    .work-tag {
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .work-overlay h5 { color: #fff; font-size: 1.1rem; margin: 0; }
+    /* always-visible bottom strip */
+    .work-strip {
+      background: var(--cream);
+      padding: 14px 18px;
+    }
+    .work-strip h6 { font-size: .95rem; color: var(--navy); margin: 0 0 2px; }
+    .work-strip span { font-size: .8rem; color: var(--muted); }
 
-        .btn-outline-custom:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
+    /* ── FEATURES ── */
+    #features { background: var(--cream); }
+    .feat-item {
+      display: flex; gap: 20px;
+      padding: 24px;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,.06);
+      transition: box-shadow .3s;
+      height: 100%;
+    }
+    .feat-item:hover { box-shadow: 0 16px 50px rgba(11,29,58,.08); }
+    .feat-icon {
+      width: 56px; height: 56px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--navy); font-size: 1.4rem;
+    }
+    .feat-text h6 { font-size: 1rem; color: var(--navy); margin-bottom: 6px; }
+    .feat-text p { font-size: .88rem; color: var(--muted); line-height: 1.7; margin: 0; }
 
-        /* --- Hero Section --- */
-        .hero-section {
-            padding: 100px 0 60px;
-            background: linear-gradient(to bottom, #eff6ff, #ffffff);
-            position: relative;
-        }
+    /* ── CONTACT ── */
+    #contact { background: var(--dark); }
+    #contact .sec-title { color: #fff; }
+    #contact .sec-sub { color: rgba(255,255,255,.45); }
+    .contact-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 42px 38px;
+    }
+    .form-control, .form-select {
+      background: rgba(255,255,255,.06) !important;
+      border: 1px solid rgba(255,255,255,.12) !important;
+      color: #fff !important;
+      border-radius: 10px !important;
+      padding: 12px 16px !important;
+      font-size: .92rem !important;
+    }
+    .form-control::placeholder { color: rgba(255,255,255,.3) !important; }
+    .form-control:focus, .form-select:focus {
+      box-shadow: 0 0 0 3px rgba(201,168,76,.2) !important;
+      border-color: rgba(201,168,76,.45) !important;
+    }
+    .form-label { color: rgba(255,255,255,.6); font-size: .85rem; font-weight: 500; margin-bottom: 6px; }
+    .contact-info-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      color: rgba(255,255,255,.6);
+      font-size: .92rem;
+    }
+    .contact-info-item i { color: var(--gold); font-size: 1.2rem; width: 22px; text-align: center; }
+    .contact-info-item strong { color: #fff; display: block; font-size: .95rem; margin-bottom: 2px; }
 
-        .hero-title {
-            font-weight: 800;
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            background: -webkit-linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      padding: 28px 0;
+      border-top: 1px solid rgba(201,168,76,.1);
+      text-align: center;
+      color: rgba(255,255,255,.35);
+      font-size: .82rem;
+    }
+    footer span { color: var(--gold); }
 
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-light);
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
+    /* ── SCROLL SMOOTH ── */
+    html { scroll-behavior: smooth; }
 
-        .hero-img-container {
-            position: relative;
-        }
+    /* ── MODAL FORMS ── */
+    .modal-content {
+      background: var(--navy);
+      border: 1px solid rgba(201,168,76,.2);
+      border-radius: 18px;
+    }
+    .modal-header { border-bottom: 1px solid rgba(255,255,255,.08); }
+    .modal-title { color: var(--gold); font-family: 'Playfair Display',serif; }
+    .modal-body .form-control {
+      background: rgba(255,255,255,.07) !important;
+      border: 1px solid rgba(255,255,255,.15) !important;
+      color: #fff !important;
+      border-radius: 10px !important;
+      padding: 11px 15px !important;
+    }
+    .modal-body .form-control::placeholder { color: rgba(255,255,255,.28) !important; }
+    .modal-body .form-label { color: rgba(255,255,255,.55); font-size:.85rem; }
+    .btn-close-white { filter: invert(1) grayscale(1); }
+    .btn-outline-gold {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      border-radius: 50px;
+      padding: 9px 26px;
+      font-size: .88rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      background: transparent;
+      transition: all .25s;
+    }
+    .btn-outline-gold:hover { background: var(--gold); color: var(--navy); }
+    .modal-link { color: var(--gold-lt); font-size:.88rem; cursor:pointer; text-decoration:underline; }
 
-        .hero-img {
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 8px solid white;
-        }
-
-        /* --- Features Section --- */
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border-color: var(--primary-color);
-        }
-
-        .icon-box {
-            width: 60px;
-            height: 60px;
-            background-color: #eff6ff;
-            color: var(--primary-color);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* --- Stats Section --- */
-        .stats-section {
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 60px 0;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent-color);
-        }
-
-        /* --- Process Section --- */
-        .process-step {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            font-size: 4rem;
-            font-weight: 900;
-            color: #f1f5f9;
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: -1;
-        }
-
-        /* --- Footer --- */
-        footer {
-            background-color: #0f172a;
-            color: #cbd5e1;
-            padding: 60px 0 20px;
-        }
-
-        footer h5 {
-            color: white;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        footer a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        footer a:hover {
-            color: var(--primary-color);
-        }
-
-        /* Responsive Tweaks */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            .hero-section {
-                text-align: center;
-                padding-top: 120px;
-            }
-            .hero-btn-group {
-                justify-content: center;
-            }
-            .hero-img {
-                margin-top: 40px;
-            }
-        }
-    </style>
+    @media(max-width:767px){
+      .who-badge { display:none; }
+      .hero-stats { flex-wrap:wrap; gap:22px; }
+      .step-line { display:none; }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fa-solid fa-id-card-clip"></i> Confynex
+<!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#home">Confy<span>nex</span></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#who">Who We Are</a></li>
+        <li class="nav-item"><a class="nav-link" href="#what">What We Do</a></li>
+        <li class="nav-item"><a class="nav-link" href="#how">How We Do It</a></li>
+        <li class="nav-item"><a class="nav-link" href="#work">Our Work</a></li>
+        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
+      </ul>
+
+      <!-- Auth dropdown -->
+      <div class="dropdown ms-3">
+        <button class="btn btn-gold dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="bi bi-person-circle me-1"></i> Account
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li>
+            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signupModal">
+              <i class="bi bi-person-plus me-2"></i>Sign Up
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="features">Features</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#process">How It Works</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
-                <div class="d-flex">
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signinModal">
+              <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
 
-                    <form action="login" method="POST" style="display:inline;">
-                        <button type="submit" class="btn btn-outline-custom">Login</button>
-                    </form>
-
-                    <a href="#" class="btn btn-primary-custom">Get Started</a>
-                </div>
-            </div>
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section id="home">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <div class="hero-tag"><i class="bi bi-stars me-1"></i> Conference Intelligence Platform</div>
+        <h1 class="hero-title">
+          Manage Every<br/><em>Delegate</em> with<br/>Precision & Grace
+        </h1>
+        <p class="hero-sub">
+          Confynex redefines how conferences are orchestrated — from delegate onboarding to real-time session tracking, badge printing, and seamless attendee experiences at scale.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="#contact" class="btn btn-gold px-4 py-3">
+            Request a Demo <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+          <a href="#what" class="btn btn-outline-gold px-4 py-3">Explore Features</a>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-
-                    <h1 class="hero-title">Effortless Conference Delegate Management</h1>
-                    <p class="hero-subtitle">
-                        A robust, Java-powered solution to streamline registrations, track attendees, and print badges in real-time. Focus on your event, we'll handle the data.
-                    </p>
-
-                </div>
-                <div class="col-lg-6">
-                    <div class="hero-img-container">
-                        <!-- Placeholder for Dashboard UI -->
-                        <img src="https://media.istockphoto.com/id/1482844702/photo/crowd-of-smart-tech-people-applauding-in-dark-conference-hall-during-a-motivational-keynote.jpg?s=612x612&w=0&k=20&c=MT4NoWUMEWyUpY5kZhknLMrguapPvYgOjrY8ggqcwWg=" alt="Dashboard Interface" class="img-fluid hero-img">
-                    </div>
-                </div>
-            </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-num">500+</div>
+            <div class="stat-lbl">Events Managed</div>
+          </div>
+          <div>
+            <div class="stat-num">1.2M</div>
+            <div class="stat-lbl">Delegates Handled</div>
+          </div>
+          <div>
+            <div class="stat-num">98%</div>
+            <div class="stat-lbl">Client Satisfaction</div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-3 mb-4 mb-md-0">
-                    <div class="stat-number">50+</div>
-                    <div class="text-white-50">Events Managed</div>
-                </div>
-                <div class="col-md-3 mb-4 mb-md-0">
-                    <div class="stat-number">5k+</div>
-                    <div class="text-white-50">Delegates Registered</div>
-                </div>
-                <div class="col-md-3 mb-4 mb-md-0">
-                    <div class="stat-number">99.9%</div>
-                    <div class="text-white-50">Uptime Guaranteed</div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-number">24/7</div>
-                    <div class="text-white-50">Technical Support</div>
-                </div>
-            </div>
+<!-- ═══════════════════════════════ WHO WE ARE ═══════════════════════════════ -->
+<section id="who">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5">
+        <div class="who-img">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&auto=format&fit=crop" alt="Our Team"/>
+          <div class="who-badge">
+            <div class="num">12+</div>
+            <div class="lbl">Years of Excellence</div>
+          </div>
         </div>
-    </section>
+      </div>
+      <div class="col-lg-7">
+        <div class="sec-tag"><i class="bi bi-building me-1"></i>Who We Are</div>
+        <h2 class="sec-title">A Team Built Around<br/>World-Class Conferences</h2>
+        <p class="sec-sub">
+          Confynex was born out of frustration with fragmented, cumbersome delegate management tools. We are a team of event technologists, UX designers, and hospitality veterans committed to creating seamless conference ecosystems.
+        </p>
+        <ul class="check-list">
+          <li><i class="bi bi-check-circle-fill"></i> Pioneering delegate intelligence since 2012</li>
+          <li><i class="bi bi-check-circle-fill"></i> Trusted by Fortune 500 companies and government bodies</li>
+          <li><i class="bi bi-check-circle-fill"></i> GDPR compliant & ISO 27001 certified platform</li>
+          <li><i class="bi bi-check-circle-fill"></i> 24/7 white-glove support for every event</li>
+          <li><i class="bi bi-check-circle-fill"></i> Presence across 40+ countries worldwide</li>
+        </ul>
+        <a href="#contact" class="btn btn-gold px-4">Get In Touch <i class="bi bi-arrow-right ms-1"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Features Section -->
-    <section id="features" class="py-5 bg-light">
-        <div class="container py-5">
-            <div class="text-center mb-5">
-                <h6 class="text-primary text-uppercase fw-bold ls-2">Features</h6>
-                <h2 class="fw-bold display-6">Everything you need to run your event</h2>
-                <p class="text-muted w-75 mx-auto">Built with Java Spring Boot for high performance and security.</p>
-            </div>
-
-            <div class="row g-4">
-                <!-- Feature 1 -->
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="icon-box">
-                            <i class="fas fa-user-plus"></i>
-                        </div>
-                        <h4>Easy Registration</h4>
-                        <p class="text-muted">Customizable registration forms that capture delegate details efficiently. Supports group registrations and discounts.</p>
-                    </div>
-                </div>
-                <!-- Feature 2 -->
-                <!--<div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="icon-box">
-                            <i class="fas fa-id-badge"></i>
-                        </div>
-                        <h4>Instant Badge Printing</h4>
-                        <p class="text-muted">Generate and print professional badges on-demand with QR codes for instant check-in verification.</p>
-                    </div>
-                </div>-->
-                <!-- Feature 3 -->
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="icon-box">
-                            <i class="fas fa-chart-pie"></i>
-                        </div>
-                        <h4>Real-time Analytics</h4>
-                        <p class="text-muted">Visualize attendance data, session popularity, and demographic breakdowns with our interactive dashboard.</p>
-                    </div>
-                </div>
-                <!-- Feature 4 -->
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="icon-box">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </div>
-                        <h4>Automated Emails</h4>
-                        <p class="text-muted">Send confirmation emails, reminders, and event updates automatically using our integrated notification service.</p>
-                    </div>
-                </div>
-                <!-- Feature 5 -->
-                <!-- <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="icon-box">
-                            <i class="fas fa-qrcode"></i>
-                        </div>
-                        <h4>QR Check-in</h4>
-                        <p class="text-muted">Speed up entry lines with our mobile-friendly QR code scanning system. Compatible with any smartphone or tablet.</p>
-                    </div>
-                </div> -->
-                <!-- Feature 6 -->
-                <div class="col-md-4">
-                    <div class="feature-card">
-                        <div class="icon-box">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h4>Secure Data</h4>
-                        <p class="text-muted">Enterprise-grade security standards to protect sensitive delegate information. Role-based access control for staff.</p>
-                    </div>
-                </div>
-            </div>
+<!-- ═══════════════════════════════ WHAT WE DO ═══════════════════════════════ -->
+<section id="what">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-lg-6">
+        <div class="sec-tag"><i class="bi bi-grid me-1"></i>What We Do</div>
+        <h2 class="sec-title">End-to-End Conference Solutions</h2>
+        <p class="sec-sub">Every service is designed to reduce friction and amplify the delegate experience.</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="do-card">
+          <img src="https://images.unsplash.com/photo-1560439514-4e9645039924?w=600&auto=format&fit=crop" alt="Registration"/>
+          <div class="do-card-body">
+            <div class="do-icon"><i class="bi bi-person-check"></i></div>
+            <h5>Delegate Registration</h5>
+            <p>Streamlined online and onsite registration flows with custom forms, group registration, and instant confirmation workflows.</p>
+          </div>
         </div>
-    </section>
-
-    <!-- How It Works / Process -->
-    <section id="process" class="py-5">
-        <div class="container py-5">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold">How It Works</h2>
-                <p class="text-muted">Get your event up and running in minutes.</p>
-            </div>
-            <div class="row text-center">
-                <div class="col-md-4 process-step mb-4">
-                    <div class="step-number">01</div>
-                    <div class="card border-0 shadow-sm p-4">
-                        <div class="card-body">
-                            <h5 class="fw-bold">Create Event</h5>
-                            <p class="text-muted">Set up your conference details, sessions, and ticket types using our intuitive organizer dashboard.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 process-step mb-4">
-                    <div class="step-number">02</div>
-                    <div class="card border-0 shadow-sm p-4">
-                        <div class="card-body">
-                            <h5 class="fw-bold">Invite Delegates</h5>
-                            <p class="text-muted">Share a custom registration link or import delegate lists. Delegates fill out their own data.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 process-step mb-4">
-                    <div class="step-number">03</div>
-                    <div class="card border-0 shadow-sm p-4">
-                        <div class="card-body">
-                            <h5 class="fw-bold">Manage & Check-in</h5>
-                            <p class="text-muted">On the big day, use the app to scan badges, track attendance, and handle walk-ins seamlessly.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="do-card">
+          <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&auto=format&fit=crop" alt="Badge Printing"/>
+          <div class="do-card-body">
+            <div class="do-icon"><i class="bi bi-badge-hd"></i></div>
+            <h5>Smart Badge Printing</h5>
+            <p>QR and RFID-enabled badges printed on-demand with role-based access permissions and session scanning.</p>
+          </div>
         </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-5 bg-primary text-white">
-        <div class="container py-4 text-center">
-            <h2 class="fw-bold mb-3">Ready to simplify your next conference?</h2>
-            <p class="lead mb-4 opacity-75">Join hundreds of organizers using Confynex today.</p>
-            <a href="#" class="btn btn-light btn-lg rounded-pill px-5 fw-bold text-primary">Create Free Account</a>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="do-card">
+          <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?w=600&auto=format&fit=crop" alt="Session Management"/>
+          <div class="do-card-body">
+            <div class="do-icon"><i class="bi bi-calendar2-event"></i></div>
+            <h5>Session Management</h5>
+            <p>Build and manage complex multi-track agendas with capacity controls, waitlists, and live attendee analytics.</p>
+          </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4">
-                    <a class="navbar-brand text-white mb-3 d-inline-block" href="#">
-                        <i class="fa-solid fa-id-card-clip"></i> Confynex
-                    </a>
-                    <p class="small text-muted">
-                        The ultimate delegate management solution built for efficiency and scale. Perfect for academic conferences, corporate summits, and workshops.
-                    </p>
-                    <div class="d-flex gap-3 mt-3">
-                        <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
-                        <a href="#"><i class="fab fa-linkedin fa-lg"></i></a>
-                        <a href="#"><i class="fab fa-github fa-lg"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-6 mb-4">
-                    <h5>Product</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#">Features</a></li>
-                        <li class="mb-2"><a href="#">Pricing</a></li>
-                        <li class="mb-2"><a href="#">API Documentation</a></li>
-                        <li class="mb-2"><a href="#">System Status</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-2 col-6 mb-4">
-                    <h5>Support</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#">Help Center</a></li>
-                        <li class="mb-2"><a href="#">Contact Us</a></li>
-                        <li class="mb-2"><a href="#">Privacy Policy</a></li>
-                        <li class="mb-2"><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <h5>Newsletter</h5>
-                    <p class="small text-muted">Stay updated with the latest features and event tips.</p>
-                    <form class="d-flex gap-2">
-                        <input type="email" class="form-control" placeholder="Enter email">
-                        <button class="btn btn-primary-custom" type="button">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-            <hr class="border-secondary my-4">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start">
-                    <p class="small mb-0 text-muted">&copy; 2023 DelegatePro Systems. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <p class="small mb-0 text-muted">Built with Java Spring Boot & Bootstrap</p>
-                </div>
-            </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="do-card">
+          <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&auto=format&fit=crop" alt="Networking"/>
+          <div class="do-card-body">
+            <div class="do-icon"><i class="bi bi-people"></i></div>
+            <h5>Networking Hub</h5>
+            <p>AI-powered matchmaking, meeting scheduler, and virtual networking lounges to foster meaningful connections.</p>
+          </div>
         </div>
-    </footer>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="do-card">
+          <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&auto=format&fit=crop" alt="Analytics"/>
+          <div class="do-card-body">
+            <div class="do-icon"><i class="bi bi-bar-chart-line"></i></div>
+            <h5>Real-Time Analytics</h5>
+            <p>Dashboards with live delegate activity, engagement heatmaps, session popularity, and post-event reporting.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="do-card">
+          <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=600&auto=format&fit=crop" alt="Communication"/>
+          <div class="do-card-body">
+            <div class="do-icon"><i class="bi bi-chat-dots"></i></div>
+            <h5>Delegate Communication</h5>
+            <p>Automated multi-channel messaging — email, SMS, and push — for reminders, updates, and personalised schedules.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Bootstrap 5 Bundle JS (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- ═══════════════════════════════ HOW WE DO IT ═══════════════════════════════ -->
+<section id="how">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="sec-tag"><i class="bi bi-gear me-1"></i>How We Do It</div>
+        <h2 class="sec-title">Our Proven Process</h2>
+        <p class="sec-sub mb-5">A structured, repeatable methodology that delivers flawless conferences every single time.</p>
 
-    <!-- Simple Script for smooth scroll offset adjustment -->
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
+        <div class="step-wrap">
+          <div class="step-line"></div>
+          <div class="step-item">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h5>Discovery & Scoping</h5>
+              <p>We deeply understand your conference goals, audience profile, venue constraints, and brand identity before a single line of code is configured.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h5>Platform Configuration</h5>
+              <p>Our team tailors the Confynex platform — registration flows, badge templates, agenda builder, and integrations — to your exact event blueprint.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h5>Delegate Onboarding</h5>
+              <p>Automated invitations, personalised delegate portals, and live support ensure every attendee arrives informed and prepared.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <h5>On-Site Execution</h5>
+              <p>Our on-ground team operates check-in kiosks, badge printers, and live dashboards — ensuring zero queues and zero confusion.</p>
+            </div>
+          </div>
+          <div class="step-item" style="padding-bottom:0">
+            <div class="step-num">05</div>
+            <div class="step-content">
+              <h5>Post-Event Intelligence</h5>
+              <p>Comprehensive analytics reports, feedback aggregation, and ROI summaries delivered within 48 hours of event close.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="how-img">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&auto=format&fit=crop" alt="Our Process"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+<!-- ═══════════════════════════════ OUR WORK ═══════════════════════════════ -->
+<section id="work">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-lg-6">
+        <div class="sec-tag"><i class="bi bi-collection me-1"></i>Our Work</div>
+        <h2 class="sec-title">Events That Defined Industries</h2>
+        <p class="sec-sub">A curated portfolio of landmark conferences we've powered around the globe.</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="work-card">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&auto=format&fit=crop" alt="Global Tech Summit"/>
+          <div class="work-overlay">
+            <div class="work-tag">Technology</div>
+            <h5>Global Tech Summit 2024</h5>
+          </div>
+          <div class="work-strip">
+            <h6>Global Tech Summit</h6>
+            <span>Dubai · 12,000 Delegates</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="work-card">
+          <img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=700&auto=format&fit=crop" alt="Healthcare Congress"/>
+          <div class="work-overlay">
+            <div class="work-tag">Healthcare</div>
+            <h5>World Health Congress 2024</h5>
+          </div>
+          <div class="work-strip">
+            <h6>World Health Congress</h6>
+            <span>Geneva · 8,500 Delegates</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="work-card">
+          <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=700&auto=format&fit=crop" alt="Finance Forum"/>
+          <div class="work-overlay">
+            <div class="work-tag">Finance</div>
+            <h5>Global Finance Forum</h5>
+          </div>
+          <div class="work-strip">
+            <h6>Global Finance Forum</h6>
+            <span>London · 5,200 Delegates</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="work-card">
+          <img src="https://images.unsplash.com/photo-1558008258-3256797b43f3?w=700&auto=format&fit=crop" alt="Sustainability Summit"/>
+          <div class="work-overlay">
+            <div class="work-tag">Sustainability</div>
+            <h5>Climate Leaders Summit</h5>
+          </div>
+          <div class="work-strip">
+            <h6>Climate Leaders Summit</h6>
+            <span>Singapore · 3,800 Delegates</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="work-card">
+          <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=700&auto=format&fit=crop" alt="Education Conference"/>
+          <div class="work-overlay">
+            <div class="work-tag">Education</div>
+            <h5>EdTech World Conference</h5>
+          </div>
+          <div class="work-strip">
+            <h6>EdTech World Conference</h6>
+            <span>New York · 6,100 Delegates</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="work-card">
+          <img src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=700&auto=format&fit=crop" alt="Government Forum"/>
+          <div class="work-overlay">
+            <div class="work-tag">Government</div>
+            <h5>G20 Side Events 2023</h5>
+          </div>
+          <div class="work-strip">
+            <h6>G20 Side Events</h6>
+            <span>New Delhi · 4,400 Delegates</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
-                }
-            });
-        });
-    </script>
+<!-- ═══════════════════════════════ FEATURES ═══════════════════════════════ -->
+<section id="features">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-lg-6">
+        <div class="sec-tag"><i class="bi bi-lightning-charge me-1"></i>Features</div>
+        <h2 class="sec-title">Everything You Need to Run a Flawless Event</h2>
+        <p class="sec-sub">Purpose-built tools for the demands of modern large-scale conferencing.</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="bi bi-qr-code"></i></div>
+          <div class="feat-text">
+            <h6>QR & RFID Check-In</h6>
+            <p>Sub-second check-in with QR codes and RFID wristbands. Zero queues, zero errors.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="bi bi-globe"></i></div>
+          <div class="feat-text">
+            <h6>Multi-Language Support</h6>
+            <p>Full platform localisation in 28 languages with RTL support.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="bi bi-shield-lock"></i></div>
+          <div class="feat-text">
+            <h6>Enterprise Security</h6>
+            <p>SOC2 Type II, GDPR-compliant, end-to-end encryption, and granular access controls.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="bi bi-phone"></i></div>
+          <div class="feat-text">
+            <h6>Native Mobile App</h6>
+            <p>iOS & Android apps for delegates with personalised agendas, maps, and live updates.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="bi bi-plug"></i></div>
+          <div class="feat-text">
+            <h6>API & Integrations</h6>
+            <p>Connect with Salesforce, HubSpot, Zoom, Cvent, and 100+ tools via REST API.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="bi bi-graph-up-arrow"></i></div>
+          <div class="feat-text">
+            <h6>Live Analytics Dashboard</h6>
+            <p>Real-time attendee flow, session engagement, and revenue tracking in one view.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="bi bi-cash-coin"></i></div>
+          <div class="feat-text">
+            <h6>Payment Processing</h6>
+            <p>Accept payments in 135+ currencies with Stripe, PayPal, and local payment gateways.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="bi bi-robot"></i></div>
+          <div class="feat-text">
+            <h6>AI Delegate Insights</h6>
+            <p>Predictive no-show modelling, personalised recommendations, and sentiment analysis.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="bi bi-headset"></i></div>
+          <div class="feat-text">
+            <h6>24/7 Live Support</h6>
+            <p>Dedicated event success managers on standby throughout every live event.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CONTACT ═══════════════════════════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-lg-6">
+        <div class="sec-tag" style="color:var(--gold-lt)"><i class="bi bi-envelope me-1"></i>Contact Us</div>
+        <h2 class="sec-title">Let's Build Something Extraordinary</h2>
+        <p class="sec-sub">Tell us about your next conference and we'll craft the perfect solution.</p>
+      </div>
+    </div>
+    <div class="row g-5">
+      <div class="col-lg-5">
+        <div class="contact-info-item">
+          <i class="bi bi-geo-alt"></i>
+          <div>
+            <strong>Headquarters</strong>
+            Level 22, Prestige Tower, MG Road, Bengaluru – 560001, India
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <i class="bi bi-telephone"></i>
+          <div>
+            <strong>Phone</strong>
+            +91 80 4123 5678
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <i class="bi bi-envelope"></i>
+          <div>
+            <strong>Email</strong>
+            hello@confynex.com
+          </div>
+        </div>
+        <div class="contact-info-item" style="border:none">
+          <i class="bi bi-clock"></i>
+          <div>
+            <strong>Support Hours</strong>
+            Mon – Fri, 9 AM – 8 PM IST
+          </div>
+        </div>
+        <div class="d-flex gap-3 mt-4">
+          <a href="#" class="btn btn-outline-gold"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="btn btn-outline-gold"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="btn btn-outline-gold"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="btn btn-outline-gold"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="contact-card">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-control" placeholder="John"/>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-control" placeholder="Smith"/>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Work Email</label>
+              <input type="email" class="form-control" placeholder="john@company.com"/>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Phone</label>
+              <input type="tel" class="form-control" placeholder="+91 98765 43210"/>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Expected Delegates</label>
+              <select class="form-select">
+                <option value="">Select range</option>
+                <option>Under 500</option>
+                <option>500 – 2,000</option>
+                <option>2,000 – 10,000</option>
+                <option>10,000+</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Tell us about your event</label>
+              <textarea class="form-control" rows="4" placeholder="Conference name, date, venue, requirements..."></textarea>
+            </div>
+            <div class="col-12 mt-2">
+              <button class="btn btn-gold w-100 py-3" style="font-size:.95rem;">
+                Send Message &nbsp;<i class="bi bi-send"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<footer>
+  <div class="container">
+    <p>© 2025 <span>Confynex</span>. All rights reserved. Crafted with precision for world-class conferences.</p>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════ SIGN UP MODAL ═══════════════════════════════ -->
+<div class="modal fade" id="signupModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header px-4 pt-4 border-0">
+        <h5 class="modal-title"><i class="bi bi-person-plus me-2"></i>Create Your Account</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body px-4 pb-4">
+        <p class="text-white-50 mb-4" style="font-size:.88rem;">Join Confynex and start managing world-class conferences.</p>
+        <div class="mb-3">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" placeholder="John Smith"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Work Email</label>
+          <input type="email" class="form-control" placeholder="john@company.com"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" placeholder="Create a strong password"/>
+        </div>
+        <div class="mb-4">
+          <label class="form-label">Organisation</label>
+          <input type="text" class="form-control" placeholder="Your company name"/>
+        </div>
+        <button class="btn btn-gold w-100 py-3 mb-3">Create Account <i class="bi bi-arrow-right ms-1"></i></button>
+        <p class="text-center text-white-50" style="font-size:.85rem;">
+          Already have an account?
+          <span class="modal-link" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signinModal">Sign In</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SIGN IN MODAL ═══════════════════════════════ -->
+<div class="modal fade" id="signinModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header px-4 pt-4 border-0">
+        <h5 class="modal-title"><i class="bi bi-box-arrow-in-right me-2"></i>Welcome Back</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body px-4 pb-4">
+        <p class="text-white-50 mb-4" style="font-size:.88rem;">Sign in to your Confynex dashboard.</p>
+        <div class="mb-3">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" placeholder="john@company.com"/>
+        </div>
+        <div class="mb-4">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" placeholder="Your password"/>
+        </div>
+        <button class="btn btn-gold w-100 py-3 mb-3">Sign In <i class="bi bi-arrow-right ms-1"></i></button>
+        <p class="text-center text-white-50" style="font-size:.85rem;">
+          Don't have an account?
+          <span class="modal-link" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 100) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  });
+</script>
 </body>
 </html>
