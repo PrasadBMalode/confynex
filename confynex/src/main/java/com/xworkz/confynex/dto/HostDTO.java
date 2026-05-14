@@ -20,11 +20,11 @@ public class HostDTO {
 
     @NotBlank(message = "Name is required")
     @Pattern(regexp = "^[A-Za-z\\s]{3,}$", message = "Name must contain only letters (minimum 3)")
-    private String hostName;
+    private String full_name;
 
     @NotBlank(message = "company Name is required")
     @Pattern(regexp = "^[A-Za-z\\s]{4,}$", message = "Company Name must contain minimum 4 letters")
-    private String companyName;
+    private String company_name;
 
     @NotBlank(message = "Email is required")
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@gmail\\.com$", message = "Email must be Gmail address")
@@ -32,15 +32,15 @@ public class HostDTO {
 
     @NotBlank(message = "Phone number is required")
     @Pattern(regexp = "^[6-9][0-9]{9}$", message = "Phone must start with 6,7,8,9 and be 10 digits")
-    private String phNumber;
+    private String phone;
 
     @NotBlank(message = "Title is required")
     @Pattern(regexp = "^[A-Za-z\\s]{3,}$", message = "Title must contain only letters (minimum 3)")
-    private String title;
+    private String conference_title;
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date conferenceDate;
+    private Date conference_date;
 
     @NotBlank(message = "Venue  is required")
     @Pattern(regexp = "^[A-Za-z\\s]{4,}$", message = "Venue must contain minimum 4 letters")
@@ -53,8 +53,9 @@ public class HostDTO {
 
 
     @NotBlank(message = "Confirm password is required")
-    private String confirmPassword;
+    private String confirm_password;
 
+    @NotBlank(message = "File should be required")
     private MultipartFile excelFile;
 
 

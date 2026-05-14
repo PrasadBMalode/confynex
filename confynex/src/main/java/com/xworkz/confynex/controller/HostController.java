@@ -24,13 +24,13 @@ public class HostController {
     public String registerHost(@Valid HostDTO hostDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
 
-            if (bindingResult.hasFieldErrors("hostName")) {
+            if (bindingResult.hasFieldErrors("full_name")) {
                 model.addAttribute("hostNameError", bindingResult.getFieldError("hostName").getDefaultMessage());
             } else {
                 model.addAttribute("hostNameError", "");
             }
 
-            if (bindingResult.hasFieldErrors("companyName")) {
+            if (bindingResult.hasFieldErrors("company_name")) {
                 model.addAttribute("companyNameError", bindingResult.getFieldError("companyName").getDefaultMessage());
             } else {
                 model.addAttribute("companyNameError", "");
@@ -42,19 +42,19 @@ public class HostController {
                 model.addAttribute("emailError", "");
             }
 
-            if (bindingResult.hasFieldErrors("phNumber")) {
+            if (bindingResult.hasFieldErrors("phone")) {
                 model.addAttribute("phNumberError", bindingResult.getFieldError("phNumber").getDefaultMessage());
             } else {
                 model.addAttribute("phNumberError", "");
             }
 
-            if (bindingResult.hasFieldErrors("title")) {
+            if (bindingResult.hasFieldErrors("conference_title")) {
                 model.addAttribute("titleError", bindingResult.getFieldError("title").getDefaultMessage());
             } else {
                 model.addAttribute("titleError", "");
             }
 
-            if (bindingResult.hasFieldErrors("conferenceDate")) {
+            if (bindingResult.hasFieldErrors("conference_date")) {
                 model.addAttribute("conferenceDateError", bindingResult.getFieldError("conferenceDate").getDefaultMessage());
             } else {
                 model.addAttribute("conferenceDateError", "");

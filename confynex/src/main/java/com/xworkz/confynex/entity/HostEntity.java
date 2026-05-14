@@ -21,12 +21,12 @@ public class HostEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer hostId;
 
-    private String hostName;
-    private String companyName;
+    private String full_name;
+    private String company_name;
     private String email;
-    private String phNumber;
-    private String title;
-    private Date conferenceDate;
+    private String phone;
+    private String conference_title;
+    private Date conference_date;
     private String venue;
     private String password;
     //private Integer loginAttempts;

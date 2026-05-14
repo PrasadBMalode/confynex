@@ -1290,7 +1290,7 @@
     <div class="modal-content">
 
       <!-- FORM TAG ADDED -->
-      <form method="POST" action="registerHost">
+        <form method="POST" action="registerHost" enctype="multipart/form-data">
 
         <div class="modal-header px-4 pt-4 border-0">
           <h5 class="modal-title">
@@ -1322,7 +1322,7 @@
             <!-- Phone Number -->
             <div class="col-md-6 mb-3">
               <label class="form-label">Phone Number</label>
-              <input type="tel" class="form-control" name="phone" placeholder="+91 9876543210" />
+              <input type="tel" class="form-control" name="phone" placeholder="+91 **********" />
             </div>
 
             <!-- Company Name -->
