@@ -4,11 +4,14 @@ import com.xworkz.confynex.dao.HostDAO;
 import com.xworkz.confynex.dto.HostDTO;
 import com.xworkz.confynex.entity.FileEntity;
 import com.xworkz.confynex.entity.HostEntity;
+import com.xworkz.confynex.entity.coordinatorsEmailEntity;
 import com.xworkz.confynex.util.CryptoUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.apache.poi.ss.usermodel.*;
+import java.io.FileInputStream;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,53 +22,128 @@ public class HostServiceImpl implements HostService {
     @Autowired
     HostDAO hostDAO;
 
+//    @Override
+//    public String hostRegistrationValidation(HostDTO hostDTO) {
+//        HostDTO emailExist = checkEmailExist(hostDTO.getEmail());
+//        if (emailExist == null) {
+//            try {
+//                String encrypted = CryptoUtil.encrypt(hostDTO.getPassword());
+//                hostDTO.setPassword(encrypted);
+//
+//                HostEntity hostEntity = new HostEntity();
+//                BeanUtils.copyProperties(hostDTO, hostEntity);
+//
+//
+//                //File related  logic
+//                MultipartFile excelFile = hostDTO.getExcelFile();
+//                if (excelFile!=null && !excelFile.isEmpty()){
+//                    String originalFilename =System.currentTimeMillis()+"_"+ excelFile.getOriginalFilename();
+//
+//                    // File path
+//                    String fullPath = "J:\\xworkz\\deligatesFile\\" + originalFilename;
+//
+//                    // Save file physically
+//                    Path filePath = Paths.get(fullPath);
+//                    excelFile.transferTo(filePath.toFile());
+//
+//                    // Save file metadata
+//                    FileEntity fileEntity = new FileEntity();
+//                    fileEntity.setExcelFile(originalFilename); // store name or full path
+//                    fileEntity.setContentType(excelFile.getContentType());
+//                    fileEntity.setSize(excelFile.getSize());
+//                    fileEntity.setPath(fullPath);
+//
+//                    // Link with user
+//                    fileEntity.setHost(hostEntity);   // if mapping exists
+//                    hostEntity.setFileEntity(fileEntity);
+//
+//                }
+//
+//                boolean hostSaveDB = hostDAO.hostSaveDB(hostEntity);
+//                if (hostSaveDB) {
+//
+//                    String fullPath = null;
+//                    if (fullPath != null) {
+//                        saveCoordinatorEmails(fullPath, hostEntity);
+//                    }
+//
+//                    return "Host Registration Done";
+//                }
+//
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
+//            return "Host Registration Failed...!";
+//        }
+//        return "Host already exist";
+//    }
+
+
     @Override
     public String hostRegistrationValidation(HostDTO hostDTO) {
+
         HostDTO emailExist = checkEmailExist(hostDTO.getEmail());
+
         if (emailExist == null) {
+
             try {
-                String encrypted = CryptoUtil.encrypt(hostDTO.getPassword());
+
+                String encrypted =
+                        CryptoUtil.encrypt(hostDTO.getPassword());
+
                 hostDTO.setPassword(encrypted);
 
                 HostEntity hostEntity = new HostEntity();
+
                 BeanUtils.copyProperties(hostDTO, hostEntity);
 
-
-                //File related  logic
                 MultipartFile excelFile = hostDTO.getExcelFile();
-                if (excelFile!=null && !excelFile.isEmpty()){
-                    String originalFilename =System.currentTimeMillis()+"_"+ excelFile.getOriginalFilename();
 
-                    // File path
-                    String fullPath = "J:\\xworkz\\deligatesFile\\" + originalFilename;
+                String fullPath = null;
 
-                    // Save file physically
+                if (excelFile != null && !excelFile.isEmpty()) {
+
+                    String originalFilename = System.currentTimeMillis() + "_" + excelFile.getOriginalFilename();
+
+                    fullPath = "J:\\xworkz\\deligatesFile\\" + originalFilename;
+
                     Path filePath = Paths.get(fullPath);
+
                     excelFile.transferTo(filePath.toFile());
 
-                    // Save file metadata
                     FileEntity fileEntity = new FileEntity();
-                    fileEntity.setExcelFile(originalFilename); // store name or full path
+
+                    fileEntity.setExcelFile(originalFilename);
                     fileEntity.setContentType(excelFile.getContentType());
                     fileEntity.setSize(excelFile.getSize());
                     fileEntity.setPath(fullPath);
 
-                    // Link with user
-                    fileEntity.setHost(hostEntity);   // if mapping exists
-                    hostEntity.setFileEntity(fileEntity);
+                    fileEntity.setHost(hostEntity);
 
+                    hostEntity.setFileEntity(fileEntity);
                 }
 
-                boolean hostSaveDB = hostDAO.hostSaveDB(hostEntity);
+                boolean hostSaveDB =
+                        hostDAO.hostSaveDB(hostEntity);
+
                 if (hostSaveDB) {
+
+                    if (fullPath != null) {
+
+                        saveCoordinatorEmails(fullPath, hostEntity);
+                    }
+
                     return "Host Registration Done";
                 }
 
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+
+                e.printStackTrace();
             }
+
             return "Host Registration Failed...!";
         }
+
         return "Host already exist";
     }
 
@@ -78,6 +156,50 @@ public class HostServiceImpl implements HostService {
             return hostDTO;
         }
         return null;
+    }
+
+    @Override
+    public void saveCoordinatorEmails(String filePath, HostEntity hostEntity) {
+
+        try {
+
+            FileInputStream fis = new FileInputStream(filePath);
+
+            Workbook workbook = WorkbookFactory.create(fis);
+
+            Sheet sheet = workbook.getSheetAt(0);
+
+            for (Row row : sheet) {
+
+                // Skip header
+                if (row.getRowNum() == 0) {
+                    continue;
+                }
+
+                Cell emailCell = row.getCell(0);
+
+                if (emailCell != null) {
+
+                    String email = emailCell.getStringCellValue();
+
+                    coordinatorsEmailEntity coordinator =
+                            new coordinatorsEmailEntity();
+
+                    coordinator.setEmail(email);
+
+                    // set host relation
+                    coordinator.setHost(hostEntity);
+
+                    hostDAO.coordinatorEmails(coordinator);
+                }
+            }
+
+            workbook.close();
+            fis.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
