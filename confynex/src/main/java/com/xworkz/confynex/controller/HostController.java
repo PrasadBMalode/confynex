@@ -25,13 +25,13 @@ public class HostController {
         if (bindingResult.hasErrors()) {
 
             if (bindingResult.hasFieldErrors("full_name")) {
-                model.addAttribute("hostNameError", bindingResult.getFieldError("hostName").getDefaultMessage());
+                model.addAttribute("hostNameError", bindingResult.getFieldError("full_name").getDefaultMessage());
             } else {
                 model.addAttribute("hostNameError", "");
             }
 
             if (bindingResult.hasFieldErrors("company_name")) {
-                model.addAttribute("companyNameError", bindingResult.getFieldError("companyName").getDefaultMessage());
+                model.addAttribute("companyNameError", bindingResult.getFieldError("company_name").getDefaultMessage());
             } else {
                 model.addAttribute("companyNameError", "");
             }
@@ -43,19 +43,19 @@ public class HostController {
             }
 
             if (bindingResult.hasFieldErrors("phone")) {
-                model.addAttribute("phNumberError", bindingResult.getFieldError("phNumber").getDefaultMessage());
+                model.addAttribute("phNumberError", bindingResult.getFieldError("phone").getDefaultMessage());
             } else {
                 model.addAttribute("phNumberError", "");
             }
 
             if (bindingResult.hasFieldErrors("conference_title")) {
-                model.addAttribute("titleError", bindingResult.getFieldError("title").getDefaultMessage());
+                model.addAttribute("titleError", bindingResult.getFieldError("conference_title").getDefaultMessage());
             } else {
                 model.addAttribute("titleError", "");
             }
 
             if (bindingResult.hasFieldErrors("conference_date")) {
-                model.addAttribute("conferenceDateError", bindingResult.getFieldError("conferenceDate").getDefaultMessage());
+                model.addAttribute("conferenceDateError", bindingResult.getFieldError("conference_date").getDefaultMessage());
             } else {
                 model.addAttribute("conferenceDateError", "");
             }
@@ -77,9 +77,15 @@ public class HostController {
         }
 
         // Confirm password validation
-        if (!hostDTO.getPassword().equals(hostDTO.getConfirm_password())) {
-            model.addAttribute("confirmPasswordError", "Passwords do not match");
+        if (hostDTO.getPassword() == null ||
+                hostDTO.getConfirm_password() == null ||
+                !hostDTO.getPassword().equals(hostDTO.getConfirm_password())) {
+
+            model.addAttribute("confirmPasswordError",
+                    "Passwords do not match");
+
             model.addAttribute("hostDTO", hostDTO);
+
             return "login";
         }
 

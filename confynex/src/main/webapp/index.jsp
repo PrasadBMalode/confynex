@@ -1290,7 +1290,7 @@
     <div class="modal-content">
 
       <!-- FORM TAG ADDED -->
-        <form method="POST" action="registerHost" enctype="multipart/form-data">
+        <form method="post" action="registerHost" enctype="multipart/form-data">
 
         <div class="modal-header px-4 pt-4 border-0">
           <h5 class="modal-title">

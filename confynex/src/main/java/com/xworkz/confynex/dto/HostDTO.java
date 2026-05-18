@@ -55,7 +55,7 @@ public class HostDTO {
     @NotBlank(message = "Confirm password is required")
     private String confirm_password;
 
-    @NotBlank(message = "File should be required")
+//    @NotBlank(message = "File should be required")
     private MultipartFile excelFile;
 
 
