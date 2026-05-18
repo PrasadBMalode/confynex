@@ -77,7 +77,7 @@ public class HostController {
         }
 
         // Confirm password validation
-        if (!hostDTO.getPassword().equals(hostDTO.getConfirmPassword())) {
+        if (!hostDTO.getPassword().equals(hostDTO.getConfirm_password())) {
             model.addAttribute("confirmPasswordError", "Passwords do not match");
             model.addAttribute("hostDTO", hostDTO);
             return "login";

@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "deligat_tb")
+@Table(name = "coordinator_tb")
 public class FileEntity {
 
     @Id
