@@ -16,8 +16,7 @@ public class GoogleSheetController {
     @ResponseBody
     public String readSheet() {
 
-        googleSheetService.readSheet()
-                .forEach(System.out::println);
+        googleSheetService.readSheet().forEach(System.out::println);
 
         return "Google Sheet Read Successfully";
     }

@@ -3,6 +3,7 @@ package com.xworkz.confynex.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "coordinator_registration")
@@ -19,9 +20,17 @@ public class CoordinatorEntity {
 
     private String email;
 
-    private String phone;
+    private String organisationName;
 
-    private String company;
+    private String phoneNumber;
 
     private String designation;
+
+    private String linkedInUrl;
+
+    private String excelFileUrl;
+
+    @OneToMany(mappedBy = "coordinator", cascade = CascadeType.ALL)
+
+    private List<DelegateEntity> delegates;
 }
