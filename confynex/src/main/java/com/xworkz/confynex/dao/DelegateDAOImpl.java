@@ -1,6 +1,6 @@
 package com.xworkz.confynex.dao;
 
-import com.xworkz.confynex.entity.CoordinatorEntity;
+import com.xworkz.confynex.entity.DelegateEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -8,22 +8,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 @Repository
-public class CoordinatorDAOImpl
-        implements CoordinatorDAO {
+public class DelegateDAOImpl
+        implements DelegateDAO {
 
     @Autowired
     private EntityManagerFactory emf;
 
     @Override
-    public void saveCoordinator(CoordinatorEntity coordinatorEntity) {
+    public void saveDelegate(DelegateEntity delegateEntity) {
 
         EntityManager em = emf.createEntityManager();
 
         try {
             em.getTransaction().begin();
-            em.persist(coordinatorEntity);
+            em.persist(delegateEntity);
             em.getTransaction().commit();
-            System.out.println("Coordinator Saved");
 
         } catch (Exception e) {
             em.getTransaction().rollback();

@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import java.util.List;
 
 @Repository
 public class HostDAOImpl implements HostDAO {
@@ -16,20 +17,34 @@ public class HostDAOImpl implements HostDAO {
     @Autowired
     EntityManagerFactory entityManagerFactory;
 
+
     @Override
     public HostEntity checkExistUserByEmail(String email) {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+
         try {
+
             Query query = entityManager.createNamedQuery("findByEmail");
+
             query.setParameter("byEmail", email);
-            return (HostEntity) query.getSingleResult();
+
+            List<HostEntity> list = query.getResultList();
+
+            if (list != null && !list.isEmpty()) {
+                return list.get(0);
+            }
+
         } catch (Exception e) {
+
             e.printStackTrace();
-            return null;
+
         } finally {
+
             entityManager.close();
         }
+
+        return null;
     }
 
     @Override

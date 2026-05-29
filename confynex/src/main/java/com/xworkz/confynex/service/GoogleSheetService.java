@@ -15,6 +15,7 @@ import com.xworkz.confynex.entity.CoordinatorEntity;
 import com.xworkz.confynex.entity.DelegateEntity;
 
 import org.apache.poi.ss.usermodel.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,21 +48,27 @@ public class GoogleSheetService {
                             .createScoped(
                                     SheetsScopes.SPREADSHEETS_READONLY);
 
-            Sheets service = new Sheets.Builder(
-                    GoogleNetHttpTransport
-                            .newTrustedTransport(),
+            Sheets service =
+                    new Sheets.Builder(
+                            GoogleNetHttpTransport
+                                    .newTrustedTransport(),
 
-                    GsonFactory.getDefaultInstance(),
+                            GsonFactory
+                                    .getDefaultInstance(),
 
-                    new HttpCredentialsAdapter(credentials))
+                            new HttpCredentialsAdapter(
+                                    credentials))
 
-                    .setApplicationName(APPLICATION_NAME)
-                    .build();
+                            .setApplicationName(
+                                    APPLICATION_NAME)
+
+                            .build();
 
             String spreadsheetId =
-                    "YOUR_SPREADSHEET_ID";
+                    "11JMtovijdyWeABhi384NuzS1ny3YRVxGSe2WL-L54rY";
 
-            String range = "Form Responses 1";
+            String range =
+                    "Form Responses 1";
 
             ValueRange response =
                     service.spreadsheets()
@@ -81,51 +88,99 @@ public class GoogleSheetService {
                     List<Object> row =
                             values.get(i);
 
+                    if (row == null) {
+
+                        continue;
+                    }
+
                     CoordinatorEntity coordinator =
                             new CoordinatorEntity();
 
                     coordinator.setTimestamp(
-                            row.get(0).toString());
+                            row.size() > 0
+                                    ? row.get(0).toString()
+                                    : "");
 
                     coordinator.setFullName(
-                            row.get(1).toString());
+                            row.size() > 1
+                                    ? row.get(1).toString()
+                                    : "");
 
                     coordinator.setEmail(
-                            row.get(2).toString());
+                            row.size() > 2
+                                    ? row.get(2).toString()
+                                    : "");
 
                     coordinator.setOrganisationName(
-                            row.get(3).toString());
+                            row.size() > 3
+                                    ? row.get(3).toString()
+                                    : "");
 
                     coordinator.setPhoneNumber(
-                            row.get(4).toString());
+                            row.size() > 4
+                                    ? row.get(4).toString()
+                                    : "");
 
                     coordinator.setDesignation(
-                            row.get(5).toString());
+                            row.size() > 5
+                                    ? row.get(5).toString()
+                                    : "");
 
                     coordinator.setLinkedInUrl(
-                            row.get(6).toString());
+                            row.size() > 6
+                                    ? row.get(6).toString()
+                                    : "");
 
                     coordinator.setExcelFileUrl(
-                            row.get(7).toString());
+                            row.size() > 7
+                                    ? row.get(7).toString()
+                                    : "");
 
                     coordinatorDAO
-                            .saveDelegate(coordinator);
-
-                    // FILE LINK
-
-                    String fileUrl =
-                            row.get(6).toString();
-
-                    String fileId =
-                            extractFileId(fileUrl);
-
-                    downloadAndSaveDelegates(
-                            fileId,
-                            coordinator);
+                            .saveCoordinator(
+                                    coordinator);
 
                     System.out.println(
                             "Coordinator Saved");
+
+                    // EXCEL FILE URL
+
+                    String fileUrl = "";
+
+                    if (row.size() > 7 &&
+                            row.get(7) != null) {
+
+                        fileUrl =
+                                row.get(7).toString();
+
+                        String fileId =
+                                extractFileId(
+                                        fileUrl);
+
+                        if (fileId != null) {
+
+                            downloadAndSaveDelegates(
+                                    fileId,
+                                    coordinator);
+
+                        } else {
+
+                            System.out.println(
+                                    "Invalid Google Drive URL");
+                        }
+
+                    } else {
+
+                        System.out.println(
+                                "No Excel file uploaded for : "
+                                        + coordinator.getEmail());
+                    }
                 }
+
+            } else {
+
+                System.out.println(
+                        "No data found in Google Sheet");
             }
 
         } catch (Exception e) {
@@ -134,13 +189,23 @@ public class GoogleSheetService {
         }
     }
 
-    private String extractFileId(String url) {
+    private String extractFileId(
+            String url) {
 
-        String[] parts = url.split("/d/");
+        try {
 
-        if (parts.length > 1) {
+            String[] parts =
+                    url.split("/d/");
 
-            return parts[1].split("/")[0];
+            if (parts.length > 1) {
+
+                return parts[1]
+                        .split("/")[0];
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
         }
 
         return null;
@@ -184,30 +249,35 @@ public class GoogleSheetService {
                 Row excelRow =
                         sheet.getRow(i);
 
+                if (excelRow == null) {
+
+                    continue;
+                }
+
                 DelegateEntity delegate =
                         new DelegateEntity();
 
                 delegate.setDelegateName(
-                        excelRow.getCell(0)
-                                .getStringCellValue());
+                        getCellValue(
+                                excelRow.getCell(0)));
 
                 delegate.setDelegateEmail(
-                        excelRow.getCell(1)
-                                .getStringCellValue());
+                        getCellValue(
+                                excelRow.getCell(1)));
 
                 delegate.setDelegatePhone(
-                        excelRow.getCell(2)
-                                .getStringCellValue());
+                        getCellValue(
+                                excelRow.getCell(2)));
 
                 delegate.setOrganisation(
-                        excelRow.getCell(3)
-                                .getStringCellValue());
+                        getCellValue(
+                                excelRow.getCell(3)));
 
                 delegate.setCoordinator(
                         coordinator);
 
-                delegateDAO
-                        .saveDelegate(delegate);
+                delegateDAO.saveDelegate(
+                        delegate);
 
                 System.out.println(
                         "Delegate Saved");
@@ -217,9 +287,32 @@ public class GoogleSheetService {
 
             fis.close();
 
+            File file =
+                    new File("delegates.xlsx");
+
+            if (file.exists()) {
+
+                file.delete();
+            }
+
         } catch (Exception e) {
 
             e.printStackTrace();
         }
+    }
+
+    private String getCellValue(
+            Cell cell) {
+
+        if (cell == null) {
+
+            return "";
+        }
+
+        cell.setCellType(
+                CellType.STRING);
+
+        return cell
+                .getStringCellValue();
     }
 }

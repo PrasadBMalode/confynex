@@ -14,18 +14,9 @@ public class GoogleDriveService {
 
     public Drive getDriveService() throws Exception {
 
-        GoogleCredentials credentials =
-                GoogleCredentials.fromStream(
-                                new FileInputStream(
-                                        "src/main/resources/confynex-google-key.json"))
-                        .createScoped(
-                                "https://www.googleapis.com/auth/drive");
+        GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/resources/confynex-google-key.json")).createScoped("https://www.googleapis.com/auth/drive");
 
-        return new Drive.Builder(
-                GoogleNetHttpTransport.newTrustedTransport(),
-                GsonFactory.getDefaultInstance(),
-                new HttpCredentialsAdapter(credentials))
-                .setApplicationName("ConfyNex")
-                .build();
+        return new Drive.Builder(GoogleNetHttpTransport.newTrustedTransport(),
+                GsonFactory.getDefaultInstance(), new HttpCredentialsAdapter(credentials)).setApplicationName("ConfyNex").build();
     }
 }
