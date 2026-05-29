@@ -2,9 +2,11 @@ package com.xworkz.confynex.service;
 
 import com.xworkz.confynex.dao.HostDAO;
 import com.xworkz.confynex.dto.HostDTO;
+import com.xworkz.confynex.entity.CoordinatorEntity;
+import com.xworkz.confynex.entity.CoordinatorsEmailEntity;
 import com.xworkz.confynex.entity.FileEntity;
 import com.xworkz.confynex.entity.HostEntity;
-import com.xworkz.confynex.entity.coordinatorsEmailEntity;
+
 import com.xworkz.confynex.util.CryptoUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,15 +174,15 @@ public class HostServiceImpl implements HostService {
                     System.out.println("Name : " + name);
                     System.out.println("Email : " + email);
 
-                    coordinatorsEmailEntity coordinator = new coordinatorsEmailEntity();
+                    CoordinatorsEmailEntity coordinatorsEmail = new CoordinatorsEmailEntity();
 
-                    coordinator.setName(name);
+                    coordinatorsEmail.setName(name);
 
-                    coordinator.setEmail(email);
+                    coordinatorsEmail.setEmail(email);
 
-                    coordinator.setHost(hostEntity);
+                    coordinatorsEmail.setHost(hostEntity);
 
-                    hostDAO.coordinatorEmails(coordinator);
+                    hostDAO.coordinatorEmails(new CoordinatorEntity());
 
                     // SEND MAIL
                     emailService.sendConferenceMail(

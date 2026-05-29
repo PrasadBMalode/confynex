@@ -1,7 +1,8 @@
 package com.xworkz.confynex.dao;
 
+import com.xworkz.confynex.entity.CoordinatorEntity;
 import com.xworkz.confynex.entity.HostEntity;
-import com.xworkz.confynex.entity.coordinatorsEmailEntity;
+
 
 public interface HostDAO {
 
@@ -9,5 +10,5 @@ public interface HostDAO {
 
     HostEntity hostSaveDB(HostEntity hostEntity);
 
-    boolean coordinatorEmails(coordinatorsEmailEntity coordinatorsEmail);
+    boolean coordinatorEmails(CoordinatorEntity coordinatorEntity);
 }

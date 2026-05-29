@@ -12,9 +12,13 @@ public class DelegateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String delegateName;
+
     private String delegateEmail;
+
     private String delegatePhone;
+
     private String organisation;
 
     @ManyToOne

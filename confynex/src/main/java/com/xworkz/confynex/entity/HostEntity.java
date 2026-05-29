@@ -30,7 +30,7 @@ public class HostEntity {
     private String venue;
     private String password;
     private Integer loginAttempts;
-    private Boolean accountLocked=false;
+    private Boolean accountLocked = false;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "delegate_file_id")

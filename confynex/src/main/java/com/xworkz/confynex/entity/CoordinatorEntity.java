@@ -9,7 +9,6 @@ import java.util.List;
 @Table(name = "coordinator_registration")
 @Data
 public class CoordinatorEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,7 +20,6 @@ public class CoordinatorEntity {
     private String designation;
     private String linkedInUrl;
     private String excelFileUrl;
-
     @OneToMany(mappedBy = "coordinator", cascade = CascadeType.ALL)
     private List<DelegateEntity> delegates;
 }

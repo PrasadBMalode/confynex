@@ -1,7 +1,7 @@
 package com.xworkz.confynex.dao;
 
+import com.xworkz.confynex.entity.CoordinatorEntity;
 import com.xworkz.confynex.entity.HostEntity;
-import com.xworkz.confynex.entity.coordinatorsEmailEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,17 +21,21 @@ public class HostDAOImpl implements HostDAO {
     @Override
     public HostEntity checkExistUserByEmail(String email) {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager =
+                entityManagerFactory.createEntityManager();
 
         try {
 
-            Query query = entityManager.createNamedQuery("findByEmail");
+            Query query =
+                    entityManager.createNamedQuery("findByEmail");
 
             query.setParameter("byEmail", email);
 
-            List<HostEntity> list = query.getResultList();
+            List<HostEntity> list =
+                    query.getResultList();
 
             if (list != null && !list.isEmpty()) {
+
                 return list.get(0);
             }
 
@@ -69,15 +73,15 @@ public class HostDAOImpl implements HostDAO {
     }
 
     @Override
-    public boolean coordinatorEmails(coordinatorsEmailEntity coordinatorsEmail) {
+    public boolean coordinatorEmails(CoordinatorEntity coordinatorEntity) {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
-            coordinatorsEmail.setHost(entityManager.merge(coordinatorsEmail.getHost()));
-            entityManager.persist(coordinatorsEmail);
+            coordinatorEntity.setFullName(entityManager.merge(coordinatorEntity.getFullName()));
+            entityManager.persist(coordinatorEntity);
             transaction.commit();
             return true;
         } catch (Exception e) {
