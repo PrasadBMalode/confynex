@@ -2,7 +2,7 @@ package com.xworkz.confynex.service;
 
 import com.xworkz.confynex.dao.HostDAO;
 import com.xworkz.confynex.dto.HostDTO;
-import com.xworkz.confynex.entity.CoordinatorEntity;
+
 import com.xworkz.confynex.entity.CoordinatorsEmailEntity;
 import com.xworkz.confynex.entity.FileEntity;
 import com.xworkz.confynex.entity.HostEntity;
@@ -29,61 +29,7 @@ public class HostServiceImpl implements HostService {
     @Autowired
     private EmailService emailService;
 
-//    @Override
-//    public String hostRegistrationValidation(HostDTO hostDTO) {
-//        HostDTO emailExist = checkEmailExist(hostDTO.getEmail());
-//        if (emailExist == null) {
-//            try {
-//                String encrypted = CryptoUtil.encrypt(hostDTO.getPassword());
-//                hostDTO.setPassword(encrypted);
-//
-//                HostEntity hostEntity = new HostEntity();
-//                BeanUtils.copyProperties(hostDTO, hostEntity);
-//
-//
-//                //File related  logic
-//                MultipartFile excelFile = hostDTO.getExcelFile();
-//                if (excelFile!=null && !excelFile.isEmpty()){
-//                    String originalFilename =System.currentTimeMillis()+"_"+ excelFile.getOriginalFilename();
-//
-//                    // File path
-//                    String fullPath = "J:\\xworkz\\deligatesFile\\" + originalFilename;
-//
-//                    // Save file physically
-//                    Path filePath = Paths.get(fullPath);
-//                    excelFile.transferTo(filePath.toFile());
-//
-//                    // Save file metadata
-//                    FileEntity fileEntity = new FileEntity();
-//                    fileEntity.setExcelFile(originalFilename); // store name or full path
-//                    fileEntity.setContentType(excelFile.getContentType());
-//                    fileEntity.setSize(excelFile.getSize());
-//                    fileEntity.setPath(fullPath);
-//
-//                    // Link with user
-//                    fileEntity.setHost(hostEntity);   // if mapping exists
-//                    hostEntity.setFileEntity(fileEntity);
-//
-//                }
-//
-//                boolean hostSaveDB = hostDAO.hostSaveDB(hostEntity);
-//                if (hostSaveDB) {
-//
-//                    String fullPath = null;
-//                    if (fullPath != null) {
-//                        saveCoordinatorEmails(fullPath, hostEntity);
-//                    }
-//
-//                    return "Host Registration Done";
-//                }
-//
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
-//            return "Host Registration Failed...!";
-//        }
-//        return "Host already exist";
-//    }
+
 
 
     @Override
@@ -149,61 +95,68 @@ public class HostServiceImpl implements HostService {
     @Override
     public void saveCoordinatorEmails(String filePath, HostEntity hostEntity) {
 
-        try {
-
-            FileInputStream fis = new FileInputStream(filePath);
-
-            Workbook workbook = WorkbookFactory.create(fis);
+        try (FileInputStream fis = new FileInputStream(filePath);
+             Workbook workbook = WorkbookFactory.create(fis)) {
 
             Sheet sheet = workbook.getSheetAt(0);
 
-            for (Row row : sheet) {
 
-                // Column A -> Name
+            for (int i = 0; i <= sheet.getLastRowNum(); i++) {
+
+                Row row = sheet.getRow(i);
+
+                if (row == null) {
+                    continue;
+                }
+
                 Cell nameCell = row.getCell(0);
-
-                // Column B -> Email
                 Cell emailCell = row.getCell(1);
 
-                if (nameCell != null && emailCell != null) {
+                if (nameCell == null || emailCell == null) {
+                    continue;
+                }
 
-                    String name = nameCell.getStringCellValue().trim();
+                DataFormatter formatter = new DataFormatter();
 
-                    String email = emailCell.getStringCellValue().trim();
+                String name = formatter.formatCellValue(nameCell).trim();
+                String email = formatter.formatCellValue(emailCell).trim();
 
-                    System.out.println("Name : " + name);
-                    System.out.println("Email : " + email);
+                if (name.isEmpty() || email.isEmpty()) {
+                    continue;
+                }
 
-                    CoordinatorsEmailEntity coordinatorsEmail = new CoordinatorsEmailEntity();
+                System.out.println("Name : " + name);
+                System.out.println("Email : " + email);
 
-                    coordinatorsEmail.setName(name);
+                CoordinatorsEmailEntity coordinatorEntity = new CoordinatorsEmailEntity();
 
-                    coordinatorsEmail.setEmail(email);
+                coordinatorEntity.setName(name);
+                coordinatorEntity.setEmail(email);
+                coordinatorEntity.setHost(hostEntity);
 
-                    coordinatorsEmail.setHost(hostEntity);
+                boolean saved = hostDAO.coordinatorEmails(coordinatorEntity);
+                System.out.println("Coordinator Saved : " + saved);
 
-                    hostDAO.coordinatorEmails(new CoordinatorEntity());
+                try {
+                    if(saved) {
+                        emailService.sendConferenceMail(
+                                email,
+                                name,
+                                hostEntity.getConference_title(),
+                                hostEntity.getConference_date().toString(),
+                                hostEntity.getVenue()
+                        );
+                    }
 
-                    // SEND MAIL
-                    emailService.sendConferenceMail(
-                            email,
-                            name,
-                            hostEntity.getConference_title(),
-                            hostEntity.getConference_date().toString(),
-                            hostEntity.getVenue()
-                    );
+                    System.out.println("Mail sent to: " + email);
 
-                    System.out.println(
-                            "Mail Triggered To : " + email);
+                } catch (Exception e) {
+                    System.out.println("Mail failed for: " + email);
+                    e.printStackTrace();
                 }
             }
 
-            workbook.close();
-
-            fis.close();
-
         } catch (Exception e) {
-
             e.printStackTrace();
         }
     }

@@ -1,6 +1,7 @@
 package com.xworkz.confynex.dao;
 
 import com.xworkz.confynex.entity.CoordinatorEntity;
+import com.xworkz.confynex.entity.CoordinatorsEmailEntity;
 import com.xworkz.confynex.entity.HostEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -73,24 +74,36 @@ public class HostDAOImpl implements HostDAO {
     }
 
     @Override
-    public boolean coordinatorEmails(CoordinatorEntity coordinatorEntity) {
+    public boolean coordinatorEmails(CoordinatorsEmailEntity coordinatorEntity) {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
+        EntityManager entityManager =
+                entityManagerFactory.createEntityManager();
+
+        EntityTransaction transaction =
+                entityManager.getTransaction();
 
         try {
+
             transaction.begin();
-            coordinatorEntity.setFullName(entityManager.merge(coordinatorEntity.getFullName()));
+
             entityManager.persist(coordinatorEntity);
+
             transaction.commit();
+
             return true;
+
         } catch (Exception e) {
+
             if (transaction.isActive()) {
                 transaction.rollback();
             }
+
             e.printStackTrace();
+
             return false;
+
         } finally {
+
             entityManager.close();
         }
     }

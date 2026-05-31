@@ -26,7 +26,7 @@ public class EmailServiceImpl implements EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
             helper.setTo(toEmail);
-            helper.setSubject("🎓 You're Invited: " + conferenceTitle + " | ConfyNex");
+            helper.setSubject("🎓 Conference Invitation - " + conferenceTitle + " | ConfyNex");
 
             String googleFormLink =
                     "https://docs.google.com/forms/d/e/1FAIpQLScBr7bbpaQZi37Rw8gO43Fv3-Zdx1JyRa51MqGLaKFuwm74gg/viewform?usp=publish-editor";
@@ -256,6 +256,8 @@ public class EmailServiceImpl implements EmailService {
             System.out.println("Mail Sent Successfully To : " + toEmail);
 
         } catch (Exception e) {
+            System.out.println("Failed to send mail to: " + toEmail);
+            System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
         }
     }
