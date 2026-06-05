@@ -21,14 +21,25 @@ public class CoordinatorDAOImpl
 
         try {
             em.getTransaction().begin();
+
+            System.out.println("Persisting Coordinator");
+
             em.persist(coordinatorEntity);
+
+            em.flush();
+
+            System.out.println("Generated ID = " +
+                    coordinatorEntity.getId());
             em.getTransaction().commit();
             System.out.println("Coordinator Saved");
 
         } catch (Exception e) {
-            em.getTransaction().rollback();
+
+            System.out.println("Coordinator Save Failed");
+
             e.printStackTrace();
 
+            em.getTransaction().rollback();
         } finally {
             em.close();
         }

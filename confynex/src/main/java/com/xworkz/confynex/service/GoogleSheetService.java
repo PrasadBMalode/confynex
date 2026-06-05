@@ -70,6 +70,8 @@ public class GoogleSheetService {
                             .execute();
 
             List<List<Object>> values = response.getValues();
+            System.out.println("Values Size = " + values.size());
+            System.out.println("All Values = " + values);
 
             if (values == null || values.isEmpty()) {
 
@@ -119,7 +121,14 @@ public class GoogleSheetService {
                 coordinator.setExcelFileUrl(
                         getValue(row, 7));
 
+                System.out.println("Saving Coordinator");
+
+                System.out.println("Name = " + coordinator.getFullName());
+                System.out.println("Email = " + coordinator.getEmail());
+
                 coordinatorDAO.saveCoordinator(coordinator);
+
+                System.out.println("Coordinator Save Method Completed");
 
                 System.out.println("Coordinator Saved");
 

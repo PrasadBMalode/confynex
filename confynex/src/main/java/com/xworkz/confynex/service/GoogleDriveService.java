@@ -15,8 +15,7 @@ import java.util.Collections;
 @Service
 public class GoogleDriveService {
 
-    private static final String APPLICATION_NAME =
-            "ConfyNex";
+    private static final String APPLICATION_NAME = "ConfyNex";
 
     public Drive getDriveService() throws Exception {
 

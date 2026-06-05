@@ -21,14 +21,25 @@ public class DelegateDAOImpl
 
         try {
             em.getTransaction().begin();
+            System.out.println("Saving Delegate");
+
+            System.out.println(delegateEntity.getDelegateName());
+
             em.persist(delegateEntity);
+
+            em.flush();
+
+            System.out.println("Delegate Saved");
             em.getTransaction().commit();
 
         } catch (Exception e) {
-            em.getTransaction().rollback();
+
+            System.out.println("Delegate Save Failed");
+
             e.printStackTrace();
 
-        } finally {
+            em.getTransaction().rollback();
+        }finally {
             em.close();
         }
     }

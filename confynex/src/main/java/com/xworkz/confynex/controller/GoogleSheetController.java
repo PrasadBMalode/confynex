@@ -16,6 +16,8 @@ public class GoogleSheetController {
     @ResponseBody
     public String readSheet() {
 
+        System.out.println("Controller Called");
+
         googleSheetService.readSheet();
 
         return "Google Sheet Read Successfully";
