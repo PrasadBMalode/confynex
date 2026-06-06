@@ -746,27 +746,33 @@
           <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
         </ul>
 
-
-
-<!-- Auth dropdown -->
-<div class="dropdown ms-1">
         <!-- Auth dropdown -->
-        <div class="dropdown ms-3">
-          <button class="btn btn-gold dropdown-toggle" data-bs-toggle="dropdown">
-            <i class="bi bi-person-circle me-1"></i> Account
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li>
-              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signupModal">
-                <i class="bi bi-person-plus me-2"></i>Sign Up
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signinModal">
-                <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
-              </a>
-            </li>
-          </ul>
+        <div class="dropdown ms-1">
+          <!-- Auth dropdown -->
+          <div class="dropdown ms-3">
+            <button class="btn btn-gold dropdown-toggle" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle me-1"></i> Account
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signupModal">
+                  <i class="bi bi-person-plus me-2"></i>Host Sign Up
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signinModal">
+                  <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                </a>
+              </li>
+              <!-- ── NEW: Coordinator Register ── -->
+              <li><hr class="dropdown-divider" style="border-color:rgba(201,168,76,.15);"></li>
+              <li>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#coordinatorModal">
+                  <i class="bi bi-person-badge me-2"></i>Coordinator Register
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -1296,8 +1302,6 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
 
-      <!-- FORM TAG ADDED -->
-
       <!-- Messages -->
          <h6 class="text-success text-center">${registerSuccess}</h6>
          <h6 class="text-danger text-center">${registerFailed}</h6>
@@ -1435,18 +1439,17 @@
 
         </div>
       </form>
-      <!-- END FORM TAG -->
 
     </div>
   </div>
 </div>
+
 
   <!-- ═══════════════════════════════ SIGN IN MODAL ═══════════════════════════════ -->
   <div class="modal fade" id="signinModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
 
-        <!-- FORM START -->
         <form action="signin" method="POST">
 
           <div class="modal-header px-4 pt-4 border-0">
@@ -1503,11 +1506,164 @@
           </div>
 
         </form>
-        <!-- FORM END -->
 
       </div>
     </div>
   </div>
+
+
+  <!-- ═══════════════════════════════ COORDINATOR REGISTER MODAL ═══════════════════════════════ -->
+  <div class="modal fade" id="coordinatorModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Feedback messages -->
+        <h6 class="text-success text-center pt-3 px-4">${coordinatorSuccess}</h6>
+        <h6 class="text-danger text-center px-4">${coordinatorFailed}</h6>
+        <h6 class="text-danger text-center px-4">${coordinatorExists}</h6>
+
+        <form method="post" action="registerCoordinator" enctype="multipart/form-data">
+
+          <div class="modal-header px-4 pt-4 border-0">
+            <h5 class="modal-title">
+              <i class="bi bi-person-badge me-2"></i>Coordinator Registration
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+
+          <div class="modal-body px-4 pb-2">
+            <p class="text-white-50 mb-4" style="font-size:.88rem;">
+              Register as a Confynex coordinator to manage delegates and sessions for your assigned conference.
+            </p>
+
+            <div class="row">
+
+              <!-- Timestamp (auto-filled, hidden) -->
+              <input type="hidden" name="timestamp" id="coordinatorTimestamp" />
+
+              <!-- Full Name -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Full Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="fullName"
+                  placeholder="e.g. Priya Sharma"
+                  required
+                />
+              </div>
+
+              <!-- Email -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Email Address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  placeholder="priya@company.com"
+                  required
+                />
+              </div>
+
+              <!-- Organisation Name -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Organisation Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="organisationName"
+                  placeholder="Your organisation"
+                  required
+                />
+              </div>
+
+              <!-- Phone Number -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Phone Number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  name="phoneNumber"
+                  placeholder="+91 98765 43210"
+                  required
+                />
+              </div>
+
+              <!-- Designation -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Designation</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="designation"
+                  placeholder="e.g. Event Manager"
+                  required
+                />
+              </div>
+
+              <!-- LinkedIn URL -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">LinkedIn Profile URL</label>
+                <input
+                  type="url"
+                  class="form-control"
+                  name="linkedInUrl"
+                  placeholder="https://linkedin.com/in/yourprofile"
+                />
+              </div>
+
+              <!-- Excel File Upload -->
+              <div class="col-12 mb-3">
+                <label class="form-label">
+                  Delegate / Coordinator Data
+                  <span class="text-white-50" style="font-size:.78rem; font-weight:400;"> — upload Excel file</span>
+                </label>
+                <input
+                  type="file"
+                  class="form-control"
+                  name="excelFile"
+                  accept=".xls,.xlsx"
+                />
+                <small class="text-white-50 d-block mt-1">Accepted formats: .xls, .xlsx</small>
+              </div>
+
+            </div><!-- /row -->
+          </div><!-- /modal-body -->
+
+          <div class="modal-footer border-0 px-4 pb-4 pt-1 flex-column gap-2">
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-gold w-100 py-3" style="font-size:.95rem;">
+              Register as Coordinator &nbsp;<i class="bi bi-arrow-right"></i>
+            </button>
+
+            <!-- Cross-links -->
+            <p class="text-center text-white-50 mb-0" style="font-size:.85rem;">
+              Already have an account?
+              <span class="modal-link"
+                    data-bs-dismiss="modal"
+                    data-bs-toggle="modal"
+                    data-bs-target="#signinModal">
+                Sign In
+              </span>
+              &nbsp;·&nbsp;
+              <span class="modal-link"
+                    data-bs-dismiss="modal"
+                    data-bs-toggle="modal"
+                    data-bs-target="#signupModal">
+                Host Sign Up
+              </span>
+            </p>
+
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <!-- ═══════════════════════════════ END COORDINATOR MODAL ═══════════════════════════════ -->
+
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -1528,17 +1684,11 @@
     });
   </script>
 
-
-
-
   <script>
     // Show / Hide Password
     document.querySelectorAll('.toggle-password').forEach(icon => {
-
       icon.addEventListener('click', function () {
-
         const input = document.querySelector(this.getAttribute('toggle'));
-
         if (input.type === 'password') {
           input.type = 'text';
           this.classList.remove('bi-eye-slash');
@@ -1548,14 +1698,18 @@
           this.classList.remove('bi-eye');
           this.classList.add('bi-eye-slash');
         }
-
       });
-
     });
 
-
+    // Auto-fill coordinator timestamp on modal open
+    const coordinatorModal = document.getElementById('coordinatorModal');
+    if (coordinatorModal) {
+      coordinatorModal.addEventListener('show.bs.modal', () => {
+        const ts = document.getElementById('coordinatorTimestamp');
+        if (ts) ts.value = new Date().toISOString().slice(0, 19).replace('T', ' ');
+      });
+    }
   </script>
-
 
 </body>
 
