@@ -767,7 +767,7 @@
               <!-- ── NEW: Coordinator Register ── -->
               <li><hr class="dropdown-divider" style="border-color:rgba(201,168,76,.15);"></li>
               <li>
-                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#coordinatorModal">
+                <a class="dropdown-item" href="coordinatorsRegistration.jsp">
                   <i class="bi bi-person-badge me-2"></i>Coordinator Register
                 </a>
               </li>
