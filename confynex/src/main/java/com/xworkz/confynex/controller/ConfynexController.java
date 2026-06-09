@@ -17,15 +17,17 @@ public class ConfynexController {
         return "login";
     }
 
-    @GetMapping("/features")
-    public String features(){
-        return "features";
-    }
+//    @GetMapping("/features")
+//    public String features(){
+//        return "features";
+//    }
 
     @GetMapping("/index")
     public String index(){
         return "index";
     }
+
+
 
 
 }

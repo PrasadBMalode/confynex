@@ -748,29 +748,38 @@
 
         <!-- Auth dropdown -->
         <div class="dropdown ms-1">
-          <!-- Auth dropdown -->
           <div class="dropdown ms-3">
             <button class="btn btn-gold dropdown-toggle" data-bs-toggle="dropdown">
               <i class="bi bi-person-circle me-1"></i> Account
             </button>
+
             <ul class="dropdown-menu dropdown-menu-end">
+
+              <!-- 1. Host Sign Up -->
               <li>
                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signupModal">
                   <i class="bi bi-person-plus me-2"></i>Host Sign Up
                 </a>
               </li>
+
+              <!-- 2. Coordinator Register -->
+              <li>
+                <a class="dropdown-item" href="coordinatorsRegistration.jsp">
+                  <i class="bi bi-person-plus me-2"></i>Coordinator Sign Up
+                </a>
+              </li>
+
+              <li>
+                <hr class="dropdown-divider" style="border-color:rgba(201,168,76,.15);">
+              </li>
+
+              <!-- 3. Sign In -->
               <li>
                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signinModal">
                   <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
                 </a>
               </li>
-              <!-- ── NEW: Coordinator Register ── -->
-              <li><hr class="dropdown-divider" style="border-color:rgba(201,168,76,.15);"></li>
-              <li>
-                <a class="dropdown-item" href="coordinatorsRegistration.jsp">
-                  <i class="bi bi-person-badge me-2"></i>Coordinator Register
-                </a>
-              </li>
+
             </ul>
           </div>
         </div>
@@ -799,11 +808,11 @@
           </div>
           <div class="hero-stats">
             <div>
-              <div class="stat-num">500+</div>
+              <div class="stat-num">50+</div>
               <div class="stat-lbl">Events Managed</div>
             </div>
             <div>
-              <div class="stat-num">1.2M</div>
+              <div class="stat-num">12k</div>
               <div class="stat-lbl">Delegates Handled</div>
             </div>
             <div>
@@ -1220,7 +1229,7 @@
             <i class="bi bi-telephone"></i>
             <div>
               <strong>Phone</strong>
-              +91 80 4123 5678
+              +91 6360211265
             </div>
           </div>
           <div class="contact-info-item">
@@ -1234,7 +1243,7 @@
             <i class="bi bi-clock"></i>
             <div>
               <strong>Support Hours</strong>
-              Mon – Fri, 9 AM – 8 PM IST
+              Mon to Fri, 9 AM to 8 PM IST
             </div>
           </div>
           <div class="d-flex gap-3 mt-4">
@@ -1261,7 +1270,7 @@
               </div>
               <div class="col-md-6">
                 <label class="form-label">Phone</label>
-                <input type="tel" class="form-control" placeholder="+91 98765 43210" />
+                <input type="tel" class="form-control" placeholder="+91 ##########" />
               </div>
               <div class="col-12">
                 <label class="form-label">Expected Delegates</label>

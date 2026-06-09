@@ -28,8 +28,7 @@ public class EmailServiceImpl implements EmailService {
             helper.setTo(toEmail);
             helper.setSubject("🎓 Conference Invitation - " + conferenceTitle + " | ConfyNex");
 
-            String googleFormLink =
-                    "https://docs.google.com/forms/d/e/1FAIpQLScBr7bbpaQZi37Rw8gO43Fv3-Zdx1JyRa51MqGLaKFuwm74gg/viewform?usp=publish-editor";
+            String registrationLink = "http://localhost:6969/confynex/coordinatorsRegistration.jsp";
 
             // SVG icons encoded inline (no external image URLs needed)
             String calendarIcon = "&#128197;";  // 📅
@@ -143,48 +142,6 @@ public class EmailServiceImpl implements EmailService {
                             "</table>" +
                             "</td></tr>" +
 
-                            // ── HIGHLIGHTS SECTION ──
-//                            "<tr><td style='padding:28px 40px 0 40px;'>" +
-//                            "<p style='margin:0 0 14px;font-size:14px;color:#374151;font-family:Arial,sans-serif;" +
-//                            "font-weight:bold;text-transform:uppercase;letter-spacing:1px;'>What to Expect</p>" +
-//                            "<table width='100%' cellpadding='0' cellspacing='0' border='0'>" +
-//                            "<tr>" +
-
-                            // Highlight 1
-//                            "<td width='33%' style='padding:0 6px 0 0;vertical-align:top;'>" +
-//                            "<div style='background:#eff6ff;border-radius:8px;padding:16px;text-align:center;" +
-//                            "border:1px solid #dbeafe;'>" +
-//                            "<p style='margin:0 0 6px;font-size:22px;'>&#129504;</p>" +
-//                            "<p style='margin:0 0 4px;font-size:13px;font-weight:bold;color:#1a3a8f;" +
-//                            "font-family:Arial,sans-serif;'>AI Talks</p>" +
-//                            "<p style='margin:0;font-size:11px;color:#6b7280;font-family:Arial,sans-serif;'>" +
-//                            "Expert sessions on AI software</p>" +
-//                            "</div></td>" +
-
-                            // Highlight 2
-//                            "<td width='33%' style='padding:0 3px;vertical-align:top;'>" +
-//                            "<div style='background:#eff6ff;border-radius:8px;padding:16px;text-align:center;" +
-//                            "border:1px solid #dbeafe;'>" +
-//                            "<p style='margin:0 0 6px;font-size:22px;'>&#129309;</p>" +
-//                            "<p style='margin:0 0 4px;font-size:13px;font-weight:bold;color:#1a3a8f;" +
-//                            "font-family:Arial,sans-serif;'>Networking</p>" +
-//                            "<p style='margin:0;font-size:11px;color:#6b7280;font-family:Arial,sans-serif;'>" +
-//                            "Connect with professionals</p>" +
-//                            "</div></td>" +
-
-                            // Highlight 3
-//                            "<td width='33%' style='padding:0 0 0 6px;vertical-align:top;'>" +
-//                            "<div style='background:#eff6ff;border-radius:8px;padding:16px;text-align:center;" +
-//                            "border:1px solid #dbeafe;'>" +
-//                            "<p style='margin:0 0 6px;font-size:22px;'>&#127942;</p>" +
-//                            "<p style='margin:0 0 4px;font-size:13px;font-weight:bold;color:#1a3a8f;" +
-//                            "font-family:Arial,sans-serif;'>Certificate</p>" +
-//                            "<p style='margin:0;font-size:11px;color:#6b7280;font-family:Arial,sans-serif;'>" +
-//                            "Participation certificate</p>" +
-//                            "</div></td>" +
-
-//                            "</tr></table>" +
-//                            "</td></tr>" +
 
                             // ── REGISTRATION CTA ──
                             "<tr><td style='padding:32px 40px 0 40px;'>" +
@@ -197,16 +154,16 @@ public class EmailServiceImpl implements EmailService {
                             "</p>" +
 
                             // Blue hyperlink text (as requested)
-                            "<a href='" + googleFormLink + "' " +
+                            "<a href='" + registrationLink + "' " +
                             "style='color:#60a5fa;font-size:14px;font-family:Arial,sans-serif;" +
                             "text-decoration:underline;word-break:break-all;'>" +
-                            googleFormLink +
+                            registrationLink +
                             "</a>" +
 
                             "<br><br>" +
 
                             // Optional button alongside
-                            "<a href='" + googleFormLink + "' " +
+                            "<a href='" + registrationLink + "' " +
                             "style='display:inline-block;background:#ffffff;color:#1a3a8f;" +
                             "padding:13px 32px;text-decoration:none;border-radius:6px;" +
                             "font-size:15px;font-weight:bold;font-family:Arial,sans-serif;" +
