@@ -505,12 +505,10 @@
             <h4 class="form-card-title">Coordinator Registration</h4>
             <p class="form-card-sub">Fill in your details below. All fields marked are required.</p>
 
-            <form method="post" action="registerCoordinator" enctype="multipart/form-data">
+            <form method="post" id="coordinatorForm" action="registerCoordinator" enctype="multipart/form-data" class="needs-validation" novalidate>
 
-              <!-- Hidden timestamp -->
               <input type="hidden" name="timestamp" id="coordinatorTimestamp" />
 
-              <!-- ── Personal Details ── -->
               <div class="section-label"><i class="bi bi-person me-1"></i>Personal Details</div>
               <div class="row g-3">
 
@@ -520,9 +518,11 @@
                     type="text"
                     class="form-control"
                     name="fullName"
+                    id="fullName"
                     placeholder="e.g. Priya Sharma"
                     required
                   />
+                  <div class="invalid-feedback">Full Name must contain only letters (minimum 3).</div>
                 </div>
 
                 <div class="col-md-6">
@@ -531,9 +531,11 @@
                     type="email"
                     class="form-control"
                     name="email"
-                    placeholder="priya@company.com"
+                    id="email"
+                    placeholder="priya@gmail.com"
                     required
                   />
+                  <div class="invalid-feedback">Email must be a valid Gmail address.</div>
                 </div>
 
                 <div class="col-md-6">
@@ -542,9 +544,11 @@
                     type="tel"
                     class="form-control"
                     name="phoneNumber"
-                    placeholder="+91 98765 43210"
+                    id="phoneNumber"
+                    placeholder="9876543210"
                     required
                   />
+                  <div class="invalid-feedback">Phone number must be 10 digits and start with 6,7,8 or 9.</div>
                 </div>
 
                 <div class="col-md-6">
@@ -553,16 +557,17 @@
                     type="text"
                     class="form-control"
                     name="designation"
+                    id="designation"
                     placeholder="e.g. Event Manager"
                     required
                   />
+                  <div class="invalid-feedback">Please enter a valid designation (minimum 2 chars).</div>
                 </div>
 
               </div>
 
               <hr class="field-divider" />
 
-              <!-- ── Organisation Details ── -->
               <div class="section-label"><i class="bi bi-building me-1"></i>Organisation Details</div>
               <div class="row g-3">
 
@@ -572,9 +577,11 @@
                     type="text"
                     class="form-control"
                     name="organisationName"
+                    id="organisationName"
                     placeholder="Your organisation"
                     required
                   />
+                  <div class="invalid-feedback">Organisation Name must contain minimum 3 letters.</div>
                 </div>
 
                 <div class="col-md-6">
@@ -583,15 +590,16 @@
                     type="url"
                     class="form-control"
                     name="linkedInUrl"
+                    id="linkedInUrl"
                     placeholder="https://linkedin.com/in/yourprofile"
                   />
+                  <div class="invalid-feedback">Please enter a valid LinkedIn URL.</div>
                 </div>
 
               </div>
 
               <hr class="field-divider" />
 
-              <!-- ── File Upload ── -->
               <div class="section-label"><i class="bi bi-file-earmark-spreadsheet me-1"></i>Delegate Data Upload</div>
               <div class="row g-3">
 
@@ -601,10 +609,11 @@
                     <span style="color:rgba(255,255,255,.35); font-size:.8rem; font-weight:400;"> — delegate / coordinator list</span>
                   </label>
                   <input
-                    type="file"
-                    class="form-control"
-                    name="excelFile"
-                    accept=".xls,.xlsx"
+                      type="file"
+                      class="form-control"
+                      name="excelFile"
+                      id="excelFile"
+                      accept=".xls,.xlsx"
                   />
                   <small style="color:rgba(255,255,255,.35); font-size:.8rem; display:block; margin-top:6px;">
                     <i class="bi bi-info-circle me-1"></i>Accepted formats: .xls, .xlsx
@@ -615,7 +624,6 @@
 
               <hr class="field-divider" />
 
-              <!-- ── Submit ── -->
               <button type="submit" class="btn btn-gold w-100 py-3" style="font-size:.96rem;">
                 Register as Coordinator &nbsp;<i class="bi bi-arrow-right"></i>
               </button>
@@ -633,12 +641,24 @@
     </div>
   </section>
 
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+    <div id="coordinatorToast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toastMessage">
+          </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
   <footer>
     <div class="container">
       <p>© 2025 <span>Confynex</span>. All rights reserved. Crafted with precision for world-class conferences.</p>
     </div>
   </footer>
+
+
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -648,6 +668,111 @@
     document.addEventListener('DOMContentLoaded', () => {
       const ts = document.getElementById('coordinatorTimestamp');
       if (ts) ts.value = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    });
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Auto-fill hidden timestamp
+      const ts = document.getElementById('coordinatorTimestamp');
+      if (ts) ts.value = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+      // 2. Exact validation expressions matching your DTO annotations
+      const rules = {
+        fullName: /^[A-Za-z\s.'-]{3,}$/,
+        email: /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
+        organisationName: /^[A-Za-z\s]{3,}$/,
+        phoneNumber: /^[6-9][0-9]{9}$/,
+        designation: /^[A-Za-z0-9\s.&()-]{2,}$/,
+        linkedInUrl: /^(https?:\/\/)?(www\.)?linkedin\.com\/.*$/
+      };
+
+      function validateField(input) {
+        const name = input.name;
+        const value = input.value.trim();
+        let isValid = true;
+
+        // Run rules matching field names
+        if (rules[name]) {
+          // If Optional LinkedIn URL is empty, skip verification constraint
+          if (name === 'linkedInUrl' && value === '') {
+            isValid = true;
+          } else {
+            isValid = rules[name].test(value);
+          }
+        } else if (input.hasAttribute('required')) {
+          isValid = value !== "";
+        }
+
+        if (!isValid) {
+          input.classList.add("is-invalid");
+          input.classList.remove("is-valid");
+        } else {
+          input.classList.remove("is-invalid");
+          // Only mark positive validation styles if values exist
+          if (value !== "") {
+            input.classList.add("is-valid");
+          } else {
+            input.classList.remove("is-valid");
+          }
+        }
+        return isValid;
+      }
+
+      // Attach real-time processing listeners
+      const form = document.getElementById("coordinatorForm");
+      const inputs = form.querySelectorAll("input, textarea");
+
+      inputs.forEach(input => {
+        if (input.type !== 'file' && input.type !== 'hidden' && input.type !== 'submit') {
+          input.addEventListener("blur", () => {
+            validateField(input);
+          });
+        }
+      });
+
+      // Submit check safeguard interceptor
+      form.addEventListener("submit", (e) => {
+        let isFormValid = true;
+        inputs.forEach(input => {
+          if (input.type !== 'file' && input.type !== 'hidden' && input.type !== 'submit') {
+            if (!validateField(input)) {
+              isFormValid = false;
+            }
+          }
+        });
+
+        if (!isFormValid) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
+
+      // 3. Monitor backend message responses and prompt context UI Toasts
+      const successMsg = "${coordinatorSuccess}";
+      const failedMsg = "${coordinatorFailed}";
+      const existMsg = "${coordinatorExists}";
+
+      const toastEl = document.getElementById('coordinatorToast');
+      const toastMessage = document.getElementById('toastMessage');
+
+      if (toastEl && typeof bootstrap !== 'undefined') {
+        const bootstrapToast = new bootstrap.Toast(toastEl, { delay: 6000 });
+
+        if (successMsg && successMsg.trim() !== "" && !successMsg.includes("{")) {
+          toastEl.classList.add("bg-success");
+          toastMessage.textContent = successMsg;
+          bootstrapToast.show();
+        } else if (failedMsg && failedMsg.trim() !== "" && !failedMsg.includes("{")) {
+          toastEl.classList.add("bg-danger");
+          toastMessage.textContent = failedMsg;
+          bootstrapToast.show();
+        } else if (existMsg && existMsg.trim() !== "" && !existMsg.includes("{")) {
+          toastEl.classList.add("bg-warning", "text-dark");
+          toastMessage.textContent = existMsg;
+          bootstrapToast.show();
+        }
+      }
     });
   </script>
 

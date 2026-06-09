@@ -18,7 +18,7 @@ public class CoordinatorDTO {
     private String timestamp;
 
     @NotBlank(message = "Full Name is required")
-    @Pattern(regexp = "^[A-Za-z\\s]{3,}$", message = "Full Name must contain only letters (minimum 3)")
+    @Pattern(regexp = "^[A-Za-z\\\\s.'-]{3,}$", message = "Full Name must contain only letters (minimum 3)")
     private String fullName;
 
     @NotBlank(message = "Email is required")
@@ -34,10 +34,10 @@ public class CoordinatorDTO {
     private String phoneNumber;
 
     @NotBlank(message = "Designation is required")
-    @Pattern(regexp = "^[A-Za-z\\s]{2,}$", message = "Designation must contain minimum 2 letters")
+    @Pattern(regexp = "^[A-Za-z0-9\\s.&()-]{2,}$", message = "Invalid designation")
     private String designation;
 
-    @NotBlank(message = "LinkedIn URL is required")
+   // @NotBlank(message = "LinkedIn URL is required")
     @Pattern(regexp = "^(https?:\\/\\/)?(www\\.)?linkedin\\.com\\/.*$", message = "Enter a valid LinkedIn URL")
     private String linkedInUrl;
 

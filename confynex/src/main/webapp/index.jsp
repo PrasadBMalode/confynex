@@ -1306,152 +1306,113 @@
     </div>
   </footer>
 
-  <!-- ═══════════════════════════════ SIGN UP MODAL ═══════════════════════════════ -->
   <div class="modal fade" id="signupModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
 
-      <!-- Messages -->
-         <h6 class="text-success text-center">${registerSuccess}</h6>
-         <h6 class="text-danger text-center">${registerFailed}</h6>
-         <h6 class="text-danger text-center">${existData}</h6>
+        <form method="post" id="registrationForm" action="registerHost" enctype="multipart/form-data" class="needs-validation" novalidate>
 
-        <form method="post" action="registerHost" enctype="multipart/form-data">
-
-        <div class="modal-header px-4 pt-4 border-0">
-          <h5 class="modal-title">
-            <i class="bi bi-person-plus me-2"></i>Create Your Account
-          </h5>
-
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-
-        <div class="modal-body px-4 pb-4">
-          <p class="text-white-50 mb-4" style="font-size:.88rem;">
-            Join Confynex and start managing world-class conferences.
-          </p>
-
-          <div class="row">
-
-            <!-- Full Name -->
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Full Name</label>
-              <input type="text" class="form-control" name="full_name" placeholder="John Smith" />
-            </div>
-
-            <!-- Work Email -->
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Work Email</label>
-              <input type="email" class="form-control" name="email" placeholder="john@company.com" />
-            </div>
-
-            <!-- Phone Number -->
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Phone Number</label>
-              <input type="tel" class="form-control" name="phone" placeholder="+91 **********" />
-            </div>
-
-            <!-- Company Name -->
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Company Name</label>
-              <input type="text" class="form-control" name="company_name" placeholder="Your company name" />
-            </div>
-
-            <!-- Conference Title -->
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Conference Title</label>
-              <input type="text" class="form-control" name="conference_title" placeholder="Enter conference title" />
-            </div>
-
-            <!-- Conference Date -->
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Conference Date</label>
-              <input type="date" class="form-control" name="conference_date" />
-            </div>
-
-            <!-- Venue -->
-            <div class="col-12 mb-3">
-              <label class="form-label">Venue</label>
-              <textarea class="form-control" name="venue" rows="2" placeholder="Enter conference venue"></textarea>
-            </div>
-
-            <!-- Coordinators Upload -->
-            <div class="col-12 mb-3">
-              <label class="form-label">
-                <span class="text-white-50" style="font-size:.8rem;">
-                  Coordinators List (upload Excel file)
-                </span>
-              </label>
-
-              <!-- Excel Upload -->
-              <input type="file" class="form-control" name="excelFile" accept=".xls,.xlsx" />
-
-              <small class="text-white-50 d-block mt-2">
-                Accepted formats: .xls, .xlsx
-              </small>
-            </div>
-
-            <!-- Password -->
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Password</label>
-
-              <div class="position-relative">
-                <input type="password"
-                       class="form-control pe-5"
-                       id="password"
-                       name="password"
-                       placeholder="Create a strong password" />
-
-                <i class="bi bi-eye-slash toggle-password"
-                   toggle="#password"
-                   style="position:absolute; top:50%; right:15px; transform:translateY(-50%); cursor:pointer; color:#ccc;">
-                </i>
-              </div>
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Confirm Password</label>
-
-              <div class="position-relative">
-                <input type="password"
-                       class="form-control pe-5"
-                       id="confirmPassword"
-                       name="confirm_password"
-                       placeholder="Confirm your password" />
-
-                <i class="bi bi-eye-slash toggle-password"
-                   toggle="#confirmPassword"
-                   style="position:absolute; top:50%; right:15px; transform:translateY(-50%); cursor:pointer; color:#ccc;">
-                </i>
-              </div>
-            </div>
-
+          <div class="modal-header px-4 pt-4 border-0">
+            <h5 class="modal-title">
+              <i class="bi bi-person-plus me-2"></i>Create Your Account
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
           </div>
 
-          <!-- Submit Button -->
-          <button type="submit" class="btn btn-gold w-100 py-3 mb-3">
-            Create Account
-            <i class="bi bi-arrow-right ms-1"></i>
-          </button>
+          <div class="modal-body px-4 pb-4">
+            <p class="text-white-50 mb-4" style="font-size:.88rem;">
+              Join Confynex and start managing world-class conferences.
+            </p>
 
-          <!-- Sign In -->
-          <p class="text-center text-white-50" style="font-size:.85rem;">
-            Already have an account?
-            <span class="modal-link"
-                  data-bs-dismiss="modal"
-                  data-bs-toggle="modal"
-                  data-bs-target="#signinModal">
-              Sign In
-            </span>
-          </p>
+            <div class="row">
 
-        </div>
-      </form>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" name="full_name" id="full_name" placeholder="John Smith" />
+                <div class="invalid-feedback">Name must contain only letters (minimum 3).</div>
+              </div>
 
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Work Email</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="john@gmail.com" />
+                <div class="invalid-feedback">Email must be a valid Gmail address.</div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" name="phone" id="phone" placeholder="9876543210" />
+                <div class="invalid-feedback">Phone must start with 6,7,8,9 and be 10 digits.</div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Company Name</label>
+                <input type="text" class="form-control" name="company_name" id="company_name" placeholder="Your company name" />
+                <div class="invalid-feedback">Company Name must contain minimum 4 letters.</div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Conference Title</label>
+                <input type="text" class="form-control" name="conference_title" id="conference_title" placeholder="Enter conference title" />
+                <div class="invalid-feedback">Title must contain only letters (minimum 3).</div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Conference Date</label>
+                <input type="date" class="form-control" name="conference_date" id="conference_date" />
+                <div class="invalid-feedback">Conference date is required.</div>
+              </div>
+
+              <div class="col-12 mb-3">
+                <label class="form-label">Venue</label>
+                <textarea class="form-control" name="venue" id="venue" rows="2" placeholder="Enter conference venue"></textarea>
+                <div class="invalid-feedback">Venue must contain minimum 4 characters.</div>
+              </div>
+
+              <div class="col-12 mb-3">
+                <label class="form-label">
+                  <span class="text-white-50" style="font-size:.8rem;">
+                    Coordinators List (upload Excel file)
+                  </span>
+                </label>
+                <input type="file" class="form-control" name="excelFile" id="excelFile" accept=".xls,.xlsx" />
+                <small class="text-white-50 d-block mt-2">Accepted formats: .xls, .xlsx</small>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Password</label>
+                <div class="position-relative">
+                  <input type="password" class="form-control pe-5" id="password" name="password" placeholder="Create a strong password" />
+                  <i class="bi bi-eye-slash toggle-password" toggle="#password" style="position:absolute; top:50%; right:15px; transform:translateY(-50%); cursor:pointer; color:#ccc;"></i>
+                  <div class="invalid-feedback">8-12 chars with uppercase, lowercase, number & special char.</div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Confirm Password</label>
+                <div class="position-relative">
+                  <input type="password" class="form-control pe-5" id="confirmPassword" name="confirm_password" placeholder="Confirm your password" />
+                  <i class="bi bi-eye-slash toggle-password" toggle="#confirmPassword" style="position:absolute; top:50%; right:15px; transform:translateY(-50%); cursor:pointer; color:#ccc;"></i>
+                  <div class="invalid-feedback">Passwords do not match.</div>
+                </div>
+              </div>
+
+            </div>
+
+            <button type="submit" class="btn btn-gold w-100 py-3 mb-3">
+              Create Account <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+
+            <p class="text-center text-white-50" style="font-size:.85rem;">
+              Already have an account?
+              <span class="modal-link" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signinModal">Sign In</span>
+            </p>
+
+          </div>
+        </form>
+
+      </div>
     </div>
   </div>
-</div>
 
 
   <!-- ═══════════════════════════════ SIGN IN MODAL ═══════════════════════════════ -->
@@ -1671,6 +1632,16 @@
       </div>
     </div>
   </div>
+
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="registrationToast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toastMessage">
+          </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
   <!-- ═══════════════════════════════ END COORDINATOR MODAL ═══════════════════════════════ -->
 
 
@@ -1718,6 +1689,105 @@
         if (ts) ts.value = new Date().toISOString().slice(0, 19).replace('T', ' ');
       });
     }
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // --- 1. FIELD-BY-FIELD BLUR VALIDATION ---
+        const rules = {
+            full_name: /^[A-Za-z\s]{3,}$/,
+            company_name: /^[A-Za-z\s]{4,}$/,
+            email: /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
+            phone: /^[6-9][0-9]{9}$/,
+            conference_title: /^[A-Za-z\s]{3,}$/,
+            venue: /^[A-Za-z0-9,./\s-]{4,}$/,
+            password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,12}$/
+        };
+
+        function validateField(input) {
+            const name = input.name;
+            const value = input.value.trim();
+            let isValid = true;
+
+            if (rules[name]) {
+                isValid = rules[name].test(value);
+            } else if (name === 'conference_date') {
+                isValid = value !== "";
+            } else if (name === 'confirm_password') {
+                const pwd = document.getElementById("password").value;
+                isValid = value === pwd && value !== "";
+            }
+
+            if (!isValid) {
+                input.classList.add("is-invalid");
+                input.classList.remove("is-valid");
+            } else {
+                input.classList.remove("is-invalid");
+                input.classList.add("is-valid");
+            }
+            return isValid;
+        }
+
+        // Attach blur event listeners to all fields inside the registration form
+        const form = document.getElementById("registrationForm");
+        const inputs = form.querySelectorAll("input, textarea");
+
+        inputs.forEach(input => {
+            if(input.type !== 'file' && input.type !== 'submit') {
+                input.addEventListener("blur", function () {
+                    validateField(input);
+                });
+            }
+        });
+
+        // Form submission validation trap
+        form.addEventListener("submit", function (e) {
+            let isFormValid = true;
+            inputs.forEach(input => {
+                if(input.type !== 'file' && input.type !== 'submit') {
+                    if (!validateField(input)) {
+                        isFormValid = false;
+                    }
+                }
+            });
+
+            if (!isFormValid) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+
+
+        // --- 2. BACKEND RESPONSE POPUP (TOAST CONTROL) ---
+        // Read messages delivered into JSP / Thymeleaf context from Controller redirects
+        const successMsg = "${registerSuccess}";
+        const failedMsg = "${registerFailed}";
+        const existMsg = "${existData}";
+
+        const toastEl = document.getElementById('registrationToast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // Check if Bootstrap 5 Toast is ready
+        if (toastEl) {
+            const bootstrapToast = new bootstrap.Toast(toastEl, { delay: 5000 });
+
+            if (successMsg && successMsg.trim() !== "" && !successMsg.includes("{")) {
+                toastEl.classList.add("bg-success");
+                toastMessage.textContent = successMsg;
+                bootstrapToast.show();
+            } else if (failedMsg && failedMsg.trim() !== "" && !failedMsg.includes("{")) {
+                toastEl.classList.add("bg-danger");
+                toastMessage.textContent = failedMsg;
+                bootstrapToast.show();
+            } else if (existMsg && existMsg.trim() !== "" && !existMsg.includes("{")) {
+                toastEl.classList.add("bg-warning", "text-dark");
+                toastMessage.textContent = existMsg;
+                bootstrapToast.show();
+            }
+        }
+    });
   </script>
 
 </body>

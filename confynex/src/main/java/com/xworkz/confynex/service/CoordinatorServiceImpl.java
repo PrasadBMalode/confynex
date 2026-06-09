@@ -20,29 +20,15 @@ public class CoordinatorServiceImpl implements CoordinatorService {
     private CoordinatorDAO coordinatorDAO;
 
     @Override
-    public String coordinatorsRegistrationValidation(
-            CoordinatorDTO coordinatorDTO) {
+    public String coordinatorsRegistrationValidation(CoordinatorDTO coordinatorDTO) {
 
-        CoordinatorDTO emailExist =
-                checkEmailExist(coordinatorDTO.getEmail());
-
+        CoordinatorDTO emailExist = checkEmailExist(coordinatorDTO.getEmail());
         if (emailExist == null) {
-
             try {
-
-                CoordinatorEntity coordinatorEntity =
-                        new CoordinatorEntity();
-
-                BeanUtils.copyProperties(
-                        coordinatorDTO,
-                        coordinatorEntity);
-
-                coordinatorEntity.setTimestamp(
-                        LocalDateTime.now().toString());
-
-                MultipartFile excelFile =
-                        coordinatorDTO.getExcelFile();
-
+                CoordinatorEntity coordinatorEntity = new CoordinatorEntity();
+                BeanUtils.copyProperties(coordinatorDTO, coordinatorEntity);
+                coordinatorEntity.setTimestamp(LocalDateTime.now().toString());
+                MultipartFile excelFile = coordinatorDTO.getExcelFile();
                 String fullPath = null;
 
                 if (excelFile != null && !excelFile.isEmpty()) {
@@ -51,63 +37,38 @@ public class CoordinatorServiceImpl implements CoordinatorService {
                             System.currentTimeMillis() + "_"
                                     + excelFile.getOriginalFilename();
 
-                    fullPath =
-                            "J:\\xworkz\\coordinatorFiles\\"
-                                    + originalFilename;
-
-                    Path filePath =
-                            Paths.get(fullPath);
-
-                    File directory =
-                            new File(
-                                    "J:\\xworkz\\coordinatorFiles\\");
-
+                    fullPath = "J:\\xworkz\\coordinatorFiles\\" + originalFilename;
+                    Path filePath = Paths.get(fullPath);
+                    File directory = new File("J:\\xworkz\\coordinatorFiles\\");
                     if (!directory.exists()) {
                         directory.mkdirs();
                     }
 
-                    excelFile.transferTo(
-                            filePath.toFile());
-
-                    coordinatorEntity.setExcelFileUrl(
-                            fullPath);
+                    excelFile.transferTo(filePath.toFile());
+                    coordinatorEntity.setExcelFileUrl(fullPath);
                 }
 
-                boolean saved =
-                        coordinatorDAO.saveCoordinator(
-                                coordinatorEntity);
+                boolean saved = coordinatorDAO.saveCoordinator(coordinatorEntity);
 
                 if (saved) {
-
                     return "Coordinator Registration Done";
                 }
-
             } catch (Exception e) {
-
                 e.printStackTrace();
             }
-
             return "Coordinator Registration Failed";
         }
-
         return "Coordinator already exist";
     }
 
     @Override
     public CoordinatorDTO checkEmailExist(String email) {
-
-        CoordinatorEntity coordinatorEntity =
-                coordinatorDAO.checkExistCoordinatorByEmail(email);
-
+        CoordinatorEntity coordinatorEntity = coordinatorDAO.checkExistCoordinatorByEmail(email);
         if (coordinatorEntity != null) {
-
             CoordinatorDTO coordinatorDTO = new CoordinatorDTO();
-
             BeanUtils.copyProperties(coordinatorEntity, coordinatorDTO);
-
             return coordinatorDTO;
         }
-
         return null;
     }
 }
