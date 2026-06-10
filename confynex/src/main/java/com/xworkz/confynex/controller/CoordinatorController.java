@@ -19,6 +19,9 @@ public class CoordinatorController {
     @Autowired
     private CoordinatorService coordinatorService;
 
+    @Autowired
+    CoordinatorDTO coordinatorDTO;
+
     public CoordinatorController() {
         System.out.println("Coordinator Controller...");
     }
@@ -56,7 +59,7 @@ public class CoordinatorController {
             return "coordinatorsRegistration";
         }
 
-        String result = coordinatorService.coordinatorsRegistrationValidation(new CoordinatorDTO());
+        String result = coordinatorService.coordinatorsRegistrationValidation(coordinatorDTO);
 
         if ("Coordinator Registration Done".equalsIgnoreCase(result)) {
 
