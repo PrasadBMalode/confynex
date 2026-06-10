@@ -425,7 +425,7 @@
   <div class="page-banner">
     <div class="container position-relative" style="z-index:1">
       <div class="banner-tag"><i class="bi bi-person-badge me-1"></i> Coordinator Portal</div>
-      <h1 class="banner-title">Register as a<br /><em>Coordinator</em></h1>
+      <h1 class="banner-title">Register as a <em>Coordinator</em></h1>
       <p class="banner-sub">
         Join the Confynex team as a certified coordinator and help deliver world-class conference experiences to thousands of delegates.
       </p>
@@ -456,7 +456,7 @@
       <div class="row g-5 align-items-start">
 
         <!-- ── LEFT: Info sidebar ── -->
-        <div class="col-lg-4 order-lg-1 order-2">
+        <!--<div class="col-lg-4 order-lg-1 order-2">
           <div class="info-card">
             <h5 class="info-card-title">Why Become a Coordinator?</h5>
             <p class="info-card-sub">Coordinators are the backbone of every successful Confynex event.</p>
@@ -496,7 +496,7 @@
               <a href="index.jsp" class="already-link">Sign In here</a>
             </p>
           </div>
-        </div>
+        </div>-->
 
         <!-- ── RIGHT: Registration form ── -->
         <div class="col-lg-8 order-lg-2 order-1">
@@ -759,18 +759,27 @@
       if (toastEl && typeof bootstrap !== 'undefined') {
         const bootstrapToast = new bootstrap.Toast(toastEl, { delay: 6000 });
 
-        if (successMsg && successMsg.trim() !== "" && !successMsg.includes("{")) {
-          toastEl.classList.add("bg-success");
-          toastMessage.textContent = successMsg;
-          bootstrapToast.show();
-        } else if (failedMsg && failedMsg.trim() !== "" && !failedMsg.includes("{")) {
-          toastEl.classList.add("bg-danger");
-          toastMessage.textContent = failedMsg;
-          bootstrapToast.show();
-        } else if (existMsg && existMsg.trim() !== "" && !existMsg.includes("{")) {
-          toastEl.classList.add("bg-warning", "text-dark");
-          toastMessage.textContent = existMsg;
-          bootstrapToast.show();
+        console.log("Success =", successMsg);
+        console.log("Failed =", failedMsg);
+        console.log("Exists =", existMsg);
+
+        if (successMsg && successMsg.trim() !== "") {
+            toastEl.classList.remove("bg-danger", "bg-warning", "text-dark");
+            toastEl.classList.add("bg-success");
+            toastMessage.textContent = successMsg;
+            bootstrapToast.show();
+        }
+        else if (failedMsg && failedMsg.trim() !== "") {
+            toastEl.classList.remove("bg-success", "bg-warning", "text-dark");
+            toastEl.classList.add("bg-danger");
+            toastMessage.textContent = failedMsg;
+            bootstrapToast.show();
+        }
+        else if (existMsg && existMsg.trim() !== "") {
+            toastEl.classList.remove("bg-success", "bg-danger");
+            toastEl.classList.add("bg-warning", "text-dark");
+            toastMessage.textContent = existMsg;
+            bootstrapToast.show();
         }
       }
     });

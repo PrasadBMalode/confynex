@@ -20,6 +20,7 @@ public class CoordinatorEntity {
     private String designation;
     private String linkedInUrl;
     private String excelFileUrl;
-    @OneToMany(mappedBy = "coordinator", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "coordinator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DelegateEntity> delegates;
 }

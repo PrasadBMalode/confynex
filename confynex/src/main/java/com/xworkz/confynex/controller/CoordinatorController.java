@@ -1,7 +1,6 @@
 package com.xworkz.confynex.controller;
 
 import com.xworkz.confynex.dto.CoordinatorDTO;
-import com.xworkz.confynex.entity.CoordinatorEntity;
 import com.xworkz.confynex.service.CoordinatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,55 +18,59 @@ public class CoordinatorController {
     @Autowired
     private CoordinatorService coordinatorService;
 
-    @Autowired
-    CoordinatorDTO coordinatorDTO;
-
     public CoordinatorController() {
         System.out.println("Coordinator Controller...");
     }
 
     @PostMapping("/registerCoordinator")
-    public String registerCoordinator(@Valid CoordinatorEntity coordinatorEntity, BindingResult bindingResult, Model model) {
+    public String registerCoordinator(@Valid CoordinatorDTO coordinatorDTO,
+                                      BindingResult bindingResult,
+                                      Model model) {
 
         if (bindingResult.hasErrors()) {
 
             if (bindingResult.hasFieldErrors("fullName")) {
-                model.addAttribute("fullNameError", bindingResult.getFieldError("fullName").getDefaultMessage());
+                model.addAttribute("fullNameError",
+                        bindingResult.getFieldError("fullName").getDefaultMessage());
             }
 
             if (bindingResult.hasFieldErrors("email")) {
-                model.addAttribute("emailError", bindingResult.getFieldError("email").getDefaultMessage());
+                model.addAttribute("emailError",
+                        bindingResult.getFieldError("email").getDefaultMessage());
             }
 
             if (bindingResult.hasFieldErrors("organisationName")) {
-                model.addAttribute("organisationError", bindingResult.getFieldError("organisationName").getDefaultMessage());
+                model.addAttribute("organisationError",
+                        bindingResult.getFieldError("organisationName").getDefaultMessage());
             }
 
             if (bindingResult.hasFieldErrors("phoneNumber")) {
-                model.addAttribute("phoneError", bindingResult.getFieldError("phoneNumber").getDefaultMessage());
+                model.addAttribute("phoneError",
+                        bindingResult.getFieldError("phoneNumber").getDefaultMessage());
             }
 
             if (bindingResult.hasFieldErrors("designation")) {
-                model.addAttribute("designationError", bindingResult.getFieldError("designation").getDefaultMessage());
+                model.addAttribute("designationError",
+                        bindingResult.getFieldError("designation").getDefaultMessage());
             }
 
             if (bindingResult.hasFieldErrors("linkedInUrl")) {
-                model.addAttribute("linkedInError", bindingResult.getFieldError("linkedInUrl").getDefaultMessage());
+                model.addAttribute("linkedInError",
+                        bindingResult.getFieldError("linkedInUrl").getDefaultMessage());
             }
 
-            model.addAttribute("coordinatorEntity", coordinatorEntity);
+            model.addAttribute("coordinatorEntity", coordinatorDTO);
             return "coordinatorsRegistration";
         }
 
         String result = coordinatorService.coordinatorsRegistrationValidation(coordinatorDTO);
 
         if ("Coordinator Registration Done".equalsIgnoreCase(result)) {
-
-            model.addAttribute("registerSuccess", result);
-
+            model.addAttribute("coordinatorSuccess", result);
+        } else if ("Coordinator already exist".equalsIgnoreCase(result)) {
+            model.addAttribute("coordinatorExists", result);
         } else {
-
-            model.addAttribute("registerFailed", result);
+            model.addAttribute("coordinatorFailed", result);
         }
 
         return "coordinatorsRegistration";
