@@ -218,4 +218,70 @@ public class EmailServiceImpl implements EmailService {
             e.printStackTrace();
         }
     }
+
+
+    @Override
+    public void sendDelegateMail(
+            String toEmail,
+            String delegateName,
+            String conferenceTitle,
+            String conferenceDate,
+            String venue,
+            String loginId,
+            Long password) {
+
+        try {
+
+            MimeMessage mimeMessage =
+                    javaMailSender.createMimeMessage();
+
+            MimeMessageHelper helper =
+                    new MimeMessageHelper(mimeMessage, true);
+
+            helper.setTo(toEmail);
+
+            helper.setSubject(
+                    "Delegate Registration Successful | ConfyNex");
+
+            String template =
+                    "<h2>Welcome to ConfyNex</h2>" +
+
+                            "<p>Hello <b>" + delegateName + "</b>,</p>" +
+
+                            "<p>You have been registered successfully.</p>" +
+
+                            "<h3>Conference Details</h3>" +
+
+                            "<p>Conference : "
+                            + conferenceTitle + "</p>" +
+
+                            "<p>Date : "
+                            + conferenceDate + "</p>" +
+
+                            "<p>Venue : "
+                            + venue + "</p>" +
+
+                            "<hr>" +
+
+                            "<h3>Login Credentials</h3>" +
+
+                            "<p><b>Login ID :</b> "
+                            + loginId + "</p>" +
+
+                            "<p><b>Password :</b> "
+                            + password + "</p>" +
+
+                            "<hr>" +
+
+                            "<p>Please change your password after login.</p>";
+
+            helper.setText(template, true);
+
+            javaMailSender.send(mimeMessage);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
 }

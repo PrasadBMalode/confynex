@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "delegate_registration")
+@Table(name = "delegateDetails_tb")
 @Data
 public class DelegateEntity {
 

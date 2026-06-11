@@ -1,9 +1,11 @@
 package com.xworkz.confynex.service;
 
 import com.xworkz.confynex.dao.CoordinatorDAO;
+import com.xworkz.confynex.dao.DelegateLoginDAO;
 import com.xworkz.confynex.dto.CoordinatorDTO;
 import com.xworkz.confynex.entity.CoordinatorEntity;
 import com.xworkz.confynex.entity.DelegateEntity;
+import com.xworkz.confynex.entity.DelegateLoginEntity;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,18 @@ public class CoordinatorServiceImpl implements CoordinatorService {
 
     @Autowired
     private CoordinatorDAO coordinatorDAO;
+
+    @Autowired
+    private DelegateLoginDAO delegateLoginDAO;
+
+    @Autowired
+    private EmailService emailService;
+
+
+    private Long generatePassword() {
+
+        return (long)(100000 + Math.random() * 900000);
+    }
 
     @Override
     public String coordinatorsRegistrationValidation(CoordinatorDTO coordinatorDTO) {
@@ -66,9 +80,30 @@ public class CoordinatorServiceImpl implements CoordinatorService {
                         DelegateEntity delegate = new DelegateEntity();
                         delegate.setDelegateName(formatter.formatCellValue(row.getCell(0)));
                         delegate.setDelegateEmail(formatter.formatCellValue(row.getCell(1)));
+
+                        Long password = generatePassword();
+
+                        DelegateLoginEntity loginEntity = new DelegateLoginEntity();
+
+                        loginEntity.setEmail(delegate.getDelegateEmail());
+                        loginEntity.setPassword(password);
+
+                        delegateLoginDAO.saveLogin(loginEntity);
+
                         delegate.setDelegatePhone(formatter.formatCellValue(row.getCell(2)));
                         delegate.setOrganisation(formatter.formatCellValue(row.getCell(3)));
                         delegate.setCoordinator(coordinatorEntity);
+
+                        emailService.sendDelegateMail(
+                                delegate.getDelegateEmail(),
+                                delegate.getDelegateName(),
+                                "ConfyNex Conference",
+                                "To Be Announced",
+                                "Bangalore",
+                                delegate.getDelegateEmail(),
+                                password
+                        );
+
                         delegates.add(delegate);
                     }
                 }

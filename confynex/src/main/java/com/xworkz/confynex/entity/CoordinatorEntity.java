@@ -21,6 +21,10 @@ public class CoordinatorEntity {
     private String linkedInUrl;
     private String excelFileUrl;
 
+    @ManyToOne
+    @JoinColumn(name = "host_id")
+    private HostEntity host;
+
     @OneToMany(mappedBy = "coordinator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DelegateEntity> delegates;
 }

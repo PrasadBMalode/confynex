@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -36,4 +37,7 @@ public class HostEntity {
     @JoinColumn(name = "delegate_file_id")
     @ToString.Exclude
     private FileEntity fileEntity;
+
+    @OneToMany(mappedBy = "host")
+    private List<CoordinatorEntity> coordinators;
 }
