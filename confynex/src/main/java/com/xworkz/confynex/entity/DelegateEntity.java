@@ -17,7 +17,7 @@ public class DelegateEntity {
 
     private String delegateEmail;
 
-    private String delegatePhone;
+    private Long delegatePhone;
 
     private String organisation;
 

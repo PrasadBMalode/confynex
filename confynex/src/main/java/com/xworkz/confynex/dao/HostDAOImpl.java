@@ -107,4 +107,29 @@ public class HostDAOImpl implements HostDAO {
             entityManager.close();
         }
     }
+
+
+    @Override
+    public HostEntity getLatestConference() {
+
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        try {
+
+            return em.createQuery(
+                            "SELECT h FROM HostEntity h ORDER BY h.hostId DESC",
+                            HostEntity.class)
+                    .setMaxResults(1)
+                    .getSingleResult();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return null;
+
+        } finally {
+
+            em.close();
+        }
+    }
 }

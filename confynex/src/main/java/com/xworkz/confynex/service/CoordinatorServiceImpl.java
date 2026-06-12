@@ -2,10 +2,12 @@ package com.xworkz.confynex.service;
 
 import com.xworkz.confynex.dao.CoordinatorDAO;
 import com.xworkz.confynex.dao.DelegateLoginDAO;
+import com.xworkz.confynex.dao.HostDAO;
 import com.xworkz.confynex.dto.CoordinatorDTO;
 import com.xworkz.confynex.entity.CoordinatorEntity;
 import com.xworkz.confynex.entity.DelegateEntity;
 import com.xworkz.confynex.entity.DelegateLoginEntity;
+import com.xworkz.confynex.entity.HostEntity;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class CoordinatorServiceImpl implements CoordinatorService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private HostDAO hostDAO;
+
 
     private Long generatePassword() {
 
@@ -53,6 +58,8 @@ public class CoordinatorServiceImpl implements CoordinatorService {
             coordinatorEntity.setTimestamp(LocalDateTime.now().toString());
             MultipartFile excelFile = coordinatorDTO.getExcelFile();
 
+            List<DelegateEntity> delegates = new ArrayList<>();
+
             if (excelFile != null && !excelFile.isEmpty()) {
                 String originalFilename = System.currentTimeMillis() + "_" + excelFile.getOriginalFilename();
                 String uploadDir = "J:\\xworkz\\coordinatorFiles\\";
@@ -65,7 +72,7 @@ public class CoordinatorServiceImpl implements CoordinatorService {
                 Path filePath = Paths.get(fullPath);
                 excelFile.transferTo(filePath.toFile());
                 coordinatorEntity.setExcelFileUrl(fullPath);
-                List<DelegateEntity> delegates = new ArrayList<>();
+
 
                 DataFormatter formatter = new DataFormatter();
                 try (Workbook workbook = WorkbookFactory.create(excelFile.getInputStream())) {
@@ -78,8 +85,11 @@ public class CoordinatorServiceImpl implements CoordinatorService {
                             continue;
                         }
                         DelegateEntity delegate = new DelegateEntity();
+
                         delegate.setDelegateName(formatter.formatCellValue(row.getCell(0)));
-                        delegate.setDelegateEmail(formatter.formatCellValue(row.getCell(2)));
+                        delegate.setDelegatePhone(Long.valueOf(formatter.formatCellValue(row.getCell(2))));
+                        delegate.setDelegateEmail(formatter.formatCellValue(row.getCell(3)));
+                        delegate.setOrganisation(formatter.formatCellValue(row.getCell(4)));
 
                         Long password = generatePassword();
 
@@ -89,21 +99,7 @@ public class CoordinatorServiceImpl implements CoordinatorService {
                         loginEntity.setPassword(password);
 
                         delegateLoginDAO.saveLogin(loginEntity);
-
-                        delegate.setDelegatePhone(formatter.formatCellValue(row.getCell(3)));
-                        delegate.setOrganisation(formatter.formatCellValue(row.getCell(4)));
                         delegate.setCoordinator(coordinatorEntity);
-
-                        emailService.sendDelegateMail(
-                                delegate.getDelegateEmail(),
-                                delegate.getDelegateName(),
-                                "ConfyNex Conference",
-                                "To Be Announced",
-                                "Bangalore",
-                                delegate.getDelegateEmail(),
-                                password
-                        );
-
                         delegates.add(delegate);
                     }
                 }
@@ -112,7 +108,28 @@ public class CoordinatorServiceImpl implements CoordinatorService {
             }
 
             boolean saved = coordinatorDAO.saveCoordinator(coordinatorEntity);
-            if (saved) {
+
+            if(saved){
+                for(DelegateEntity delegate : delegates){
+
+                    DelegateLoginEntity login = delegateLoginDAO.findByEmail(delegate.getDelegateEmail());
+
+                    HostEntity hostEntity = hostDAO.getLatestConference();
+
+
+                    if(login != null){
+                        emailService.sendDelegateMail(
+                                delegate.getDelegateEmail(),
+                                delegate.getDelegateName(),
+                                hostEntity.getConference_title(),
+                                hostEntity.getConference_date().toString(),
+                                hostEntity.getVenue(),
+                                login.getEmail(),
+                                login.getPassword()
+                        );
+
+                    }
+                }
                 return "Coordinator Registration Done";
             }
         } catch (Exception e) {

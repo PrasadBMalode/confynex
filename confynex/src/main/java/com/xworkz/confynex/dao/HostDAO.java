@@ -12,4 +12,6 @@ public interface HostDAO {
     HostEntity hostSaveDB(HostEntity hostEntity);
 
     boolean coordinatorEmails(CoordinatorsEmailEntity coordinatorEntity);
+
+    HostEntity getLatestConference();
 }
