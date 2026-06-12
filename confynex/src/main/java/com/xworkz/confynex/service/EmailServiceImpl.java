@@ -5,6 +5,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Service
@@ -231,57 +232,207 @@ public class EmailServiceImpl implements EmailService {
             Long password) {
 
         try {
-
-            MimeMessage mimeMessage =
-                    javaMailSender.createMimeMessage();
-
-            MimeMessageHelper helper =
-                    new MimeMessageHelper(mimeMessage, true);
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
             helper.setTo(toEmail);
+            helper.setSubject("Delegate Registration Confirmed | ConfyNex");
 
-            helper.setSubject(
-                    "Delegate Registration Successful | ConfyNex");
+            String template = """
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+              <meta charset="UTF-8"/>
+              <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+              <title>Delegate Registration</title>
+            </head>
+            <body style="margin:0;padding:0;background-color:#f4f6f9;font-family:Arial,sans-serif;">
 
-            String template =
-                    "<h2>Welcome to ConfyNex</h2>" +
+              <table width="100%%" cellpadding="0" cellspacing="0" style="background:#f4f6f9;padding:32px 16px;">
+                <tr><td align="center">
+                  <table width="580" cellpadding="0" cellspacing="0"
+                         style="background:#ffffff;border-radius:8px;overflow:hidden;border:1px solid #e0e4ea;max-width:580px;">
 
-                            "<p>Hello <b>" + delegateName + "</b>,</p>" +
+                    <!-- HEADER -->
+                    <tr>
+                      <td style="background:#1a1f36;padding:28px 32px 20px;text-align:center;">
+                        <div style="font-size:22px;font-weight:700;color:#ffffff;letter-spacing:1px;">
+                          Confy<span style="color:#6c8cff;">Nex</span>
+                        </div>
+                        <div style="font-size:11px;color:#8b95b8;margin-top:4px;letter-spacing:2px;">
+                          CONFERENCE MANAGEMENT PLATFORM
+                        </div>
+                      </td>
+                    </tr>
 
-                            "<p>You have been registered successfully.</p>" +
+                    <!-- HERO -->
+                    <tr>
+                      <td style="background:#2d3561;padding:24px 32px 28px;text-align:center;border-bottom:3px solid #6c8cff;">
+                        <div style="display:inline-block;background:rgba(108,140,255,0.15);color:#a0b0ff;
+                                    font-size:11px;padding:4px 14px;border-radius:20px;
+                                    border:1px solid rgba(108,140,255,0.3);letter-spacing:1px;margin-bottom:12px;">
+                          ✓ &nbsp; REGISTRATION CONFIRMED
+                        </div>
+                        <h1 style="color:#ffffff;font-size:20px;font-weight:600;margin:0 0 6px;">
+                          You're all set for the conference!
+                        </h1>
+                        <p style="color:#8b95b8;font-size:13px;margin:0;">
+                          Your delegate registration has been successfully processed.
+                        </p>
+                      </td>
+                    </tr>
 
-                            "<h3>Conference Details</h3>" +
+                    <!-- BODY -->
+                    <tr>
+                      <td style="padding:28px 32px;">
 
-                            "<p>Conference : "
-                            + conferenceTitle + "</p>" +
+                        <!-- Greeting -->
+                        <p style="font-size:15px;color:#3a3f5c;line-height:1.7;margin:0 0 24px;">
+                          Hello <strong style="color:#1a1f36;">%s</strong>,<br/>
+                          Welcome to ConfyNex! We're excited to have you join us.
+                          Below are your conference details and login credentials.
+                        </p>
 
-                            "<p>Date : "
-                            + conferenceDate + "</p>" +
+                        <!-- Conference Details Label -->
+                        <table width="100%%" cellpadding="0" cellspacing="0" style="margin-bottom:12px;">
+                          <tr>
+                            <td style="font-size:10px;font-weight:700;color:#6c8cff;
+                                       letter-spacing:2px;text-transform:uppercase;
+                                       white-space:nowrap;padding-right:12px;">
+                              Conference Details
+                            </td>
+                            <td width="100%%" style="border-top:1px solid #e8ebf4;">&nbsp;</td>
+                          </tr>
+                        </table>
 
-                            "<p>Venue : "
-                            + venue + "</p>" +
+                        <!-- Conference Card -->
+                        <table width="100%%" cellpadding="0" cellspacing="0"
+                               style="background:#f7f9ff;border:1px solid #e0e6ff;
+                                      border-radius:8px;margin-bottom:24px;">
+                          <tr>
+                            <td style="padding:10px 20px;border-bottom:1px solid #eaedfa;">
+                              <span style="font-size:11px;color:#8b95b8;
+                                           text-transform:uppercase;letter-spacing:0.5px;">
+                                Conference
+                              </span><br/>
+                              <strong style="font-size:14px;color:#1a1f36;">%s</strong>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="padding:10px 20px;border-bottom:1px solid #eaedfa;">
+                              <span style="font-size:11px;color:#8b95b8;
+                                           text-transform:uppercase;letter-spacing:0.5px;">
+                                Date
+                              </span><br/>
+                              <strong style="font-size:14px;color:#1a1f36;">%s</strong>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="padding:10px 20px;">
+                              <span style="font-size:11px;color:#8b95b8;
+                                           text-transform:uppercase;letter-spacing:0.5px;">
+                                Venue
+                              </span><br/>
+                              <strong style="font-size:14px;color:#1a1f36;">%s</strong>
+                            </td>
+                          </tr>
+                        </table>
 
-                            "<hr>" +
+                        <!-- Credentials Label -->
+                        <table width="100%%" cellpadding="0" cellspacing="0" style="margin-bottom:12px;">
+                          <tr>
+                            <td style="font-size:10px;font-weight:700;color:#6c8cff;
+                                       letter-spacing:2px;text-transform:uppercase;
+                                       white-space:nowrap;padding-right:12px;">
+                              Login Credentials
+                            </td>
+                            <td width="100%%" style="border-top:1px solid #e8ebf4;">&nbsp;</td>
+                          </tr>
+                        </table>
 
-                            "<h3>Login Credentials</h3>" +
+                        <!-- Credentials Grid -->
+                        <table width="100%%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+                          <tr>
+                            <td width="48%%" style="background:#1a1f36;border-radius:8px;
+                                                    padding:14px 18px;">
+                              <div style="font-size:10px;color:#6c8cff;
+                                          text-transform:uppercase;letter-spacing:1.5px;
+                                          margin-bottom:6px;">Login ID</div>
+                              <div style="font-size:16px;color:#ffffff;font-weight:600;
+                                          font-family:'Courier New',monospace;letter-spacing:1px;">
+                                %s
+                              </div>
+                            </td>
+                            <td width="4%%">&nbsp;</td>
+                            <td width="48%%" style="background:#1a1f36;border-radius:8px;
+                                                    padding:14px 18px;">
+                              <div style="font-size:10px;color:#6c8cff;
+                                          text-transform:uppercase;letter-spacing:1.5px;
+                                          margin-bottom:6px;">Password</div>
+                              <div style="font-size:16px;color:#ffffff;font-weight:600;
+                                          font-family:'Courier New',monospace;letter-spacing:1px;">
+                                %s
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
 
-                            "<p><b>Login ID :</b> "
-                            + loginId + "</p>" +
+                        <!-- Warning Notice -->
+                        <table width="100%%" cellpadding="0" cellspacing="0">
+                          <tr>
+                            <td style="background:#fff8ec;border-left:3px solid #f5a623;
+                                       border-radius:0 6px 6px 0;padding:10px 16px;">
+                              <span style="font-size:13px;color:#7a5a00;">
+                                ⚠️ &nbsp; For your security, please
+                                <strong>change your password</strong>
+                                immediately after your first login.
+                              </span>
+                            </td>
+                          </tr>
+                        </table>
 
-                            "<p><b>Password :</b> "
-                            + password + "</p>" +
+                      </td>
+                    </tr>
 
-                            "<hr>" +
+                    <!-- FOOTER -->
+                    <tr>
+                      <td style="background:#f7f9ff;border-top:1px solid #e8ebf4;
+                                 padding:18px 32px;text-align:center;">
+                        <p style="font-size:11px;color:#8b95b8;margin:2px 0;">
+                          This is an automated message from
+                          <strong style="color:#6c8cff;">ConfyNex</strong>.
+                        </p>
+                        <p style="font-size:11px;color:#8b95b8;margin:2px 0;">
+                          Please do not reply. For support, contact
+                          <a href="mailto:support@confynex.com"
+                             style="color:#6c8cff;text-decoration:none;">
+                            support@confynex.com
+                          </a>
+                        </p>
+                      </td>
+                    </tr>
 
-                            "<p>Please change your password after login.</p>";
+                  </table>
+                </td></tr>
+              </table>
+
+            </body>
+            </html>
+            """.formatted(
+                    delegateName,
+                    conferenceTitle,
+                    conferenceDate,
+                    venue,
+                    loginId,
+                    password
+            );
 
             helper.setText(template, true);
-
             javaMailSender.send(mimeMessage);
 
-        } catch (Exception e) {
-
-            e.printStackTrace();
+        } catch (MessagingException e) {
+            //log.error("Failed to send delegate mail to {}: {}", toEmail, e.getMessage());
+            throw new RuntimeException("Email sending failed", e);
         }
     }
 }
