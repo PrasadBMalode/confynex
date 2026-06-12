@@ -79,7 +79,7 @@ public class CoordinatorServiceImpl implements CoordinatorService {
                         }
                         DelegateEntity delegate = new DelegateEntity();
                         delegate.setDelegateName(formatter.formatCellValue(row.getCell(0)));
-                        delegate.setDelegateEmail(formatter.formatCellValue(row.getCell(1)));
+                        delegate.setDelegateEmail(formatter.formatCellValue(row.getCell(2)));
 
                         Long password = generatePassword();
 
@@ -90,8 +90,8 @@ public class CoordinatorServiceImpl implements CoordinatorService {
 
                         delegateLoginDAO.saveLogin(loginEntity);
 
-                        delegate.setDelegatePhone(formatter.formatCellValue(row.getCell(2)));
-                        delegate.setOrganisation(formatter.formatCellValue(row.getCell(3)));
+                        delegate.setDelegatePhone(formatter.formatCellValue(row.getCell(3)));
+                        delegate.setOrganisation(formatter.formatCellValue(row.getCell(4)));
                         delegate.setCoordinator(coordinatorEntity);
 
                         emailService.sendDelegateMail(

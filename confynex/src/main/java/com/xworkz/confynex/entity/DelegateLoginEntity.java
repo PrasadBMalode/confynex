@@ -18,7 +18,7 @@ public class DelegateLoginEntity {
     private Integer id;
 
     @Column(unique = true)
-    private String email;
+    private Long phNumber;
 
     private Long password;
 }
