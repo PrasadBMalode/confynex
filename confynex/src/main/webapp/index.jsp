@@ -828,7 +828,14 @@
               Request a Demo <i class="bi bi-arrow-right ms-1"></i>
             </a>
             <a href="#what" class="btn btn-outline-gold px-4 py-3">Explore Features</a>
+
+             <form action="delegateLogin" method="post" class="d-inline">
+                 <button type="submit" class="btn btn-gold px-4 py-3">
+                     Delegate Login <i class="bi bi-person-badge ms-1"></i>
+                 </button>
+             </form>
           </div>
+
           <div class="hero-stats">
             <div>
               <div class="stat-num">50+</div>

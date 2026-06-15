@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class ConfynexController {
+
+
     public ConfynexController(){
         System.out.println("Confynex Controller...");
     }
@@ -17,17 +19,23 @@ public class ConfynexController {
         return "login";
     }
 
-//    @GetMapping("/features")
-//    public String features(){
-//        return "features";
-//    }
-
     @GetMapping("/index")
     public String index(){
         return "index";
     }
+    @GetMapping("/homefromDelegate")
+    public String homefromDelegate(){
+        return "index";
+    }
 
+    @GetMapping("/featuresFromDelegate")
+    public String featuresFromDelegate(){
+        return "index";
+    }
 
-
+    @GetMapping("/contactFromDelegate")
+    public String contactFromDelegate(){
+        return "index";
+    }
 
 }

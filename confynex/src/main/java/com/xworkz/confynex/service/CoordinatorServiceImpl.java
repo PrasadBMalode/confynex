@@ -96,7 +96,7 @@ public class CoordinatorServiceImpl implements CoordinatorService {
                         DelegateLoginEntity loginEntity = new DelegateLoginEntity();
 
                         loginEntity.setEmail(delegate.getDelegateEmail());
-                        loginEntity.setPassword(password);
+                        loginEntity.setAccessPIN(password);
 
                         delegateLoginDAO.saveLogin(loginEntity);
                         delegate.setCoordinator(coordinatorEntity);
@@ -125,7 +125,7 @@ public class CoordinatorServiceImpl implements CoordinatorService {
                                 hostEntity.getConference_date().toString(),
                                 hostEntity.getVenue(),
                                 login.getEmail(),
-                                login.getPassword()
+                                login.getAccessPIN()
                         );
 
                     }

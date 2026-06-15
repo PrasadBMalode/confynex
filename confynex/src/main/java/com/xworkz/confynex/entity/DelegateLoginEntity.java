@@ -20,5 +20,5 @@ public class DelegateLoginEntity {
     //@Column(unique = true)
     private String email;
 
-    private Long password;
+    private Long accessPIN;
 }
