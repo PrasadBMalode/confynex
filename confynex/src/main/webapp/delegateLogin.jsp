@@ -51,8 +51,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 48px;
-            height: 72px;
+            padding: 0 60px;
+            height: 85px;
             background: rgba(13, 17, 23, 0.92);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
@@ -61,25 +61,26 @@
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 25px;
             text-decoration: none;
         }
 
         .nav-logo-icon {
-            width: 34px;
-            height: 34px;
+            width: 42px;
+            height: 42px;
+            font-size: 20px;
             background: var(--gold-dim);
             border: 1px solid var(--border);
             border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+
         }
 
         .nav-logo-text {
             font-family: 'Playfair Display', serif;
-            font-size: 22px;
+            font-size: 30px;
             font-weight: 700;
             color: var(--text-primary);
             letter-spacing: 0.01em;
@@ -91,14 +92,15 @@
 
         .nav-links {
             display: flex;
-            gap: 32px;
+            align-items: center;
+            gap: 42px;
             list-style: none;
         }
 
         .nav-links a {
             text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 17px;
+            font-weight: 600;
             color: var(--text-muted);
             letter-spacing: 0.06em;
             text-transform: uppercase;
@@ -106,7 +108,7 @@
         }
 
         .nav-links a:hover {
-            color: var(--text-primary);
+            color: var(--gold);
         }
 
         /* ── BACKGROUND ─────────────────────────────── */
@@ -437,9 +439,13 @@
             <div class="nav-logo-text">Confy<span>nex</span></div>
         </a>
         <ul class="nav-links">
-            <li><a href="homefromDelegate">Home</a></li>
-            <li><a href="featuresFromDelegate">Features</a></li>
-            <li><a href="contactFromDelegate">Contact Us</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.jsp#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.jsp#who">Who We Are</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.jsp#what">What We Do</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.jsp#how">How We Do It</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.jsp#work">Our Work</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.jsp#features">Features</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.jsp#contact">Contact Us</a></li>
         </ul>
     </nav>
 

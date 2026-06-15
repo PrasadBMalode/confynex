@@ -377,6 +377,54 @@ public class EmailServiceImpl implements EmailService {
                           </tr>
                         </table>
 
+                        <!-- ── LOGIN CTA SECTION ── -->
+                        <table width="100%%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+                          <tr>
+                            <td style="font-size:10px;font-weight:700;color:#6c8cff;
+                                       letter-spacing:2px;text-transform:uppercase;
+                                       white-space:nowrap;padding-right:12px;padding-bottom:12px;">
+                              Access Your Dashboard
+                            </td>
+                            <td width="100%%" style="border-top:1px solid #e8ebf4;padding-bottom:12px;">&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td colspan="2"
+                                style="background:linear-gradient(135deg,#1a1f36 0%%,#2d3561 100%%);
+                                       border-radius:10px;padding:24px 24px;text-align:center;
+                                       border:1px solid rgba(108,140,255,0.25);">
+                              <p style="font-size:13px;color:#8b95b8;margin:0 0 16px;line-height:1.6;">
+                                Use your credentials above to sign in to your<br/>
+                                <strong style="color:#a0b0ff;">ConfyNex Delegate Portal</strong>
+                                and manage your conference experience.
+                              </p>
+                              <!-- CTA Button -->
+                              <a href="http://localhost:6969/confynex/"
+                                 style="display:inline-block;
+                                        background:linear-gradient(135deg,#6c8cff 0%%,#4a6cf7 100%%);
+                                        color:#ffffff;
+                                        font-size:13px;
+                                        font-weight:700;
+                                        letter-spacing:1px;
+                                        text-transform:uppercase;
+                                        text-decoration:none;
+                                        padding:13px 36px;
+                                        border-radius:6px;
+                                        box-shadow:0 4px 14px rgba(108,140,255,0.4);">
+                                Login to Dashboard &nbsp;→
+                              </a>
+                              <!-- Fallback plain URL -->
+                              <p style="font-size:11px;color:#5a6280;margin:14px 0 0;word-break:break-all;">
+                                Or copy this link:&nbsp;
+                                <a href="http://localhost:6969/confynex/"
+                                   style="color:#6c8cff;text-decoration:none;font-family:'Courier New',monospace;">
+                                  http://localhost:6969/confynex/
+                                </a>
+                              </p>
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- ── END LOGIN CTA ── -->
+
                         <!-- Warning Notice -->
                         <table width="100%%" cellpadding="0" cellspacing="0">
                           <tr>
