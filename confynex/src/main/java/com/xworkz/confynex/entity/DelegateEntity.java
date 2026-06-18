@@ -14,11 +14,8 @@ public class DelegateEntity {
     private Long id;
 
     private String delegateName;
-
     private String delegateEmail;
-
     private Long delegatePhone;
-
     private String organisation;
 
     @ManyToOne

@@ -741,18 +741,7 @@
     <div class="container">
       <!-- Brand -->
 
-      <!--<a class="navbar-brand" href="#home">Confy<span>nex</span></a>-->
-
-      <a class="navbar-brand d-flex align-items-center" href="#home">
-          <img
-              src="https://drive.google.com/thumbnail?id=1HpdHJS2FCk0mmwFi4Z4EoWkNhz6RFh71&sz=w1000"
-              alt="Confynex Logo"
-              width="40"
-              height="40"
-              class="me-2">
-
-          Confy<span>nex</span>
-      </a>
+      <a class="navbar-brand" href="#home">Confy<span>nex</span></a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
         <span class="navbar-toggler-icon"></span>

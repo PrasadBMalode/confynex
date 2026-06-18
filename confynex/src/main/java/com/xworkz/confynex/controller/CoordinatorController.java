@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -23,9 +24,11 @@ public class CoordinatorController {
     }
 
     @PostMapping("/registerCoordinator")
-    public String registerCoordinator(@Valid CoordinatorDTO coordinatorDTO,
-                                      BindingResult bindingResult,
-                                      Model model) {
+    public String registerCoordinator(
+            @Valid CoordinatorDTO coordinatorDTO,
+            BindingResult bindingResult,
+            Model model,
+            HttpSession session) {
 
         if (bindingResult.hasErrors()) {
 

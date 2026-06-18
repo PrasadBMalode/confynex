@@ -38,6 +38,6 @@ public class HostEntity {
     @ToString.Exclude
     private FileEntity fileEntity;
 
-    //@OneToMany(mappedBy = "host")
-    //private List<CoordinatorEntity> coordinators;
+    @OneToMany(mappedBy = "host")
+    private List<CoordinatorEntity> coordinators;
 }

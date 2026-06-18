@@ -20,7 +20,6 @@ public class DelegateLoginServiceImpl implements DelegateLoginService {
 
             return true;
         }
-
         return false;
     }
 }

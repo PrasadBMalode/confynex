@@ -54,7 +54,9 @@ public class CoordinatorServiceImpl implements CoordinatorService {
         try {
 
             CoordinatorEntity coordinatorEntity = new CoordinatorEntity();
+
             BeanUtils.copyProperties(coordinatorDTO, coordinatorEntity);
+
             coordinatorEntity.setTimestamp(LocalDateTime.now().toString());
             MultipartFile excelFile = coordinatorDTO.getExcelFile();
 

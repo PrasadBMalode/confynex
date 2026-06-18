@@ -481,7 +481,7 @@
             <!-- Client-side message -->
             <div class="msg error" id="clientError"></div>
 
-            <form id="loginForm" action="DelegateLoginServlet" method="post" novalidate>
+            <form id="loginForm" action="delegateLogin" method="post" novalidate>
 
                 <!-- Email -->
                 <div class="form-group">
