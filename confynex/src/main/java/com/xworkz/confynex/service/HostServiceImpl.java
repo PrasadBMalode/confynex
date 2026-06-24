@@ -29,9 +29,6 @@ public class HostServiceImpl implements HostService {
     @Autowired
     private EmailService emailService;
 
-
-
-
     @Override
     public String hostRegistrationValidation(HostDTO hostDTO) {
         HostDTO emailExist = checkEmailExist(hostDTO.getEmail());
@@ -73,7 +70,6 @@ public class HostServiceImpl implements HostService {
                     return "Host Registration Done";
                 }
             } catch (Exception e) {
-
                 e.printStackTrace();
             }
             return "Host Registration Failed...!";
@@ -100,11 +96,9 @@ public class HostServiceImpl implements HostService {
 
             Sheet sheet = workbook.getSheetAt(0);
 
-
             for (int i = 0; i <= sheet.getLastRowNum(); i++) {
 
                 Row row = sheet.getRow(i);
-
                 if (row == null) {
                     continue;
                 }

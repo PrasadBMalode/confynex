@@ -15,9 +15,7 @@ public class DelegateLoginServiceImpl implements DelegateLoginService {
     public boolean login(String email, Long accessPIN) {
 
         DelegateLoginEntity entity = delegateLoginDAO.findByEmail(email);
-
         if (entity != null && entity.getAccessPIN().equals(accessPIN)) {
-
             return true;
         }
         return false;
