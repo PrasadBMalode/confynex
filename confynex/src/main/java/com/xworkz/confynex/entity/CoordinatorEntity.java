@@ -8,6 +8,8 @@ import java.util.List;
 @Entity
 @Table(name = "coordinator_registration")
 @Data
+@NamedQuery(name = "readCoordinatorAllData",query = "select nq from CoordinatorEntity nq")
+
 public class CoordinatorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

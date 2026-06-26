@@ -430,9 +430,16 @@
                     <li class="nav-item"><a class="nav-link" href="#certificate">Certificate</a></li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
-                    <button class="btn btn-conference" data-bs-toggle="modal" data-bs-target="#confDetailModal">
+                    <!-- <button class="btn btn-conference" data-bs-toggle="modal" data-bs-target="#confDetailModal">
                         <i class="bi bi-card-checklist"></i>Get Your Conference Detail
-                    </button>
+                    </button>-->
+
+                    <form action="readConferenceDetails" method="POST">
+                        <button type="submit" class="btn btn-conference">
+                            <i class="bi bi-card-checklist"></i> Get Your Conference Detail
+                        </button>
+                    </form>
+
                     <div class="dropdown">
                         <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" style="color: var(--light);">
                             <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));color:var(--dark);display:flex;align-items:center;justify-content:center;font-weight:700;">

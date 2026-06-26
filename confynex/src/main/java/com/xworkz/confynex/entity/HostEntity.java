@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "host_tb")
 @NamedQuery(name = "findByEmail",query = "select nq from HostEntity nq where nq.email=:byEmail")
+@NamedQuery(name = "readHostAllData",query = "select nq from HostEntity nq")
 
 public class HostEntity {
 
