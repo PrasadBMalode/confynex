@@ -373,7 +373,7 @@ footer.confy-footer{
     <div class="container-fluid">
 
         <a class="navbar-brand" href="${pageContext.request.contextPath}/">
-            <span class="brand-mark"><i class="bi bi-stars"></i></span>
+
             <span class="brand-name">Confy<span>nex</span></span>
         </a>
 
@@ -411,7 +411,7 @@ footer.confy-footer{
     <div class="container">
         <span class="eyebrow-pill"><i class="bi bi-stars"></i> Conference Intelligence Platform</span>
         <h1>Conference Overview</h1>
-        <p>A complete snapshot of the conference, its host, and the coordinating team — managed end to end with Confynex.</p>
+        <p>A complete snapshot of the conference, its host, and the coordinating team managed end to end with Confynex.</p>
     </div>
 </div>
 
@@ -561,7 +561,7 @@ footer.confy-footer{
                     <th class="text-start">Coordinator Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Department</th>
+                    <th>Organization</th>
                 </tr>
                 </thead>
 
