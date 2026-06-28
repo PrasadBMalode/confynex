@@ -405,6 +405,28 @@
             border-color: #475569;
             color: #fff;
         }
+
+        /* ===== Brand title (Confynex) — professional refinement ===== */
+        .brand-title{
+            font-family:'Space Grotesk', sans-serif;
+            font-weight:700;
+            font-size:1.3rem;
+            line-height:1;
+            letter-spacing:0.2px;
+            color:var(--light);
+        }
+        .brand-title .brand-accent{
+            background:linear-gradient(135deg,var(--primary),var(--accent));
+            -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+        }
+        .brand-tagline{
+            font-size:10px;
+            font-weight:600;
+            letter-spacing:1.4px;
+            text-transform:uppercase;
+            color:#94a3b8;
+            margin-top:2px;
+        }
     </style>
 </head>
 <body>
@@ -415,7 +437,8 @@
             <a class="navbar-brand d-flex align-items-center gap-2" href="#">
                 <div class="brand-logo">C</div>
                 <div>
-                    <div style="font-weight:700;font-size:1.1rem;line-height:1;">Confynex</div>
+                    <div class="brand-title">Confy<span class="brand-accent">nex</span></div>
+                    <div class="brand-tagline">Delegate Portal</div>
                 </div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" style="border-color:var(--border);">

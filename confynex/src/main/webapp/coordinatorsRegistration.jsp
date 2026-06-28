@@ -400,6 +400,7 @@
       overflow: hidden;
       animation: cardReveal .8s ease forwards;
       opacity: 0;
+      height: 100%;
     }
 
     @keyframes cardReveal {
@@ -742,6 +743,111 @@
       width: 100%;
     }
 
+    /* ── SIDEBAR INFO CARD (Why Join) ── */
+    .info-card {
+      background: var(--navy);
+      border: 1px solid rgba(201, 168, 76, .15);
+      border-radius: 28px;
+      padding: 44px 36px;
+      color: #fff;
+      box-shadow:
+        0 32px 80px rgba(11, 29, 58, .18),
+        0 0 0 1px rgba(201, 168, 76, .05);
+      position: sticky;
+      top: 100px;
+      height: 100%;
+      animation: cardReveal .8s ease forwards .1s;
+      opacity: 0;
+    }
+
+    .info-card-title {
+      font-size: 1.4rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .info-card-sub {
+      font-size: .86rem;
+      color: rgba(255, 255, 255, .45);
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    .info-list {
+      list-style: none;
+      padding: 0;
+      margin: 28px 0 0;
+    }
+
+    .info-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    .info-list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .info-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      background: rgba(201, 168, 76, .12);
+      border: 1px solid rgba(201, 168, 76, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      flex-shrink: 0;
+      font-size: 1.05rem;
+    }
+
+    .info-list-title {
+      font-size: .92rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+
+    .info-list-text {
+      font-size: .8rem;
+      color: rgba(255, 255, 255, .45);
+      line-height: 1.55;
+    }
+
+    .info-stats-row {
+      margin-top: 28px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .info-stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .info-stat-label {
+      font-size: .66rem;
+      color: rgba(255, 255, 255, .4);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 991px) {
+      .info-card {
+        position: static;
+        height: auto;
+      }
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--dark);
@@ -964,10 +1070,69 @@
         </div>
       </c:if>
 
-      <div class="row g-5 align-items-start">
+      <div class="row g-4 align-items-stretch justify-content-center">
+
+        <!-- ── Why join sidebar ── -->
+        <div class="col-lg-4 order-lg-2">
+          <div class="info-card">
+            <div class="form-card-icon">
+              <i class="bi bi-stars"></i>
+            </div>
+            <h5 class="info-card-title">Why Join as a Coordinator?</h5>
+            <p class="info-card-sub">
+              Become part of a growing network of certified professionals delivering exceptional conference experiences worldwide.
+            </p>
+
+            <ul class="info-list">
+              <li>
+                <div class="info-icon"><i class="bi bi-calendar2-check"></i></div>
+                <div>
+                  <div class="info-list-title">Flexible Engagements</div>
+                  <div class="info-list-text">Coordinate events on your own schedule, locally or remotely.</div>
+                </div>
+              </li>
+              <li>
+                <div class="info-icon"><i class="bi bi-award"></i></div>
+                <div>
+                  <div class="info-list-title">Certified Recognition</div>
+                  <div class="info-list-text">Earn an official Confynex Coordinator certificate.</div>
+                </div>
+              </li>
+              <li>
+                <div class="info-icon"><i class="bi bi-people"></i></div>
+                <div>
+                  <div class="info-list-title">Industry Network</div>
+                  <div class="info-list-text">Connect with hosts, delegates and partners across every event.</div>
+                </div>
+              </li>
+              <li>
+                <div class="info-icon"><i class="bi bi-graph-up-arrow"></i></div>
+                <div>
+                  <div class="info-list-title">Performance Incentives</div>
+                  <div class="info-list-text">Unlock rewards based on delegate satisfaction scores.</div>
+                </div>
+              </li>
+            </ul>
+
+            <div class="row info-stats-row text-center g-3">
+              <div class="col-4">
+                <div class="info-stat-number">500+</div>
+                <div class="info-stat-label">Coordinators</div>
+              </div>
+              <div class="col-4">
+                <div class="info-stat-number">120+</div>
+                <div class="info-stat-label">Events</div>
+              </div>
+              <div class="col-4">
+                <div class="info-stat-number">98%</div>
+                <div class="info-stat-label">Satisfaction</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- ── Registration form ── -->
-        <div class="col-lg-9 mx-auto">
+        <div class="col-lg-8 order-lg-1">
           <div class="form-card">
 
             <div class="form-card-icon">
@@ -995,7 +1160,7 @@
               <input type="hidden" name="timestamp" id="coordinatorTimestamp" />
 
               <div class="section-label"><i class="bi bi-person me-1"></i>Personal Details</div>
-              <div class="row g-3">
+              <div class="row g-4">
 
                 <div class="col-md-6">
                   <label class="form-label">Full Name <span style="color:var(--gold)">*</span></label>
@@ -1054,7 +1219,7 @@
               <hr class="field-divider" />
 
               <div class="section-label"><i class="bi bi-building me-1"></i>Organisation Details</div>
-              <div class="row g-3">
+              <div class="row g-4">
 
                 <div class="col-md-6">
                   <label class="form-label">Organisation Name <span style="color:var(--gold)">*</span></label>
@@ -1086,7 +1251,7 @@
               <hr class="field-divider" />
 
               <div class="section-label"><i class="bi bi-file-earmark-spreadsheet me-1"></i>Delegate Data Upload</div>
-              <div class="row g-3">
+              <div class="row g-4">
 
                 <div class="col-12">
                   <label class="form-label">
