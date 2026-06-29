@@ -38,8 +38,8 @@
 
     body {
       font-family: 'DM Sans', sans-serif;
-      color: var(--text);
-      background: #fff;
+      color: rgba(255, 255, 255, .85);
+      background: var(--dark);
       overflow-x: hidden;
     }
 
@@ -357,7 +357,7 @@
 
     /* ── FORM SECTION ── */
     .form-section {
-      background: var(--cream);
+      background: var(--dark);
       padding: 80px 0 100px;
       position: relative;
       overflow: hidden;
@@ -382,7 +382,7 @@
       left: -150px;
       width: 400px;
       height: 400px;
-      background: radial-gradient(circle, rgba(11, 29, 58, .03) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(201, 168, 76, .05) 0%, transparent 70%);
       border-radius: 50%;
       pointer-events: none;
     }
