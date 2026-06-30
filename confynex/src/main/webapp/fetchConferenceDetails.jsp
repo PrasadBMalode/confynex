@@ -384,20 +384,20 @@ footer.confy-footer{
         <div class="collapse navbar-collapse" id="confyNavContent">
 
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Who We Are</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">What We Do</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">How We Do It</a></li>
-                <li class="nav-item"><a class="nav-link active" href="#">Our Work</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
+
+                <li class="nav-item"><a class="nav-link" href="index.jsp#who">Who We Are</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.jsp#what">What We Do</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.jsp#how">How We Do It</a></li>
+                <li class="nav-item"><a class="nav-link active" href="index.jsp#work">Our Work</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.jsp#features">Features</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.jsp#contact">Contact Us</a></li>
             </ul>
 
             <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
-                <a href="${pageContext.request.contextPath}/home" class="btn-home-nav">
+                <a href="index.jsp#home" class="btn-home-nav">
                     <i class="bi bi-house-door-fill"></i> Home
                 </a>
-                <a href="#" class="btn-delegate-login">
+                <a href="delegateLogin.jsp" class="btn-delegate-login">
                     <i class="bi bi-shield-lock-fill"></i> Delegate Login
                 </a>
             </div>

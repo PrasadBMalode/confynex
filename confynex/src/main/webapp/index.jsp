@@ -835,7 +835,7 @@
               <div class="stat-lbl">Delegates Handled</div>
             </div>
             <div>
-              <div class="stat-num">98%</div>
+              <div class="stat-num">99.9%</div>
               <div class="stat-lbl">Client Satisfaction</div>
             </div>
           </div>
