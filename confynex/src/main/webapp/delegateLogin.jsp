@@ -533,10 +533,10 @@
                             Confynex turned a three-day, multi-track summit into a smooth, paperless experience for every delegate — from check-in to certificate.
                         </p>
                         <div class="side-quote-author">
-                            <div class="side-quote-avatar">RM</div>
+                            <div class="side-quote-avatar">PBM</div>
                             <div>
-                                <div class="side-quote-name">Rhea Malhotra</div>
-                                <div class="side-quote-role">Event Director, Summit Collective</div>
+                                <div class="side-quote-name">Prasad BM</div>
+                                <div class="side-quote-role">Event Director</div>
                             </div>
                         </div>
                     </div>
