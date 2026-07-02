@@ -634,7 +634,7 @@
                         </form>
 
                         <div class="card-footer-links">
-                            <a href="ForgotPinServlet">Forgot your PIN?</a>
+                            <a href="forgotPassword">Forgot your PIN?</a>
                             <span class="dot-sep">·</span>
                             <a href="index.jsp">Back to Home</a>
                         </div>

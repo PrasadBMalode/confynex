@@ -62,5 +62,10 @@ public class ConfynexController {
         return "fetchConferenceDetails";
     }
 
+    @GetMapping("/forgotPassword")
+    public String forgotPassword(){
+        return "forgotPassword";
+    }
+
 
 }
