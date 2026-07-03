@@ -10,21 +10,22 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0a0e1a;
-            --bg-secondary: #111827;
-            --bg-card: #151d2e;
-            --bg-input: #1a2332;
-            --border-color: #1e2d42;
-            --border-focus: #3b82f6;
-            --accent: #3b82f6;
-            --accent-hover: #2563eb;
-            --accent-glow: rgba(59, 130, 246, 0.25);
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
+            --bg-primary: #0a0b12;
+            --bg-secondary: #10111c;
+            --bg-card: #12141f;
+            --bg-input: #1a1c2a;
+            --border-color: #262838;
+            --border-focus: #d4af37;
+            --accent: #d4af37;
+            --accent-hover: #c9a227;
+            --accent-glow: rgba(212, 175, 55, 0.25);
+            --accent-dark-text: #1a1508;
+            --text-primary: #f5f0e6;
+            --text-secondary: #a8a29a;
+            --text-muted: #6f7280;
             --success: #10b981;
             --success-bg: rgba(16, 185, 129, 0.12);
             --error: #ef4444;
@@ -52,8 +53,8 @@
             position: fixed;
             inset: 0;
             background-image:
-                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
             background-size: 60px 60px;
             z-index: 0;
         }
@@ -62,7 +63,7 @@
             position: fixed;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
             top: -200px;
             right: -100px;
             border-radius: 50%;
@@ -74,7 +75,7 @@
             position: fixed;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(184, 134, 11, 0.06) 0%, transparent 70%);
             bottom: -150px;
             left: -100px;
             border-radius: 50%;
@@ -86,7 +87,7 @@
             position: fixed;
             width: 300px;
             height: 300px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -107,7 +108,7 @@
 
         /* ── Navbar ── */
         .navbar-custom {
-            background: rgba(17, 24, 39, 0.7);
+            background: rgba(16, 17, 28, 0.7);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
@@ -135,15 +136,15 @@
         .brand-logo .logo-icon {
             width: 36px;
             height: 36px;
-            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            background: linear-gradient(135deg, var(--accent), #b8860b);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1rem;
             font-weight: 700;
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            color: var(--accent-dark-text);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
 
         .nav-btn {
@@ -165,20 +166,21 @@
         .nav-btn:hover {
             border-color: var(--accent);
             color: var(--accent);
-            background: rgba(59, 130, 246, 0.06);
+            background: rgba(212, 175, 55, 0.06);
             transform: translateY(-1px);
         }
 
         .nav-btn-primary {
             background: var(--accent);
             border-color: var(--accent);
-            color: #fff;
+            color: var(--accent-dark-text);
+            font-weight: 700;
         }
 
         .nav-btn-primary:hover {
             background: var(--accent-hover);
             border-color: var(--accent-hover);
-            color: #fff;
+            color: var(--accent-dark-text);
             box-shadow: 0 4px 20px var(--accent-glow);
         }
 
@@ -216,7 +218,7 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), #8b5cf6, transparent);
+            background: linear-gradient(90deg, transparent, var(--accent), #b8860b, transparent);
             opacity: 0.8;
         }
 
@@ -225,8 +227,8 @@
             width: 64px;
             height: 64px;
             border-radius: 16px;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.08));
-            border: 1px solid rgba(59, 130, 246, 0.15);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.14), rgba(184, 134, 11, 0.08));
+            border: 1px solid rgba(212, 175, 55, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -255,7 +257,8 @@
 
         /* ── Headings ── */
         .card-title {
-            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--text-primary);
             text-align: center;
@@ -325,7 +328,7 @@
         .form-control-custom:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 3px var(--accent-glow);
-            background: rgba(26, 35, 50, 0.9);
+            background: rgba(26, 28, 42, 0.9);
         }
 
         .form-control-custom:focus + .input-icon,
@@ -361,12 +364,12 @@
             border-color: var(--accent);
             box-shadow: 0 0 0 3px var(--accent-glow), 0 0 20px var(--accent-glow);
             transform: translateY(-3px) scale(1.04);
-            background: rgba(26, 35, 50, 0.95);
+            background: rgba(26, 28, 42, 0.95);
         }
 
         .otp-input.filled {
             border-color: var(--accent);
-            background: rgba(59, 130, 246, 0.06);
+            background: rgba(212, 175, 55, 0.08);
             animation: otpPop 0.25s ease;
         }
 
@@ -402,13 +405,14 @@
         .btn-primary-custom {
             width: 100%;
             padding: 14px 24px;
-            background: linear-gradient(135deg, var(--accent), #2563eb);
+            background: linear-gradient(135deg, var(--accent), #b8860b);
             border: none;
             border-radius: 12px;
-            color: #fff;
+            color: var(--accent-dark-text);
             font-family: 'Inter', sans-serif;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.3px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -423,7 +427,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1));
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.15));
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -434,7 +438,7 @@
 
         .btn-primary-custom:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.35);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.35);
         }
 
         .btn-primary-custom:active:not(:disabled) {
@@ -450,8 +454,8 @@
         .spinner-custom {
             width: 20px;
             height: 20px;
-            border: 2.5px solid rgba(255, 255, 255, 0.3);
-            border-top-color: #fff;
+            border: 2.5px solid rgba(26, 21, 8, 0.35);
+            border-top-color: var(--accent-dark-text);
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
@@ -482,7 +486,7 @@
         }
 
         .resend-link:hover:not(:disabled) {
-            color: #60a5fa;
+            color: #eac35c;
             text-decoration: underline;
         }
 
@@ -495,7 +499,7 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(212, 175, 55, 0.1);
             color: var(--accent);
             padding: 2px 10px;
             border-radius: 6px;
@@ -1113,7 +1117,7 @@
 
         // ── Confetti Effect ──
         function fireConfetti() {
-            const colors = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444', '#06b6d4'];
+            const colors = ['#d4af37', '#f0d888', '#10b981', '#f59e0b', '#ef4444', '#b8860b'];
             for (let i = 0; i < 50; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
