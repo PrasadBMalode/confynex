@@ -118,7 +118,8 @@
         }
 
         .brand-logo {
-            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
             font-weight: 800;
             color: var(--text-primary) !important;
             text-decoration: none;
@@ -130,21 +131,11 @@
         }
 
         .brand-logo:hover {
-            color: var(--accent) !important;
+            opacity: 0.9;
         }
 
-        .brand-logo .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, var(--accent), #b8860b);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--accent-dark-text);
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        .brand-logo .brand-accent {
+            color: var(--accent);
         }
 
         .nav-btn {
@@ -839,8 +830,7 @@
         <div class="container">
             <div class="d-flex align-items-center justify-content-between">
                 <a href="#" class="brand-logo">
-                    <span class="logo-icon">C</span>
-                    Confynex
+                    Confy<span class="brand-accent">nex</span>
                 </a>
                 <div class="d-flex align-items-center gap-2">
                     <a href="#" class="nav-btn">
