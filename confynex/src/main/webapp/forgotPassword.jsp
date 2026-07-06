@@ -49,6 +49,23 @@
         }
 
         /* ── Animated Background ── */
+        .bg-photo {
+            position: fixed;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1762968274962-20c12e6e8ecd?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        .bg-photo-overlay {
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(8, 9, 15, 0.88) 0%, rgba(8, 9, 15, 0.82) 45%, rgba(8, 9, 15, 0.94) 100%);
+            z-index: -1;
+        }
+
         .bg-grid {
             position: fixed;
             inset: 0;
@@ -124,9 +141,9 @@
             color: var(--text-primary) !important;
             text-decoration: none;
             letter-spacing: -0.5px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 0;
             transition: all 0.3s ease;
         }
 
@@ -181,25 +198,105 @@
             z-index: 1;
             min-height: calc(100vh - 65px);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 2rem 1rem;
+            padding: 2.5rem 1rem;
         }
 
-        /* ── Card ── */
+        /* ── Conference Details (above card) ── */
+        .conference-banner {
+            width: 100%;
+            max-width: 620px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .conference-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+        }
+
+        .conference-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.3px;
+        }
+
+        .conference-title .accent-text {
+            color: var(--accent);
+        }
+
+        .conference-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 480px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.6;
+        }
+
+        .conference-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .conference-meta .meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(18, 20, 31, 0.55);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 10px;
+        }
+
+        .conference-meta .meta-chip i {
+            color: var(--accent);
+        }
+
+        .conference-meta .meta-chip strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        /* ── Card (Glassmorphism) ── */
         .forgot-card {
             width: 100%;
             max-width: 460px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
+            background: rgba(19, 21, 32, 0.55);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 2.5rem;
             position: relative;
             overflow: hidden;
             box-shadow:
                 0 4px 6px -1px rgba(0, 0, 0, 0.3),
-                0 25px 50px -12px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+                0 25px 50px -12px rgba(0, 0, 0, 0.55),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
         }
 
         .forgot-card::before {
@@ -768,6 +865,19 @@
 
         /* ── Responsive ── */
         @media (max-width: 576px) {
+            .conference-title {
+                font-size: 1.5rem;
+            }
+
+            .conference-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .conference-meta .meta-chip {
+                font-size: 0.72rem;
+                padding: 6px 12px;
+            }
+
             .forgot-card {
                 padding: 1.75rem 1.5rem;
                 border-radius: 16px;
@@ -816,6 +926,10 @@
 </head>
 <body>
 
+    <!-- Conference Background Photo -->
+    <div class="bg-photo"></div>
+    <div class="bg-photo-overlay"></div>
+
     <!-- Background Effects -->
     <div class="bg-grid"></div>
     <div class="bg-glow-1"></div>
@@ -833,11 +947,11 @@
                     Confy<span class="brand-accent">nex</span>
                 </a>
                 <div class="d-flex align-items-center gap-2">
-                    <a href="#" class="nav-btn">
+                    <a href="index.jsp#home" class="nav-btn">
                         <i class="bi bi-house-door"></i>
                         Home
                     </a>
-                    <a href="#" class="nav-btn nav-btn-primary">
+                    <a href="delegateLogin.jsp" class="nav-btn nav-btn-primary">
                         <i class="bi bi-box-arrow-in-right"></i>
                         Login
                     </a>
@@ -848,6 +962,25 @@
 
     <!-- Main Content -->
     <div class="main-wrapper">
+
+        <!-- Conference Details -->
+        <div class="conference-banner">
+            <span class="conference-pill">
+                <i class="bi bi-calendar-event"></i>
+                Global Tech Summit 2026
+            </span>
+            <h1 class="conference-title">Confynex <span class="accent-text">Delegate Portal</span></h1>
+            <p class="conference-subtitle">
+                Three days of keynotes, workshops, and networking with 500+ speakers.
+                Reset your password below to get back into your delegate dashboard.
+            </p>
+            <!--<div class="conference-meta">
+                <span class="meta-chip"><i class="bi bi-geo-alt"></i> <strong>Bengaluru</strong>&nbsp;International Convention Centre</span>
+                <span class="meta-chip"><i class="bi bi-calendar3"></i> <strong>Sep 14&ndash;16, 2026</strong></span>
+                <span class="meta-chip"><i class="bi bi-people"></i> <strong>12,000+</strong>&nbsp;Delegates</span>
+            </div> -->
+        </div>
+
         <div class="forgot-card">
 
             <!-- Step Indicator -->
@@ -896,7 +1029,7 @@
                 </form>
 
                 <div class="text-center">
-                    <a href="#" class="back-link">
+                    <a href="delegateLogin.jsp" class="back-link">
                         <i class="bi bi-arrow-left"></i>
                         Back to login
                     </a>
