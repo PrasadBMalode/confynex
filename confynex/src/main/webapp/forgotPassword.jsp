@@ -947,13 +947,10 @@
                     Confy<span class="brand-accent">nex</span>
                 </a>
                 <div class="d-flex align-items-center gap-2">
-                    <a href="index.jsp#home" class="nav-btn">
-                        <i class="bi bi-house-door"></i>
-                        Home
-                    </a>
-                    <a href="signinModal" class="nav-btn nav-btn-primary">
+
+                   <a href="index.jsp#home" class="nav-btn nav-btn-primary">
                         <i class="bi bi-box-arrow-in-right"></i>
-                        Host Signin
+                        Home
                     </a>
                 </div>
             </div>
@@ -1030,9 +1027,9 @@
                 </form>
 
                 <div class="text-center">
-                    <a href="delegateLogin.jsp" class="back-link">
+                    <a href="index.jsp#home" class="back-link">
                         <i class="bi bi-arrow-left"></i>
-                        Back to Signin
+                        Back to Home
                     </a>
                 </div>
             </div>

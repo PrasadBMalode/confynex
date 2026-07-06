@@ -27,83 +27,52 @@
       min-height: 100vh;
     }
 
-    /* ─── NAVBAR ─── */
-    .navbar {
-      background: var(--navy) !important;
-      border-bottom: 3px solid var(--gold);
-      padding: 0 2rem;
+    /* ─── NAVBAR (standard Bootstrap navbar + navy/gold theme) ─── */
+    .navbar-dms {
+      background-color: #0B0F1F;
+      padding-top: .9rem;
+      padding-bottom: .9rem;
     }
-    .navbar-brand {
+    .navbar-dms .navbar-brand {
       font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      color: var(--gold) !important;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--gold);
       letter-spacing: .5px;
     }
-    .navbar-brand span { color: #fff; }
-
-    .nav-link {
-      color: rgba(255,255,255,.85) !important;
-      font-weight: 500;
-      font-size: .92rem;
-      padding: 1.1rem .9rem !important;
-      transition: color .2s;
+    .navbar-dms .navbar-brand span { color: #fff; }
+    .navbar-dms .nav-link {
+      color: rgba(255,255,255,.85);
+      font-weight: 600;
+      font-size: .78rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: .5rem 1rem !important;
     }
-    .nav-link:hover, .nav-link.active { color: var(--gold) !important; }
-
-    .dropdown-menu {
-      background: var(--navy);
-      border: 1px solid var(--gold);
+    .navbar-dms .nav-link:hover,
+    .navbar-dms .nav-link:focus,
+    .navbar-dms .nav-link.active { color: var(--gold); }
+    .navbar-dms .dropdown-menu {
       border-top: 3px solid var(--gold);
-      border-radius: 0 0 8px 8px;
-      min-width: 220px;
-      padding: .4rem 0;
-      box-shadow: 0 8px 30px rgba(0,0,0,.35);
     }
-    .dropdown-item {
-      color: rgba(255,255,255,.82) !important;
-      font-size: .88rem;
-      padding: .6rem 1.3rem;
-      display: flex;
-      align-items: center;
-      gap: .55rem;
-      transition: background .15s, color .15s;
-    }
-    .dropdown-item i { color: var(--gold); font-size: 1rem; }
-    .dropdown-item:hover {
-      background: rgba(201,168,76,.12) !important;
-      color: var(--gold) !important;
-    }
-    .dropdown-divider { border-color: rgba(201,168,76,.25); margin: .3rem 0; }
-
-    .badge-nav {
+    .navbar-dms .dropdown-item.active,
+    .navbar-dms .dropdown-item:active { background-color: var(--gold); color: var(--navy); }
+    .badge-nav { background-color: var(--gold); color: var(--navy); }
+    .nav-pill-btn {
       background: var(--gold);
-      color: var(--navy);
-      font-size: .68rem;
+      color: var(--navy) !important;
       font-weight: 700;
-      border-radius: 20px;
-      padding: 1px 7px;
-      vertical-align: middle;
-    }
-
-    .user-pill {
-      background: rgba(201,168,76,.15);
-      border: 1px solid var(--gold);
-      color: var(--gold) !important;
+      font-size: .78rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       border-radius: 50px;
-      padding: .35rem 1rem .35rem .6rem !important;
-      display: flex;
+      padding: .55rem 1.4rem !important;
+      display: inline-flex;
       align-items: center;
-      gap: .5rem;
-      font-size: .88rem;
+      gap: .4rem;
+      border: none;
     }
-    .user-avatar {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: var(--gold);
-      color: var(--navy);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: .75rem;
-    }
+    .nav-pill-btn:hover { background: var(--gold-lt); color: var(--navy) !important; }
 
     /* ─── HERO BANNER ─── */
     .hero {
@@ -309,8 +278,8 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+<!-- ═══════════════════════════════ NAVBAR (plain Bootstrap navbar) ═══════════════════════════════ -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-dms sticky-top">
   <div class="container-fluid">
 
     <a class="navbar-brand" href="#">
@@ -318,7 +287,7 @@
       DMS <span>Pro</span>
     </a>
 
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -335,16 +304,16 @@
             <i class="bi bi-building me-1"></i>Host Dashboard
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-speedometer2"></i>Overview</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-calendar-event"></i>My Events</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-people-fill"></i>Manage Delegates <span class="badge-nav ms-auto">24</span></a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-send-check"></i>Send Invitations</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-clipboard2-check"></i>Attendance Tracker</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-speedometer2 me-2"></i>Overview</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-calendar-event me-2"></i>My Events</a></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="bi bi-people-fill me-2"></i>Manage Delegates <span class="badge badge-nav rounded-pill ms-auto">24</span></a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-send-check me-2"></i>Send Invitations</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-clipboard2-check me-2"></i>Attendance Tracker</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-bar-chart-line"></i>Event Reports</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-chat-square-dots"></i>Feedback & Reviews</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-bar-chart-line me-2"></i>Event Reports</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-chat-square-dots me-2"></i>Feedback & Reviews</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i>Host Settings</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Host Settings</a></li>
           </ul>
         </li>
 
@@ -354,19 +323,19 @@
             <i class="bi bi-shield-lock me-1"></i>Admin Dashboard
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-grid-3x3-gap"></i>Control Panel</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-person-lines-fill"></i>All Users</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-diagram-3"></i>All Delegates</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-calendar2-range"></i>All Events</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-grid-3x3-gap me-2"></i>Control Panel</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-person-lines-fill me-2"></i>All Users</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-diagram-3 me-2"></i>All Delegates</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-calendar2-range me-2"></i>All Events</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-shield-check"></i>Approvals <span class="badge-nav ms-auto">7</span></a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-lock-fill"></i>Roles & Permissions</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-bell-fill"></i>Notifications</a></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="bi bi-shield-check me-2"></i>Approvals <span class="badge badge-nav rounded-pill ms-auto">7</span></a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-lock-fill me-2"></i>Roles & Permissions</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-bell-fill me-2"></i>Notifications</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-bar-graph"></i>System Reports</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-activity"></i>Audit Logs</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-bar-graph me-2"></i>System Reports</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-activity me-2"></i>Audit Logs</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-sliders"></i>System Settings</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-sliders me-2"></i>System Settings</a></li>
           </ul>
         </li>
 
@@ -375,9 +344,9 @@
             <i class="bi bi-calendar3 me-1"></i>Events
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-plus-circle"></i>Create Event</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-search"></i>Browse Events</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-bookmark-star"></i>My Registrations</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-plus-circle me-2"></i>Create Event</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-search me-2"></i>Browse Events</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-bookmark-star me-2"></i>My Registrations</a></li>
           </ul>
         </li>
 
@@ -386,33 +355,21 @@
             <i class="bi bi-person-badge me-1"></i>Delegates
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-person-plus"></i>Register Delegate</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-card-list"></i>Delegate Directory</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-award"></i>Accreditation</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-person-plus me-2"></i>Register Delegate</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-card-list me-2"></i>Delegate Directory</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-award me-2"></i>Accreditation</a></li>
           </ul>
         </li>
 
       </ul>
 
-      <!-- RIGHT SIDE -->
-      <ul class="navbar-nav align-items-center gap-2">
+      <!-- RIGHT SIDE (no account button) -->
+      <ul class="navbar-nav align-items-center">
         <li class="nav-item">
-          <a class="nav-link position-relative" href="#">
-            <i class="bi bi-bell fs-5"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:.6rem">3</span>
+          <a class="nav-pill-btn position-relative" href="#">
+            <i class="bi bi-bell-fill"></i> Notifications
+            <span class="badge rounded-pill bg-danger ms-1" style="font-size:.62rem">3</span>
           </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link user-pill dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-            <div class="user-avatar">JD</div>
-            John Doe
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i>My Profile</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-key"></i>Change Password</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
-          </ul>
         </li>
       </ul>
     </div>

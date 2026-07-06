@@ -1453,7 +1453,7 @@
            <div class="modal-body px-4 pb-4">
 
              <p class="text-white-50 mb-4" style="font-size:.88rem;">
-               Sign in to your Confynex dashboard.
+               Sign in to your Host dashboard.
              </p>
 
              <!-- Email -->
