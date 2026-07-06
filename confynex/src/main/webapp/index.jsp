@@ -787,7 +787,7 @@
 
               <!-- 3. Sign In -->
               <li>
-                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signinModal">
+                <a class="dropdown-item" href="hostLogin.jsp">
                   <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
                 </a>
               </li>

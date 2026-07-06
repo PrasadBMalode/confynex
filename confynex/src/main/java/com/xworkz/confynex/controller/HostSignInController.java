@@ -29,7 +29,7 @@ public class HostSignInController {
         System.out.println("Sign in controller...");
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/hostLogin")
     public String signin(@Valid SignInDTO signInDTO, BindingResult bindingResult, Model model, HttpSession httpSession){
 
         if (bindingResult.hasErrors()){
