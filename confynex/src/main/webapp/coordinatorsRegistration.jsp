@@ -984,7 +984,7 @@
 
       <div class="collapse navbar-collapse" id="navMain">
         <ul class="navbar-nav mx-auto gap-1">
-          <li class="nav-item"><a class="nav-link" href="index.jsp#home">Home</a></li>
+
           <li class="nav-item"><a class="nav-link" href="index.jsp#who">Who We Are</a></li>
           <li class="nav-item"><a class="nav-link" href="index.jsp#what">What We Do</a></li>
           <li class="nav-item"><a class="nav-link" href="index.jsp#how">How We Do It</a></li>
@@ -993,28 +993,10 @@
           <li class="nav-item"><a class="nav-link" href="index.jsp#contact">Contact Us</a></li>
         </ul>
 
-        <div class="dropdown ms-3">
-          <button class="btn btn-gold dropdown-toggle" data-bs-toggle="dropdown">
-            <i class="bi bi-person-circle me-1"></i> Account
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li>
-              <a class="dropdown-item" href="index.jsp" data-bs-toggle="modal" data-bs-target="#signupModal">
-                <i class="bi bi-person-plus me-2"></i>Sign Up
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="index.jsp" data-bs-toggle="modal" data-bs-target="#signinModal">
-                <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
-              </a>
-            </li>
-            <li><hr class="dropdown-divider" style="border-color:rgba(201,168,76,.15);"></li>
-            <li>
-              <a class="dropdown-item active" href="coordinatorRegister.jsp">
-                <i class="bi bi-person-badge me-2"></i>Coordinator Register
-              </a>
-            </li>
-          </ul>
+        <div class="ms-3">
+            <a href="index.jsp" class="btn btn-gold">
+                <i class="bi bi-house-door-fill me-1"></i> Home
+            </a>
         </div>
       </div>
     </div>

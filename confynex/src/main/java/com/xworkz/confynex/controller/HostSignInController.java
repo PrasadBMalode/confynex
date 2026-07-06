@@ -59,7 +59,7 @@ public class HostSignInController {
             if (hostDTO != null && hostDTO.getFileEntity() != null) {
                 model.addAttribute("imagePath", hostDTO.getFileEntity().getExcelFile());
             }
-            return "loginSuccess";
+            return "hostLoginSuccess";
 
         } else if (result.equalsIgnoreCase("EMAIL_NOT_FOUND")) {
             model.addAttribute("loginFailed", "Email not found");

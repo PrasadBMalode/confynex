@@ -951,9 +951,9 @@
                         <i class="bi bi-house-door"></i>
                         Home
                     </a>
-                    <a href="delegateLogin.jsp" class="nav-btn nav-btn-primary">
+                    <a href="signinModal" class="nav-btn nav-btn-primary">
                         <i class="bi bi-box-arrow-in-right"></i>
-                        Login
+                        Host Signin
                     </a>
                 </div>
             </div>
@@ -969,10 +969,10 @@
                 <i class="bi bi-calendar-event"></i>
                 Global Tech Summit 2026
             </span>
-            <h1 class="conference-title">Confynex <span class="accent-text">Delegate Portal</span></h1>
+            <h1 class="conference-title">Confynex <span class="accent-text">Host Portal</span></h1>
             <p class="conference-subtitle">
                 Three days of keynotes, workshops, and networking with 500+ speakers.
-                Reset your password below to get back into your delegate dashboard.
+                Reset your password below to get back into your host dashboard.
             </p>
             <!--<div class="conference-meta">
                 <span class="meta-chip"><i class="bi bi-geo-alt"></i> <strong>Bengaluru</strong>&nbsp;International Convention Centre</span>
@@ -1002,12 +1002,13 @@
                     No worries. Enter the email address associated with your account and we'll send you a verification code.
                 </p>
 
-                <form id="emailForm" novalidate>
+                <form action="emailCheck" method="post" id="emailForm" novalidate>
                     <div class="input-group-custom">
                         <label class="form-label-custom">Email Address</label>
                         <div style="position: relative;">
                             <input
                                 type="email"
+                                name="email"
                                 class="form-control-custom"
                                 id="emailInput"
                                 placeholder="you@example.com"
@@ -1031,7 +1032,7 @@
                 <div class="text-center">
                     <a href="delegateLogin.jsp" class="back-link">
                         <i class="bi bi-arrow-left"></i>
-                        Back to login
+                        Back to Signin
                     </a>
                 </div>
             </div>
@@ -1101,7 +1102,7 @@
                 <div class="text-center">
                     <a href="#" class="back-link">
                         <i class="bi bi-arrow-left"></i>
-                        Back to login
+                        Back to Signin
                     </a>
                 </div>
             </div>

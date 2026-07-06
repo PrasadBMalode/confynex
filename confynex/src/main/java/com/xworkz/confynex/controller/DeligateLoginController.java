@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.constraints.Past;
 
 @Controller
 @RequestMapping("/")
@@ -49,6 +50,12 @@ public class DeligateLoginController {
 
         model.addAttribute("loginError", "Invalid Email or Access PIN");
         return "delegateLogin";
+    }
+
+    @PostMapping("/emailCheck")
+    public String emailCheck( String email){
+
+        return "forgotPassword";
     }
 
 }

@@ -1434,72 +1434,86 @@
   </div>
 
 
-  <!-- ═══════════════════════════════ SIGN IN MODAL ═══════════════════════════════ -->
-  <div class="modal fade" id="signinModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+  <<!-- ═══════════════════════════════ SIGN IN MODAL ═══════════════════════════════ -->
+   <div class="modal fade" id="signinModal" tabindex="-1">
+     <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content">
 
-        <form action="signin" method="POST">
+         <form action="signin" method="POST">
 
-          <div class="modal-header px-4 pt-4 border-0">
-            <h5 class="modal-title">
-              <i class="bi bi-box-arrow-in-right me-2"></i>
-              Welcome Back
-            </h5>
+           <div class="modal-header px-4 pt-4 border-0">
+             <h5 class="modal-title">
+               <i class="bi bi-box-arrow-in-right me-2"></i>
+               Welcome Back
+             </h5>
 
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-          </div>
+             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+           </div>
 
-          <div class="modal-body px-4 pb-4">
-            <p class="text-white-50 mb-4" style="font-size:.88rem;">
-              Sign in to your Confynex dashboard.
-            </p>
+           <div class="modal-body px-4 pb-4">
 
-            <div class="mb-3">
-              <label class="form-label">Email Address</label>
-              <input
-                type="email"
-                name="email"
-                class="form-control"
-                placeholder="john@company.com"
-                required
-              />
-            </div>
+             <p class="text-white-50 mb-4" style="font-size:.88rem;">
+               Sign in to your Confynex dashboard.
+             </p>
 
-            <div class="mb-4">
-              <label class="form-label">Password</label>
-              <input
-                type="password"
-                name="password"
-                class="form-control"
-                placeholder="Your password"
-                required
-              />
-            </div>
+             <!-- Email -->
+             <div class="mb-3">
+               <label class="form-label">Email Address</label>
+               <input
+                 type="email"
+                 name="email"
+                 class="form-control"
+                 placeholder="john@company.com"
+                 required
+               />
+             </div>
 
-            <button type="submit" class="btn btn-gold w-100 py-3 mb-3">
-              Sign In <i class="bi bi-arrow-right ms-1"></i>
-            </button>
+             <!-- Password -->
+             <div class="mb-2">
+               <label class="form-label">Password</label>
+               <input
+                 type="password"
+                 name="password"
+                 class="form-control"
+                 placeholder="Your password"
+                 required
+               />
+             </div>
 
-            <p class="text-center text-white-50" style="font-size:.85rem;">
-              Don't have an account?
-              <span
-                class="modal-link"
-                data-bs-dismiss="modal"
-                data-bs-toggle="modal"
-                data-bs-target="#signupModal"
-              >
-                Sign Up
-              </span>
-            </p>
-          </div>
+             <!-- Forgot Password -->
+             <div class="text-end mb-4">
+               <a href="forgotPassword.jsp"
+                  class="text-decoration-none"
+                  style="color:#c9a84c; font-size:0.9rem;">
+                 Forgot Password?
+               </a>
+             </div>
 
-        </form>
+             <!-- Sign In Button -->
+             <button type="submit" class="btn btn-gold w-100 py-3 mb-3">
+               Sign In <i class="bi bi-arrow-right ms-1"></i>
+             </button>
 
-      </div>
-    </div>
-  </div>
+             <!-- Sign Up Link -->
+             <p class="text-center text-white-50 mb-0" style="font-size:.85rem;">
+               Don't have an account?
+               <span
+                 class="modal-link"
+                 data-bs-dismiss="modal"
+                 data-bs-toggle="modal"
+                 data-bs-target="#signupModal"
+                 style="cursor:pointer;">
+                 Sign Up
+               </span>
+             </p>
 
+           </div>
+
+         </form>
+
+       </div>
+     </div>
+   </div>
 
   <!-- ═══════════════════════════════ COORDINATOR REGISTER MODAL ═══════════════════════════════ -->
   <div class="modal fade" id="coordinatorModal" tabindex="-1">
