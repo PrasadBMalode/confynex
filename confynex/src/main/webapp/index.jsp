@@ -769,7 +769,7 @@
 
               <!-- 1. Host Sign Up -->
               <li>
-                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#signupModal">
+                <a class="dropdown-item" href="hostRegistration.jsp">
                   <i class="bi bi-person-plus me-2"></i>Host Sign Up
                 </a>
               </li>
@@ -1321,11 +1321,11 @@
   <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
   <footer>
     <div class="container">
-      <p>© 2025 <span>Confynex</span>. All rights reserved. Crafted with precision for world-class conferences.</p>
+      <p>@2025 <span>Confynex</span>. All rights reserved. Crafted with precision for world-class conferences.</p>
     </div>
   </footer>
 
-  <div class="modal fade" id="signupModal" tabindex="-1">
+  <!--<div class="modal fade" id="signupModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
 
@@ -1431,11 +1431,11 @@
 
       </div>
     </div>
-  </div>
+  </div>-->
 
 
   <<!-- ═══════════════════════════════ SIGN IN MODAL ═══════════════════════════════ -->
-   <div class="modal fade" id="signinModal" tabindex="-1">
+   <!--<div class="modal fade" id="signinModal" tabindex="-1">
      <div class="modal-dialog modal-dialog-centered">
        <div class="modal-content">
 
@@ -1513,10 +1513,10 @@
 
        </div>
      </div>
-   </div>
+   </div>-->
 
   <!-- ═══════════════════════════════ COORDINATOR REGISTER MODAL ═══════════════════════════════ -->
-  <div class="modal fade" id="coordinatorModal" tabindex="-1">
+  <!--<div class="modal fade" id="coordinatorModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
       <div class="modal-content">
 
@@ -1674,7 +1674,7 @@
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
     </div>
-  </div>
+  </div>-->
   <!-- ═══════════════════════════════ END COORDINATOR MODAL ═══════════════════════════════ -->
 
 

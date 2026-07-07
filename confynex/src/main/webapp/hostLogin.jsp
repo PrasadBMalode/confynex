@@ -78,19 +78,36 @@
         .bg-wrapper {
             position: fixed;
             inset: 0;
-            z-index: -1;
-            background:
-                radial-gradient(ellipse 60% 50% at 15% 60%, rgba(201,162,39,0.07) 0%, transparent 60%),
-                radial-gradient(ellipse 50% 40% at 85% 30%, rgba(201,162,39,0.05) 0%, transparent 55%),
-                linear-gradient(160deg, #0d1117 0%, #111827 50%, #0d1117 100%);
+            z-index: -2;
+            overflow: hidden;
+            background-color: var(--bg-deep);
+        }
+
+        /* Conference-hall photograph layer with slow Ken Burns zoom */
+        .bg-photo {
+            position: absolute;
+            inset: -20px; /* extra bleed so the zoom never reveals an edge */
+            background-image:
+                linear-gradient(160deg, rgba(13,17,23,0.88) 0%, rgba(13,17,23,0.80) 45%, rgba(13,17,23,0.92) 100%),
+                url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: saturate(0.9) brightness(0.85);
+            animation: kenburns 32s ease-in-out infinite alternate;
+        }
+
+        @keyframes kenburns {
+            0%   { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.12) translate(-1.5%, -1%); }
         }
 
         .bg-grid {
             position: absolute;
             inset: 0;
+            z-index: -1;
             background-image:
-                linear-gradient(rgba(201,162,39,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(201,162,39,0.04) 1px, transparent 1px);
+                linear-gradient(rgba(201,162,39,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,162,39,0.05) 1px, transparent 1px);
             background-size: 48px 48px;
             mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
         }
@@ -103,9 +120,44 @@
             padding: 60px 0;
         }
 
+        /* ── ENTRANCE ANIMATIONS ─────────────────────── */
+        @keyframes fadeSlideUp {
+            0%   { opacity: 0; transform: translateY(28px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeSlideRight {
+            0%   { opacity: 0; transform: translateX(-24px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        .navbar {
+            animation: fadeSlideUp .6s ease both;
+        }
+
+        .side-panel {
+            animation: fadeSlideRight .8s ease .1s both;
+        }
+
+        .login-card {
+            animation: fadeSlideUp .8s ease .15s both;
+        }
+
+        .side-stats-row .side-stat {
+            animation: fadeSlideUp .7s ease both;
+        }
+        .side-stats-row .side-stat:nth-child(1) { animation-delay: .35s; }
+        .side-stats-row .side-stat:nth-child(2) { animation-delay: .45s; }
+        .side-stats-row .side-stat:nth-child(3) { animation-delay: .55s; }
+
+        .side-quote {
+            animation: fadeSlideUp .8s ease .6s both;
+        }
+
         /* ── CARD ────────────────────────────────────── */
         .login-card {
-            background: var(--bg-card);
+            background: rgba(19, 26, 38, 0.88);
+            backdrop-filter: blur(6px);
             border: 1px solid var(--border);
             border-radius: 24px;
             padding: 50px 46px 44px;
@@ -115,6 +167,14 @@
                 0 0 80px rgba(201,162,39,0.05);
             position: relative;
             overflow: hidden;
+            transition: box-shadow .35s ease, transform .35s ease;
+        }
+
+        .login-card:hover {
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.04) inset,
+                0 28px 72px rgba(0,0,0,0.6),
+                0 0 100px rgba(201,162,39,0.09);
         }
 
         .login-card::before {
@@ -123,6 +183,13 @@
             top: 0; left: 0; right: 0;
             height: 3px;
             background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 6s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0%   { background-position: 0% 0; }
+            100% { background-position: -200% 0; }
         }
 
         /* badge */
@@ -192,6 +259,7 @@
             padding: 13px 16px !important;
             font-size: .92rem !important;
             letter-spacing: 0.02em;
+            transition: box-shadow .2s, border-color .2s, background .2s;
         }
 
         .form-control::placeholder {
@@ -257,6 +325,7 @@
             border-radius: 10px;
             font-size: .85rem;
             padding: 12px 16px;
+            animation: fadeSlideUp .4s ease both;
         }
 
         .alert-gold-success {
@@ -266,6 +335,7 @@
             border-radius: 10px;
             font-size: .85rem;
             padding: 12px 16px;
+            animation: fadeSlideUp .4s ease both;
         }
 
         /* ── SUBMIT BUTTON ───────────────────────────── */
@@ -350,6 +420,7 @@
             color: var(--gold);
             font-size: 1.3rem;
             margin-bottom: 18px;
+            animation: fadeSlideUp .7s ease .2s both;
         }
 
         .side-panel h2 {
@@ -397,7 +468,8 @@
         }
 
         .side-quote {
-            background: rgba(255,255,255,0.03);
+            background: rgba(19, 26, 38, 0.55);
+            backdrop-filter: blur(4px);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 26px 24px;
@@ -453,6 +525,19 @@
             color: var(--text-muted);
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            .bg-photo,
+            .navbar,
+            .side-panel,
+            .login-card,
+            .side-stats-row .side-stat,
+            .side-quote,
+            .side-icon,
+            .login-card::before {
+                animation: none !important;
+            }
+        }
+
         @media (max-width: 991px) {
             .side-panel { display: none; }
         }
@@ -467,6 +552,7 @@
 
     <!-- Background -->
     <div class="bg-wrapper">
+        <div class="bg-photo"></div>
         <div class="bg-grid"></div>
     </div>
 
