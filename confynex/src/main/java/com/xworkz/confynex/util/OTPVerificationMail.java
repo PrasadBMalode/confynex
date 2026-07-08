@@ -25,11 +25,10 @@ public class OTPVerificationMail {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("malodeprasad666@gmail.com");
         mailMessage.setTo(toEmail);
-        mailMessage.setSubject("OTP Verification");
+        mailMessage.setSubject("OTP Verification From CONFYNEX Team");
+        mailMessage.setText("Do not share the OTP for Anyone");
         mailMessage.setText("Your OTP is: " + otp);
-
         javaMailSender.send(mailMessage);
-
         return otp;
     }
 
