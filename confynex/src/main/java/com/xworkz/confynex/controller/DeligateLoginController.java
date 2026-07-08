@@ -52,10 +52,6 @@ public class DeligateLoginController {
         return "delegateLogin";
     }
 
-    @PostMapping("/emailCheck")
-    public String emailCheck( String email){
 
-        return "forgotPassword";
-    }
 
 }

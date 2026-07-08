@@ -4,12 +4,14 @@ import com.xworkz.confynex.dto.HostDTO;
 import com.xworkz.confynex.dto.SignInDTO;
 import com.xworkz.confynex.service.HostService;
 import com.xworkz.confynex.service.HostSignInService;
+import com.xworkz.confynex.service.OTPService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -19,62 +21,156 @@ import javax.validation.Valid;
 public class HostSignInController {
 
     @Autowired
-    HostSignInService hostSignInService;
+    private HostSignInService hostSignInService;
 
     @Autowired
-    HostService hostService;
+    private HostService hostService;
 
+    @Autowired
+    private OTPService otpService;
 
-    public HostSignInController(){
-        System.out.println("Sign in controller...");
+    public HostSignInController() {
+        System.out.println("HostSignInController created...");
     }
 
+    // ========================= LOGIN =========================
+
     @PostMapping("/hostLogin")
-    public String signin(@Valid SignInDTO signInDTO, BindingResult bindingResult, Model model, HttpSession httpSession){
+    public String signin(@Valid SignInDTO signInDTO,
+                         BindingResult bindingResult,
+                         Model model,
+                         HttpSession session) {
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
 
-            if (bindingResult.hasFieldErrors("email")) {
-                model.addAttribute("emailError", bindingResult.getFieldError("email").getDefaultMessage());
-            } else {
-                model.addAttribute("emailError", "");
-            }
+            model.addAttribute("emailError",
+                    bindingResult.hasFieldErrors("email")
+                            ? bindingResult.getFieldError("email").getDefaultMessage()
+                            : "");
 
-            if (bindingResult.hasFieldErrors("password")) {
-                model.addAttribute("passwordError", bindingResult.getFieldError("password").getDefaultMessage());
-            } else {
-                model.addAttribute("passwordError", "");
-            }
+            model.addAttribute("passwordError",
+                    bindingResult.hasFieldErrors("password")
+                            ? bindingResult.getFieldError("password").getDefaultMessage()
+                            : "");
+
             return "index";
         }
 
-        String result = hostSignInService.signInValidation(signInDTO.getEmail(), signInDTO.getPassword());
-        if (result.equalsIgnoreCase("LOGIN_SUCCESS")) {
-            httpSession.setAttribute("loggedInEmail", signInDTO.getEmail());
-            //model.addAttribute("email", loginDTO.getEmail());
+        String result = hostSignInService.signInValidation(
+                signInDTO.getEmail(),
+                signInDTO.getPassword());
 
-            // FETCH USER DATA
-            HostDTO hostDTO = hostService.checkEmailExist(signInDTO.getEmail());
+        switch (result.toUpperCase()) {
 
-            if (hostDTO != null && hostDTO.getFileEntity() != null) {
-                model.addAttribute("imagePath", hostDTO.getFileEntity().getExcelFile());
-            }
-            return "hostLoginSuccess";
+            case "LOGIN_SUCCESS":
 
-        } else if (result.equalsIgnoreCase("EMAIL_NOT_FOUND")) {
-            model.addAttribute("loginFailed", "Email not found");
-            return "index";
+                session.setAttribute("loggedInEmail", signInDTO.getEmail());
 
-        } else if (result.equalsIgnoreCase("INVALID_PASSWORD")) {
-            model.addAttribute("loginFailed", "Invalid password");
-            return "index";
+                HostDTO hostDTO = hostService.checkEmailExist(signInDTO.getEmail());
 
-        } else if (result.equalsIgnoreCase("ACCOUNT_BLOCKED")) {
-            model.addAttribute("loginFailed", "Account is blocked after 3 failed attempts");
-            return "index";
+                if (hostDTO != null && hostDTO.getFileEntity() != null) {
+                    model.addAttribute("imagePath",
+                            hostDTO.getFileEntity().getExcelFile());
+                }
+
+                return "hostLoginSuccess";
+
+            case "EMAIL_NOT_FOUND":
+                model.addAttribute("loginFailed", "Email not found");
+                return "index";
+
+            case "INVALID_PASSWORD":
+                model.addAttribute("loginFailed", "Invalid password");
+                return "index";
+
+            case "ACCOUNT_BLOCKED":
+                model.addAttribute("loginFailed",
+                        "Account is blocked after 3 failed attempts");
+                return "index";
+
+            default:
+                model.addAttribute("loginFailed", "Something went wrong");
+                return "index";
         }
-        model.addAttribute("loginFailed", "Something went wrong");
-        return "index";
+    }
+
+    // ========================= SEND OTP =========================
+
+    @PostMapping("/emailCheck")
+    @ResponseBody
+    public String emailCheck(String email) {
+
+        System.out.println("Email received : " + email);
+
+        HostDTO user = hostService.checkEmailExist(email);
+
+        if (user == null) {
+            System.out.println("Email not found");
+            return "NOT_FOUND";
+        }
+
+        try {
+            otpService.sendOtp(email);
+            System.out.println("OTP Sent Successfully");
+            return "SUCCESS";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "ERROR";
+        }
+    }
+
+    // ========================= VERIFY OTP =========================
+
+    @PostMapping("/verifyOtp")
+    public String verifyOtp(String email,
+                            String otp,
+                            Model model) {
+
+        System.out.println("Email : " + email);
+        System.out.println("OTP : " + otp);
+
+        boolean isValid = otpService.verifyOtp(email, otp);
+
+        System.out.println("OTP Valid : " + isValid);
+
+        if (isValid) {
+
+            model.addAttribute("email", email);
+
+            return "resetPassword";
+        }
+
+        model.addAttribute("otpError", "Invalid / Expired OTP");
+        model.addAttribute("showOtpPopup", true);
+        model.addAttribute("email", email);
+
+        return "forgotPassword";
+    }
+
+    // ========================= RESEND OTP =========================
+
+    @PostMapping("/resendOtp")
+    @ResponseBody
+    public String resendOtp(String email) {
+
+        System.out.println("Resend OTP for : " + email);
+
+        HostDTO user = hostService.checkEmailExist(email);
+
+        if (user == null) {
+            return "NOT_FOUND";
+        }
+
+        try {
+            otpService.sendOtp(email);
+            System.out.println("OTP Resent Successfully");
+            return "SUCCESS";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "ERROR";
+        }
     }
 
 }

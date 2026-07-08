@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -249,38 +250,6 @@
             line-height: 1.6;
         }
 
-        .conference-meta {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-        }
-
-        .conference-meta .meta-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(18, 20, 31, 0.55);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 10px;
-        }
-
-        .conference-meta .meta-chip i {
-            color: var(--accent);
-        }
-
-        .conference-meta .meta-chip strong {
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-
         /* ── Card (Glassmorphism) ── */
         .forgot-card {
             width: 100%;
@@ -329,18 +298,6 @@
         @keyframes iconFloat {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-4px); }
-        }
-
-        .icon-circle.success-icon {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.06));
-            border-color: rgba(16, 185, 129, 0.2);
-            color: var(--success);
-        }
-
-        .icon-circle.error-icon {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(239, 68, 68, 0.06));
-            border-color: rgba(239, 68, 68, 0.2);
-            color: var(--error);
         }
 
         /* ── Headings ── */
@@ -419,11 +376,6 @@
             background: rgba(26, 28, 42, 0.9);
         }
 
-        .form-control-custom:focus + .input-icon,
-        .form-control-custom:focus ~ .input-icon {
-            color: var(--accent);
-        }
-
         /* ── OTP Inputs ── */
         .otp-wrapper {
             display: flex;
@@ -467,10 +419,9 @@
             animation: shakeInput 0.5s ease;
         }
 
-        .otp-input.success-fill {
-            border-color: var(--success) !important;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
-            background: rgba(16, 185, 129, 0.06) !important;
+        .otp-input:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
         }
 
         @keyframes otpPop {
@@ -509,19 +460,6 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-        }
-
-        .btn-primary-custom::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.15));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .btn-primary-custom:hover:not(:disabled)::before {
-            opacity: 1;
         }
 
         .btn-primary-custom:hover:not(:disabled) {
@@ -635,186 +573,7 @@
             }
         }
 
-        /* ── Success State ── */
-        .success-checkmark {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.08));
-            border: 2px solid rgba(16, 185, 129, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            color: var(--success);
-            animation: successBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        @keyframes successBounce {
-            0% { transform: scale(0); opacity: 0; }
-            60% { transform: scale(1.15); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        /* ── Toast Notifications (Bottom Right) ── */
-        .toast-container {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column-reverse;
-            gap: 10px;
-            pointer-events: none;
-        }
-
-        .toast-msg {
-            pointer-events: all;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 14px 18px;
-            border-radius: 14px;
-            min-width: 340px;
-            max-width: 420px;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-            animation: toastSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .toast-msg.toast-exit {
-            animation: toastSlideOut 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        .toast-msg.success {
-            background: rgba(16, 185, 129, 0.1);
-            border-color: rgba(16, 185, 129, 0.2);
-        }
-
-        .toast-msg.error {
-            background: rgba(239, 68, 68, 0.1);
-            border-color: rgba(239, 68, 68, 0.2);
-        }
-
-        .toast-msg.warning {
-            background: rgba(245, 158, 11, 0.1);
-            border-color: rgba(245, 158, 11, 0.2);
-        }
-
-        .toast-msg .toast-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            flex-shrink: 0;
-        }
-
-        .toast-msg.success .toast-icon {
-            background: var(--success-bg);
-            color: var(--success);
-        }
-
-        .toast-msg.error .toast-icon {
-            background: var(--error-bg);
-            color: var(--error);
-        }
-
-        .toast-msg.warning .toast-icon {
-            background: rgba(245, 158, 11, 0.12);
-            color: var(--warning);
-        }
-
-        .toast-msg .toast-content {
-            flex: 1;
-        }
-
-        .toast-msg .toast-title {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 2px;
-        }
-
-        .toast-msg .toast-text {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .toast-msg .toast-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 1rem;
-            padding: 0;
-            line-height: 1;
-            transition: color 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .toast-msg .toast-close:hover {
-            color: var(--text-secondary);
-        }
-
-        .toast-msg .toast-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 2px;
-            border-radius: 0 0 14px 14px;
-            animation: toastProgress 4s linear forwards;
-        }
-
-        .toast-msg.success .toast-progress { background: var(--success); }
-        .toast-msg.error .toast-progress { background: var(--error); }
-        .toast-msg.warning .toast-progress { background: var(--warning); }
-
-        @keyframes toastSlideIn {
-            from { opacity: 0; transform: translateX(60px) scale(0.95); }
-            to { opacity: 1; transform: translateX(0) scale(1); }
-        }
-
-        @keyframes toastSlideOut {
-            from { opacity: 1; transform: translateX(0) scale(1); }
-            to { opacity: 0; transform: translateX(60px) scale(0.95); }
-        }
-
-        @keyframes toastProgress {
-            from { width: 100%; }
-            to { width: 0%; }
-        }
-
-        /* ── Particles (OTP success) ── */
-        .confetti-container {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 9998;
-        }
-
-        .confetti {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-radius: 2px;
-            animation: confettiFall 1.5s ease-out forwards;
-        }
-
-        @keyframes confettiFall {
-            0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
-            100% { opacity: 0; transform: translateY(400px) rotate(720deg) scale(0.2); }
-        }
-
-        /* ── Divider ── */
+        /* ── Step Indicator ── */
         .step-indicator {
             display: flex;
             align-items: center;
@@ -873,11 +632,6 @@
                 font-size: 0.85rem;
             }
 
-            .conference-meta .meta-chip {
-                font-size: 0.72rem;
-                padding: 6px 12px;
-            }
-
             .forgot-card {
                 padding: 1.75rem 1.5rem;
                 border-radius: 16px;
@@ -892,16 +646,6 @@
             .otp-wrapper {
                 gap: 8px;
             }
-
-            .toast-msg {
-                min-width: 280px;
-                max-width: calc(100vw - 48px);
-            }
-
-            .toast-container {
-                right: 16px;
-                bottom: 16px;
-            }
         }
 
         /* ── Validation state ── */
@@ -910,17 +654,11 @@
             box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
         }
 
-        .invalid-feedback-custom {
+        .text-danger-custom {
             color: var(--error);
             font-size: 0.78rem;
             margin-top: 6px;
-            display: none;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .invalid-feedback-custom.show {
-            display: flex;
+            display: block;
         }
     </style>
 </head>
@@ -936,9 +674,6 @@
     <div class="bg-glow-2"></div>
     <div class="bg-glow-3"></div>
 
-    <!-- Confetti Container -->
-    <div class="confetti-container" id="confettiContainer"></div>
-
     <!-- Navbar -->
     <nav class="navbar-custom">
         <div class="container">
@@ -947,7 +682,6 @@
                     Confy<span class="brand-accent">nex</span>
                 </a>
                 <div class="d-flex align-items-center gap-2">
-
                    <a href="index.jsp#home" class="nav-btn nav-btn-primary">
                         <i class="bi bi-box-arrow-in-right"></i>
                         Home
@@ -971,11 +705,6 @@
                 Three days of keynotes, workshops, and networking with 500+ speakers.
                 Reset your password below to get back into your host dashboard.
             </p>
-            <!--<div class="conference-meta">
-                <span class="meta-chip"><i class="bi bi-geo-alt"></i> <strong>Bengaluru</strong>&nbsp;International Convention Centre</span>
-                <span class="meta-chip"><i class="bi bi-calendar3"></i> <strong>Sep 14&ndash;16, 2026</strong></span>
-                <span class="meta-chip"><i class="bi bi-people"></i> <strong>12,000+</strong>&nbsp;Delegates</span>
-            </div> -->
         </div>
 
         <div class="forgot-card">
@@ -999,7 +728,7 @@
                     No worries. Enter the email address associated with your account and we'll send you a verification code.
                 </p>
 
-                <form action="emailCheck" method="post" id="emailForm" novalidate>
+                <form action="emailCheck" method="post" id="emailForm">
                     <div class="input-group-custom">
                         <label class="form-label-custom">Email Address</label>
                         <div style="position: relative;">
@@ -1007,20 +736,17 @@
                                 type="email"
                                 name="email"
                                 class="form-control-custom"
-                                id="emailInput"
+                                id="email"
                                 placeholder="you@example.com"
                                 autocomplete="email"
                                 required
                             >
                             <i class="bi bi-envelope input-icon" style="top: 50%;"></i>
                         </div>
-                        <div class="invalid-feedback-custom" id="emailError">
-                            <i class="bi bi-exclamation-circle"></i>
-                            <span id="emailErrorText">Please enter a valid email address.</span>
-                        </div>
+                        <small class="text-danger-custom" id="emailErrorBox"></small>
                     </div>
 
-                    <button type="submit" class="btn-primary-custom" id="sendOtpBtn">
+                    <button type="button" class="btn-primary-custom" id="sendOtpBtn" onclick="sendOtp()">
                         <span id="sendOtpText">Send Verification Code</span>
                         <div class="spinner-custom" id="sendOtpSpinner" style="display: none;"></div>
                     </button>
@@ -1042,10 +768,13 @@
                 <h2 class="card-title">Enter Verification Code</h2>
                 <p class="card-subtitle">
                     We've sent a 6-digit code to<br>
-                    <span class="email-highlight" id="displayEmail">user@example.com</span>
+                    <span class="email-highlight" id="displayEmail">&nbsp;</span>
                 </p>
 
-                <form id="otpForm" novalidate>
+                <form action="verifyOtp" method="post" id="otpForm" onsubmit="return validateOtpTime()">
+                    <input type="hidden" name="email" id="otpEmail">
+                    <input type="hidden" name="otp" id="otpValue">
+
                     <label class="form-label-custom" style="text-align: center;">Verification Code</label>
                     <div class="otp-wrapper" id="otpWrapper">
                         <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code" data-index="0">
@@ -1055,6 +784,7 @@
                         <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="4">
                         <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" data-index="5">
                     </div>
+                    <small class="text-danger-custom text-center" id="otpErrorBox" style="display:block; text-align:center; margin-bottom: 0.5rem;">${otpError}</small>
 
                     <button type="submit" class="btn-primary-custom" id="verifyOtpBtn" disabled>
                         <span id="verifyOtpText">Verify Code</span>
@@ -1064,7 +794,7 @@
 
                 <div class="resend-section">
                     <span>Didn't receive the code?</span>
-                    <button class="resend-link" id="resendBtn" disabled>
+                    <button type="button" class="resend-link" id="resendBtn" onclick="resendOtp()" disabled>
                         Resend
                     </button>
                     <span class="timer-badge" id="timerBadge" style="display: none;">
@@ -1081,29 +811,6 @@
                 </div>
             </div>
 
-            <!-- STEP 3: Success -->
-            <div class="step-section" id="stepSuccess">
-                <div class="success-checkmark">
-                    <i class="bi bi-check-lg"></i>
-                </div>
-                <h2 class="card-title">Verified Successfully</h2>
-                <p class="card-subtitle">
-                    Your identity has been confirmed. You can now reset your password securely.
-                </p>
-
-                <a href="#" class="btn-primary-custom" style="text-decoration: none;">
-                    <i class="bi bi-key"></i>
-                    Reset Password
-                </a>
-
-                <div class="text-center">
-                    <a href="#" class="back-link">
-                        <i class="bi bi-arrow-left"></i>
-                        Back to Signin
-                    </a>
-                </div>
-            </div>
-
         </div>
     </div>
 
@@ -1112,37 +819,13 @@
         &copy; 2025 Confynex. All rights reserved.
     </div>
 
-    <!-- Toast Container (Bottom Right) -->
-    <div class="toast-container" id="toastContainer"></div>
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- OTP / EMAIL LOGIC (same behavior as the original verification page) -->
     <script>
-        // ── Elements ──
-        const emailForm = document.getElementById('emailForm');
-        const emailInput = document.getElementById('emailInput');
-        const emailError = document.getElementById('emailError');
-        const emailErrorText = document.getElementById('emailErrorText');
-        const sendOtpBtn = document.getElementById('sendOtpBtn');
-        const sendOtpText = document.getElementById('sendOtpText');
-        const sendOtpSpinner = document.getElementById('sendOtpSpinner');
-
-        const otpForm = document.getElementById('otpForm');
-        const otpWrapper = document.getElementById('otpWrapper');
-        const otpInputs = document.querySelectorAll('.otp-input');
-        const verifyOtpBtn = document.getElementById('verifyOtpBtn');
-        const verifyOtpText = document.getElementById('verifyOtpText');
-        const verifyOtpSpinner = document.getElementById('verifyOtpSpinner');
-        const displayEmail = document.getElementById('displayEmail');
-        const resendBtn = document.getElementById('resendBtn');
-        const timerBadge = document.getElementById('timerBadge');
-        const timerText = document.getElementById('timerText');
-        const changeEmailLink = document.getElementById('changeEmailLink');
-
         const stepEmail = document.getElementById('stepEmail');
         const stepOtp = document.getElementById('stepOtp');
-        const stepSuccess = document.getElementById('stepSuccess');
 
         const dot1 = document.getElementById('dot1');
         const dot2 = document.getElementById('dot2');
@@ -1150,25 +833,31 @@
         const line1 = document.getElementById('line1');
         const line2 = document.getElementById('line2');
 
-        const toastContainer = document.getElementById('toastContainer');
-        const confettiContainer = document.getElementById('confettiContainer');
+        const emailInput = document.getElementById('email');
+        const emailErrorBox = document.getElementById('emailErrorBox');
+        const sendOtpBtn = document.getElementById('sendOtpBtn');
+        const sendOtpText = document.getElementById('sendOtpText');
+        const sendOtpSpinner = document.getElementById('sendOtpSpinner');
 
-        // ── Simulated correct OTP for demo ──
-        const CORRECT_OTP = '123456';
+        const otpEmail = document.getElementById('otpEmail');
+        const otpValue = document.getElementById('otpValue');
+        const displayEmail = document.getElementById('displayEmail');
+        const otpInputs = document.querySelectorAll('.otp-input');
+        const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+        const otpErrorBox = document.getElementById('otpErrorBox');
 
-        let countdownInterval = null;
-        let currentEmail = '';
+        const resendBtn = document.getElementById('resendBtn');
+        const timerBadge = document.getElementById('timerBadge');
+        const timerText = document.getElementById('timerText');
+        const changeEmailLink = document.getElementById('changeEmailLink');
 
-        // ── Email Validation ──
-        function isValidEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        }
+        let countdown = 30;
+        let timerInterval;
 
-        // ── Show/Hide Steps ──
+        // ── Step switcher (visual only) ──
         function showStep(step) {
             stepEmail.classList.remove('active');
             stepOtp.classList.remove('active');
-            stepSuccess.classList.remove('active');
 
             if (step === 'email') {
                 stepEmail.classList.add('active');
@@ -1184,327 +873,191 @@
                 dot3.className = 'step-dot';
                 line1.className = 'step-line done';
                 line2.className = 'step-line';
-            } else if (step === 'success') {
-                stepSuccess.classList.add('active');
-                dot1.className = 'step-dot done';
-                dot2.className = 'step-dot done';
-                dot3.className = 'step-dot active';
-                line1.className = 'step-line done';
-                line2.className = 'step-line done';
             }
         }
 
-        // ── Toast System ──
-        function showToast(type, title, message) {
-            const iconMap = {
-                success: 'bi-check-lg',
-                error: 'bi-x-lg',
-                warning: 'bi-exclamation-triangle'
-            };
-
-            const toast = document.createElement('div');
-            toast.className = `toast-msg ${type}`;
-            toast.innerHTML = `
-                <div class="toast-icon">
-                    <i class="bi ${iconMap[type]}"></i>
-                </div>
-                <div class="toast-content">
-                    <div class="toast-title">${title}</div>
-                    <div class="toast-text">${message}</div>
-                </div>
-                <button class="toast-close" onclick="dismissToast(this.parentElement)">
-                    <i class="bi bi-x"></i>
-                </button>
-                <div class="toast-progress"></div>
-            `;
-
-            toastContainer.appendChild(toast);
-
-            // Auto dismiss
-            setTimeout(() => {
-                dismissToast(toast);
-            }, 4000);
-        }
-
-        function dismissToast(toastEl) {
-            if (!toastEl || toastEl.classList.contains('toast-exit')) return;
-            toastEl.classList.add('toast-exit');
-            setTimeout(() => {
-                if (toastEl.parentElement) {
-                    toastEl.parentElement.removeChild(toastEl);
-                }
-            }, 350);
-        }
-
-        // ── Confetti Effect ──
-        function fireConfetti() {
-            const colors = ['#d4af37', '#f0d888', '#10b981', '#f59e0b', '#ef4444', '#b8860b'];
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = (30 + Math.random() * 40) + '%';
-                confetti.style.top = (20 + Math.random() * 20) + '%';
-                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDelay = (Math.random() * 0.3) + 's';
-                confetti.style.animationDuration = (1 + Math.random() * 1) + 's';
-                confetti.style.width = (5 + Math.random() * 6) + 'px';
-                confetti.style.height = (5 + Math.random() * 6) + 'px';
-                confettiContainer.appendChild(confetti);
-            }
-            setTimeout(() => {
-                confettiContainer.innerHTML = '';
-            }, 2500);
-        }
-
-        // ── Countdown Timer ──
-        function startTimer(seconds) {
-            let remaining = seconds;
+        // ── Timer (same logic as original) ──
+        function startTimer() {
             resendBtn.disabled = true;
             timerBadge.style.display = 'inline-flex';
-            updateTimerDisplay(remaining);
 
-            countdownInterval = setInterval(() => {
-                remaining--;
-                updateTimerDisplay(remaining);
-
-                if (remaining <= 0) {
-                    clearInterval(countdownInterval);
+            timerInterval = setInterval(() => {
+                if (countdown <= 0) {
+                    clearInterval(timerInterval);
+                    timerText.textContent = "Expired";
                     resendBtn.disabled = false;
-                    timerBadge.style.display = 'none';
+
+                    otpInputs.forEach(inp => inp.disabled = true);
+
+                    return;
                 }
+
+                const m = String(Math.floor(countdown / 60)).padStart(2, '0');
+                const s = String(countdown % 60).padStart(2, '0');
+                timerText.textContent = m + ":" + s;
+                countdown--;
             }, 1000);
         }
 
-        function updateTimerDisplay(secs) {
-            const m = String(Math.floor(secs / 60)).padStart(2, '0');
-            const s = String(secs % 60).padStart(2, '0');
-            timerText.textContent = `${m}:${s}`;
+        // ── Block submit if OTP expired (same logic as original) ──
+        function validateOtpTime() {
+            if (countdown <= 0) {
+                otpErrorBox.innerHTML = "Wrong OTP or Time expired! Please resend OTP.";
+                return false;
+            }
+            return true;
         }
 
-        function stopTimer() {
-            if (countdownInterval) {
-                clearInterval(countdownInterval);
-                countdownInterval = null;
-            }
+        // ── Combine the 6 boxes into the hidden otp field the server reads ──
+        function syncOtpValue() {
+            let val = "";
+            otpInputs.forEach(inp => val += inp.value);
+            otpValue.value = val;
+            verifyOtpBtn.disabled = (val.length < 6);
         }
 
-        // ── Clear OTP Inputs ──
-        function clearOtpInputs() {
-            otpInputs.forEach(inp => {
-                inp.value = '';
-                inp.classList.remove('filled', 'error-shake', 'success-fill');
-            });
-            verifyOtpBtn.disabled = true;
-        }
-
-        // ── Email Form Submit ──
-        emailForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const email = emailInput.value.trim();
-
-            // Validate
-            if (!email) {
-                emailInput.classList.add('is-invalid');
-                emailErrorText.textContent = 'Email address is required.';
-                emailError.classList.add('show');
-                showToast('error', 'Missing Email', 'Please enter your email address to continue.');
-                return;
-            }
-
-            if (!isValidEmail(email)) {
-                emailInput.classList.add('is-invalid');
-                emailErrorText.textContent = 'Please enter a valid email address.';
-                emailError.classList.add('show');
-                showToast('error', 'Invalid Email', 'The email format you entered is not valid.');
-                return;
-            }
-
-            // Clear errors
-            emailInput.classList.remove('is-invalid');
-            emailError.classList.remove('show');
-
-            // Show loading
-            sendOtpBtn.disabled = true;
-            sendOtpText.textContent = 'Sending...';
-            sendOtpSpinner.style.display = 'block';
-
-            // Simulate API call
-            setTimeout(() => {
-                sendOtpBtn.disabled = false;
-                sendOtpText.textContent = 'Send Verification Code';
-                sendOtpSpinner.style.display = 'none';
-
-                currentEmail = email;
-                displayEmail.textContent = email;
-                clearOtpInputs();
-
-                showStep('otp');
-                startTimer(60);
-
-                showToast('success', 'Code Sent', `A 6-digit verification code has been sent to ${email}.`);
-
-                // Auto-focus first OTP input
-                setTimeout(() => {
-                    otpInputs[0].focus();
-                }, 100);
-            }, 1800);
-        });
-
-        // Remove error on input
-        emailInput.addEventListener('input', function() {
-            this.classList.remove('is-invalid');
-            emailError.classList.remove('show');
-        });
-
-        // ── OTP Input Logic ──
         otpInputs.forEach((input, index) => {
-            input.addEventListener('input', function(e) {
-                const val = this.value.replace(/[^0-9]/g, '');
+            input.addEventListener('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '').charAt(0) || '';
 
-                if (val) {
-                    this.value = val.charAt(0);
+                if (this.value) {
                     this.classList.add('filled');
-                    this.classList.remove('error-shake', 'success-fill');
-
-                    // Move to next
+                    this.classList.remove('error-shake');
                     if (index < otpInputs.length - 1) {
                         otpInputs[index + 1].focus();
                     }
                 } else {
-                    this.value = '';
                     this.classList.remove('filled');
                 }
-
-                checkOtpComplete();
+                syncOtpValue();
             });
 
-            input.addEventListener('keydown', function(e) {
-                if (e.key === 'Backspace') {
-                    if (!this.value && index > 0) {
-                        otpInputs[index - 1].focus();
-                        otpInputs[index - 1].value = '';
-                        otpInputs[index - 1].classList.remove('filled');
-                    }
-                    this.classList.remove('error-shake', 'success-fill');
-                }
-
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    if (checkOtpComplete()) {
-                        otpForm.dispatchEvent(new Event('submit'));
-                    }
+            input.addEventListener('keydown', function (e) {
+                if (e.key === 'Backspace' && !this.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                    otpInputs[index - 1].value = '';
+                    otpInputs[index - 1].classList.remove('filled');
+                    syncOtpValue();
                 }
             });
 
-            input.addEventListener('paste', function(e) {
+            input.addEventListener('paste', function (e) {
                 e.preventDefault();
                 const pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '');
                 if (pasted.length >= 6) {
-                    for (let i = 0; i < 6; i++) {
-                        otpInputs[i].value = pasted.charAt(i);
-                        otpInputs[i].classList.add('filled');
-                        otpInputs[i].classList.remove('error-shake', 'success-fill');
-                    }
+                    otpInputs.forEach((inp, i) => {
+                        inp.value = pasted.charAt(i);
+                        inp.classList.add('filled');
+                    });
                     otpInputs[5].focus();
-                    checkOtpComplete();
+                    syncOtpValue();
                 }
             });
 
-            input.addEventListener('focus', function() {
+            input.addEventListener('focus', function () {
                 this.select();
             });
         });
 
-        function checkOtpComplete() {
-            let filled = 0;
-            otpInputs.forEach(inp => {
-                if (inp.value) filled++;
-            });
-            verifyOtpBtn.disabled = (filled < 6);
-            return filled >= 6;
-        }
+        // ── Send OTP: fetch("${pageContext.request.contextPath}/emailCheck", { (same logic as original) ──
+        function sendOtp() {
+            const email = emailInput.value;
+            emailErrorBox.innerHTML = "";
 
-        function getOtpValue() {
-            return Array.from(otpInputs).map(i => i.value).join('');
-        }
+            if (email === "") {
+                emailErrorBox.innerHTML = "Please enter email first";
+                return;
+            }
 
-        // ── OTP Form Submit ──
-        otpForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            sendOtpBtn.disabled = true;
+            sendOtpText.textContent = 'Sending...';
+            sendOtpSpinner.style.display = 'block';
 
-            const otp = getOtpValue();
+            fetch("emailCheck", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "email=" + encodeURIComponent(email)
+            })
+            .then(response => response.text())
+            .then(data => {
+                sendOtpBtn.disabled = false;
+                sendOtpText.textContent = 'Send Verification Code';
+                sendOtpSpinner.style.display = 'none';
 
-            if (otp.length < 6) return;
+                if (data === "SUCCESS") {
 
-            // Show loading
-            verifyOtpBtn.disabled = true;
-            verifyOtpText.textContent = 'Verifying...';
-            verifyOtpSpinner.style.display = 'block';
+                    otpEmail.value = email;
+                    displayEmail.textContent = email;
 
-            // Simulate API call
-            setTimeout(() => {
-                verifyOtpSpinner.style.display = 'none';
+                    otpInputs.forEach(inp => { inp.value = ''; inp.disabled = false; inp.classList.remove('filled', 'error-shake'); });
+                    otpValue.value = '';
+                    verifyOtpBtn.disabled = true;
+                    otpErrorBox.innerHTML = "";
 
-                if (otp === CORRECT_OTP) {
-                    // SUCCESS
-                    verifyOtpText.textContent = 'Verified';
-                    otpInputs.forEach(inp => {
-                        inp.classList.remove('error-shake');
-                        inp.classList.add('success-fill');
-                    });
+                    showStep('otp');
 
-                    stopTimer();
+                    countdown = 30;
+                    startTimer();
 
-                    setTimeout(() => {
-                        showStep('success');
-                        fireConfetti();
-                        showToast('success', 'Verification Complete', 'Your email has been verified. You can now reset your password.');
-                    }, 600);
+                    setTimeout(() => otpInputs[0].focus(), 100);
 
-                } else {
-                    // ERROR
-                    verifyOtpText.textContent = 'Verify Code';
-                    verifyOtpBtn.disabled = false;
-
-                    otpInputs.forEach(inp => {
-                        inp.classList.add('error-shake');
-                        inp.classList.remove('filled', 'success-fill');
-                    });
-
-                    showToast('error', 'Invalid Code', 'The verification code you entered is incorrect. Please try again.');
-
-                    // Clear and refocus after shake
-                    setTimeout(() => {
-                        clearOtpInputs();
-                        otpInputs[0].focus();
-                    }, 700);
+                } else if (data === "NOT_FOUND") {
+                    emailErrorBox.innerHTML = "Email not found";
                 }
-            }, 2000);
-        });
+            })
+            .catch(error => console.error("Error:", error));
+        }
 
-        // ── Resend OTP ──
-        resendBtn.addEventListener('click', function() {
-            if (this.disabled) return;
+        // ── Resend OTP: fetch("${pageContext.request.contextPath}/resendOtp", { (same logic as original) ──
+        function resendOtp() {
+            if (countdown > 0) {
+                alert("Please wait " + countdown + " seconds");
+                return;
+            }
 
-            clearOtpInputs();
-            startTimer(60);
+            const email = otpEmail.value;
 
-            showToast('success', 'Code Resent', `A new verification code has been sent to ${currentEmail}.`);
+            fetch("resendOtp", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "email=" + encodeURIComponent(email)
+            })
+            .then(response => response.text())
+            .then(() => {
+                alert("OTP resent successfully!");
 
-            setTimeout(() => {
+                otpInputs.forEach(inp => { inp.value = ''; inp.disabled = false; inp.classList.remove('filled', 'error-shake'); });
+                otpValue.value = '';
+                verifyOtpBtn.disabled = true;
+                otpErrorBox.innerHTML = "";
+
+                countdown = 30;
+                startTimer();
+
                 otpInputs[0].focus();
-            }, 100);
-        });
+            })
+            .catch(error => console.error(error));
+        }
 
-        // ── Change Email ──
-        changeEmailLink.addEventListener('click', function(e) {
+        // ── Change email (visual only, resets to step 1) ──
+        changeEmailLink.addEventListener('click', function (e) {
             e.preventDefault();
-            stopTimer();
-            clearOtpInputs();
+            clearInterval(timerInterval);
             showStep('email');
             emailInput.focus();
         });
     </script>
+
+    <c:if test="${showOtpPopup}">
+        <script>
+            document.getElementById("otpEmail").value = "${email}";
+            document.getElementById("displayEmail").textContent = "${email}";
+            showStep('otp');
+
+            countdown = 30;
+            startTimer();
+        </script>
+    </c:if>
+
 </body>
 </html>
