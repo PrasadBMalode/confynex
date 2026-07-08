@@ -155,5 +155,32 @@ public class HostServiceImpl implements HostService {
         }
     }
 
+    @Override
+    public boolean updatingPassword(HostDTO hostDTO) {
+        try {
+            String encryptedPassword = CryptoUtil.encrypt(hostDTO.getPassword());
+            hostDTO.setPassword(encryptedPassword);
+
+            HostEntity hostEntity = hostDAO.checkExistUserByEmail(hostDTO.getEmail());
+
+            if (hostEntity != null) {
+
+                hostEntity.setPassword(encryptedPassword);
+
+                // ✅ IMPORTANT FIXES
+                hostEntity.setAccountLocked(false);   // unlock account
+                hostEntity.setLoginAttempts(0);       // reset attempts
+
+                return hostDAO.updatingPasswordInDB(hostEntity);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
+    }
+
+
 
 }

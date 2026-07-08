@@ -11,4 +11,6 @@ public interface HostService {
     HostDTO checkEmailExist(String email);
 
     void saveCoordinatorEmails(String filePath, HostEntity hostEntity);
+
+    boolean updatingPassword(HostDTO hostDTO);
 }

@@ -116,9 +116,7 @@ public class HostDAOImpl implements HostDAO {
 
         try {
 
-            return em.createQuery(
-                            "SELECT h FROM HostEntity h ORDER BY h.hostId DESC",
-                            HostEntity.class)
+            return em.createQuery("SELECT h FROM HostEntity h ORDER BY h.hostId DESC", HostEntity.class)
                     .setMaxResults(1)
                     .getSingleResult();
 
@@ -130,6 +128,24 @@ public class HostDAOImpl implements HostDAO {
         } finally {
 
             em.close();
+        }
+    }
+
+    @Override
+    public boolean updatingPasswordInDB(HostEntity hostEntity) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            HostEntity entity = entityManager.merge(hostEntity);
+            transaction.commit();
+            return true;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+
+        }finally {
+            entityManager.close();
         }
     }
 }

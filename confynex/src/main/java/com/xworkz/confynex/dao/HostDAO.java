@@ -14,4 +14,6 @@ public interface HostDAO {
     boolean coordinatorEmails(CoordinatorsEmailEntity coordinatorEntity);
 
     HostEntity getLatestConference();
+
+    boolean updatingPasswordInDB(HostEntity hostEntity);
 }

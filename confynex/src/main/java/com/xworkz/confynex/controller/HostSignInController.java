@@ -173,4 +173,15 @@ public class HostSignInController {
         }
     }
 
+    @PostMapping("/resetPassword")
+    public String resetPassword(HostDTO hostDTO, Model model) {
+        boolean updatingPassword = hostService.updatingPassword(hostDTO);
+        if (updatingPassword) {
+            model.addAttribute("updatedSuccessfully", "Your password updated you can login now");
+            return "resetPassword";
+        }
+        model.addAttribute("updateFail", "Please check the password...!");
+        return "resetPassword";
+    }
+
 }

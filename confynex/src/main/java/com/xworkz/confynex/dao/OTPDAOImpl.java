@@ -41,7 +41,7 @@ public class OTPDAOImpl implements OTPDAO{
             tx.begin();
 
             // If OTP already exists → update
-            Query query = em.createQuery("SELECT o FROM OtpEntity o WHERE o.email=:email");
+            Query query = em.createQuery("SELECT o FROM OTPEntity o WHERE o.email=:email");
             query.setParameter("email", otpEntity.getEmail());
 
             OTPEntity existing = null;
@@ -71,7 +71,7 @@ public class OTPDAOImpl implements OTPDAO{
 
         EntityManager em = entityManagerFactory.createEntityManager();
         try {
-            Query query = em.createQuery("SELECT o FROM OtpEntity o WHERE o.email=:email");
+            Query query = em.createQuery("SELECT o FROM OTPEntity o WHERE o.email=:email");
             query.setParameter("email", email);
             return (OTPEntity) query.getSingleResult();
         } catch (Exception e) {

@@ -56,6 +56,7 @@ public class WebConfiguration {
         properties.setProperty("hibernate.hbm2ddl.auto","create");
         properties.setProperty("hibernate.show_sql","true");
         properties.setProperty("hibernate.format_sql","true");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
         //properties.setProperty("hibernate.hbm2ddl.auto","create-drop");
         return properties;
     }
@@ -67,6 +68,11 @@ public class WebConfiguration {
         multipartResolver.setMaxInMemorySize(5 * 1024 * 1024);
 
         return multipartResolver;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
     }
 
 }
