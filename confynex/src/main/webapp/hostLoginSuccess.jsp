@@ -37,10 +37,10 @@
       font-family: 'Playfair Display', serif;
       font-weight: 700;
       font-size: 1.5rem;
-      color: var(--gold);
+      color: var(--cream);
       letter-spacing: .5px;
     }
-    .navbar-dms .navbar-brand span { color: #fff; }
+    .navbar-dms .navbar-brand span { color: #C9A84C; }
     .navbar-dms .nav-link {
       color: rgba(255,255,255,.85);
       font-weight: 600;
@@ -73,6 +73,24 @@
       border: none;
     }
     .nav-pill-btn:hover { background: var(--gold-lt); color: var(--navy) !important; }
+
+    .profile-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(201,168,76,.12);
+      border: 1px solid rgba(201,168,76,.4);
+      transition: background .2s, border-color .2s;
+    }
+    .profile-toggle:hover,
+    .profile-toggle:focus {
+      background: rgba(201,168,76,.22);
+      border-color: var(--gold);
+    }
+    .profile-toggle::after { display: none; } /* remove bootstrap caret */
 
     /* ─── HERO BANNER ─── */
     .hero {
@@ -278,13 +296,13 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════ NAVBAR (plain Bootstrap navbar) ═══════════════════════════════ -->
+<!-- ═══════════════════════════════ NAVBAR (updated) ═══════════════════════════════ -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-dms sticky-top">
   <div class="container-fluid">
 
     <a class="navbar-brand" href="#">
-      <i class="bi bi-diagram-3-fill me-1"></i>
-      DMS <span>Pro</span>
+      <i class="me-1"></i>
+      Confy <span>Nex </span>
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
@@ -298,7 +316,7 @@
           <a class="nav-link active" href="#"><i class="bi bi-house-door me-1"></i>Home</a>
         </li>
 
-        <!-- HOST DASHBOARD DROPDOWN -->
+        <!-- HOST DASHBOARD DROPDOWN (unchanged) -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-building me-1"></i>Host Dashboard
@@ -317,25 +335,22 @@
           </ul>
         </li>
 
-        <!-- ADMIN DASHBOARD DROPDOWN -->
+        <!-- COORDINATOR DASHBOARD DROPDOWN (replaces Admin Dashboard) -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-shield-lock me-1"></i>Admin Dashboard
+            <i class="bi bi-person-workspace me-1"></i>Coordinator Dashboard
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-grid-3x3-gap me-2"></i>Control Panel</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-person-lines-fill me-2"></i>All Users</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-diagram-3 me-2"></i>All Delegates</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-calendar2-range me-2"></i>All Events</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-speedometer2 me-2"></i>Overview</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-calendar2-check me-2"></i>Assigned Events</a></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="bi bi-person-check-fill me-2"></i>Delegate Check-in <span class="badge badge-nav rounded-pill ms-auto">12</span></a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-clipboard2-data me-2"></i>Attendance Tracker</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-list-task me-2"></i>Session Schedule</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="bi bi-shield-check me-2"></i>Approvals <span class="badge badge-nav rounded-pill ms-auto">7</span></a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-lock-fill me-2"></i>Roles & Permissions</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-bell-fill me-2"></i>Notifications</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-bar-chart-line me-2"></i>Coordinator Reports</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-chat-square-dots me-2"></i>Feedback & Issues</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-bar-graph me-2"></i>System Reports</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-activity me-2"></i>Audit Logs</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-sliders me-2"></i>System Settings</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Coordinator Settings</a></li>
           </ul>
         </li>
 
@@ -363,13 +378,18 @@
 
       </ul>
 
-      <!-- RIGHT SIDE (no account button) -->
-      <ul class="navbar-nav align-items-center">
-        <li class="nav-item">
-          <a class="nav-pill-btn position-relative" href="#">
-            <i class="bi bi-bell-fill"></i> Notifications
-            <span class="badge rounded-pill bg-danger ms-1" style="font-size:.62rem">3</span>
+      <!-- RIGHT SIDE: notifications + profile dropdown (Home, Profile, Logout) -->
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center profile-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-fill" style="font-size:1.25rem;color:var(--gold);"></i>
           </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#"><i class="bi bi-house-door me-2"></i>Home</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -388,8 +408,8 @@
         <div class="success-badge">
           <i class="bi bi-check-circle-fill"></i> Login Successful
         </div>
-        <h1>Welcome Back,<br><span>John Doe</span></h1>
-        <p>You are now securely logged in to the <strong style="color:#fff">Delegate Management System</strong>. Manage events, track delegates, send invitations, and generate reports — all from one place.</p>
+        <h1>Welcome Back,<br><span> </span></h1>
+        <p>You are now securely logged in to the <strong style="color:#fff">Conference Delegate Management System</strong>. Manage events, track delegates, send invitations, and generate reports — all from one place.</p>
         <div class="hero-stats">
           <div class="stat-item">
             <div class="stat-num">142</div>
@@ -660,7 +680,7 @@
 
 <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
 <footer class="d-flex flex-wrap justify-content-between align-items-center">
-  <span>© 2026 <strong style="color:var(--gold)">DMS Pro</strong> – Delegate Management System. All rights reserved.</span>
+  <span>© 2026 <strong style="color:var(--gold)">ConfyNex </strong> – Conference Delegate Management System. All rights reserved.</span>
   <span class="d-flex gap-3">
     <a href="#">Privacy Policy</a>
     <a href="#">Support</a>

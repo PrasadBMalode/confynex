@@ -546,6 +546,42 @@
             .login-card { padding: 36px 26px 32px; }
             .card-title { font-size: 1.6rem; }
         }
+
+
+        /* ── ERROR TOAST (bottom-right) ─────────────────── */
+        .toast-error {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 340px;
+            background: rgba(224, 92, 92, 0.12);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(224, 92, 92, 0.4);
+            color: #ef8f8f;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: .85rem;
+            box-shadow: 0 14px 34px rgba(0,0,0,0.5);
+            animation: toastIn .4s ease both, toastOut .4s ease 4.6s both;
+        }
+
+        .toast-error i {
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes toastOut {
+            to { opacity: 0; transform: translateY(20px); }
+        }
     </style>
 </head>
 <body>
@@ -640,20 +676,10 @@
                             String errorMsg   = (String) request.getAttribute("error");
                             String successMsg = (String) request.getAttribute("success");
                         %>
-                        <% if (errorMsg != null && !errorMsg.isEmpty()) { %>
-                            <div class="alert-gold-error mb-3 d-flex align-items-center gap-2">
-                                <i class="bi bi-exclamation-triangle-fill"></i> <%= errorMsg %>
-                            </div>
-                        <% } %>
-                        <% if (successMsg != null && !successMsg.isEmpty()) { %>
-                            <div class="alert-gold-success mb-3 d-flex align-items-center gap-2">
-                                <i class="bi bi-check-circle-fill"></i> <%= successMsg %>
-                            </div>
-                        <% } %>
-
-                        <c:if test="${not empty loginError}">
-                            <div class="alert-gold-error mb-3 d-flex align-items-center gap-2">
-                                <i class="bi bi-exclamation-triangle-fill"></i> ${loginError}
+                        <c:if test="${not empty loginFailed}">
+                            <div class="toast-error" id="loginToast">
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                <span>${loginFailed}</span>
                             </div>
                         </c:if>
 
@@ -721,7 +747,7 @@
 
                         <p class="card-footer-links mb-0">
                             Don't have an account?
-                            <span class="modal-link" style="cursor:pointer;" onclick="window.location.href='hostSignup.jsp'">Sign Up</span>
+                            <span class="modal-link" style="cursor:pointer;" onclick="window.location.href='hostRegistration.jsp'">Sign Up</span>
                         </p>
 
                         <div class="security-strip">
@@ -739,6 +765,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+
+    const loginToast = document.getElementById('loginToast');
+    if (loginToast) {
+        setTimeout(() => loginToast.remove(), 5000);
+    }
+
+
         // Show / hide password
         const toggleBtn  = document.getElementById('togglePw');
         const toggleIcon = document.getElementById('toggleIcon');

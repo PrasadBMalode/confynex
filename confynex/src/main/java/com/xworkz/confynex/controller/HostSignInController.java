@@ -77,20 +77,20 @@ public class HostSignInController {
 
             case "EMAIL_NOT_FOUND":
                 model.addAttribute("loginFailed", "Email not found");
-                return "index";
+                return "hostLogin";
 
             case "INVALID_PASSWORD":
                 model.addAttribute("loginFailed", "Invalid password");
-                return "index";
+                return "hostLogin";
 
             case "ACCOUNT_BLOCKED":
                 model.addAttribute("loginFailed",
                         "Account is blocked after 3 failed attempts");
-                return "index";
+                return "hostLogin";
 
             default:
                 model.addAttribute("loginFailed", "Something went wrong");
-                return "index";
+                return "hostLogin";
         }
     }
 
