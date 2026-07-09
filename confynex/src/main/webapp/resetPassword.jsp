@@ -482,6 +482,9 @@
                         </div>
 
                         <form id="resetForm" action="resetPassword" method="post" novalidate>
+                        <input type="hidden"
+                               name="email"
+                               value="${sessionScope.resetEmail}">
 
                             <!-- Reset token, populated by the server (e.g. from the emailed link) -->
                             <input type="hidden" name="token" value="${param.token}">
@@ -494,7 +497,7 @@
                                     <input
                                         type="password"
                                         id="newPassword"
-                                        name="newPassword"
+                                        name="password"
                                         class="form-control"
                                         placeholder="Create a strong password"
                                         autocomplete="new-password"

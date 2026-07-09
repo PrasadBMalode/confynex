@@ -125,7 +125,7 @@ public class HostSignInController {
     @PostMapping("/verifyOtp")
     public String verifyOtp(String email,
                             String otp,
-                            Model model) {
+                            Model model, HttpSession session) {
 
         System.out.println("Email : " + email);
         System.out.println("OTP : " + otp);
@@ -136,7 +136,7 @@ public class HostSignInController {
 
         if (isValid) {
 
-            model.addAttribute("email", email);
+            session.setAttribute("resetEmail", email);
 
             return "resetPassword";
         }
@@ -174,13 +174,24 @@ public class HostSignInController {
     }
 
     @PostMapping("/resetPassword")
-    public String resetPassword(HostDTO hostDTO, Model model) {
-        boolean updatingPassword = hostService.updatingPassword(hostDTO);
-        if (updatingPassword) {
-            model.addAttribute("updatedSuccessfully", "Your password updated you can login now");
-            return "resetPassword";
+    public String resetPassword(HostDTO hostDTO,
+                                HttpSession session,
+                                Model model) {
+
+        String email = (String) session.getAttribute("resetEmail");
+
+        hostDTO.setEmail(email);
+
+        boolean updated = hostService.updatingPassword(hostDTO);
+
+        if(updated){
+            session.removeAttribute("resetEmail");
+            model.addAttribute("updatedSuccessfully",
+                    "Password Updated Successfully");
+            return "index";
         }
-        model.addAttribute("updateFail", "Please check the password...!");
+
+        model.addAttribute("updateFail","Password Update Failed");
         return "resetPassword";
     }
 

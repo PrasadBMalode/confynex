@@ -40,5 +40,6 @@ public class HostEntity {
     private FileEntity fileEntity;
 
     @OneToMany(mappedBy = "host")
+    @ToString.Exclude
     private List<CoordinatorEntity> coordinators;
 }

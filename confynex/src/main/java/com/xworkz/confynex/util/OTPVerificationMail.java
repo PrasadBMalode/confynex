@@ -25,9 +25,21 @@ public class OTPVerificationMail {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("malodeprasad666@gmail.com");
         mailMessage.setTo(toEmail);
-        mailMessage.setSubject("OTP Verification From CONFYNEX Team");
-        mailMessage.setText("Do not share the OTP for Anyone");
-        mailMessage.setText("Your OTP is: " + otp);
+        mailMessage.setSubject("OTP Verification - CONFYNEX");
+
+        mailMessage.setText(
+                "Dear User,\n\n" +
+                        "Thank you for choosing CONFYNEX.\n\n" +
+                        "Your One-Time Password (OTP) for verification is:\n\n" +
+                        "          " + otp + "\n\n" +
+                        "This OTP is valid for a limited time and can only be used once.\n\n" +
+                        "For your security, please do not share this OTP with anyone. " +
+                        "CONFYNEX will never ask for your OTP via phone, email, or message.\n\n" +
+                        "If you did not request this verification, please ignore this email.\n\n" +
+                        "Regards,\n" +
+                        "CONFYNEX Team"
+        );
+
         javaMailSender.send(mailMessage);
         return otp;
     }

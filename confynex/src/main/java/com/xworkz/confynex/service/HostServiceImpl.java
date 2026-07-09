@@ -157,25 +157,35 @@ public class HostServiceImpl implements HostService {
 
     @Override
     public boolean updatingPassword(HostDTO hostDTO) {
+
+        System.out.println("========= RESET PASSWORD =========");
+        System.out.println("Email from form : " + hostDTO.getEmail());
+        System.out.println("Password from form : " + hostDTO.getPassword());
+
         try {
+
             String encryptedPassword = CryptoUtil.encrypt(hostDTO.getPassword());
-            hostDTO.setPassword(encryptedPassword);
 
             HostEntity hostEntity = hostDAO.checkExistUserByEmail(hostDTO.getEmail());
 
-            if (hostEntity != null) {
+            System.out.println("Host ID : " + hostEntity.getHostId());
+            System.out.println("Email : " + hostEntity.getEmail());
+
+            if(hostEntity != null){
+
+                System.out.println("User Found");
 
                 hostEntity.setPassword(encryptedPassword);
-
-                // ✅ IMPORTANT FIXES
-                hostEntity.setAccountLocked(false);   // unlock account
-                hostEntity.setLoginAttempts(0);       // reset attempts
+                hostEntity.setAccountLocked(false);
+                hostEntity.setLoginAttempts(0);
 
                 return hostDAO.updatingPasswordInDB(hostEntity);
             }
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("User NOT Found");
+
+        } catch(Exception e){
+            e.printStackTrace();
         }
 
         return false;
