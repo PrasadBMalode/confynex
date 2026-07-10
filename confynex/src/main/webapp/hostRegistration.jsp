@@ -1,4 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -325,13 +329,54 @@
     box-shadow: 0 0 0 .2rem rgba(212,175,55,.2);
   }
 
+  /* Force dark background even when a field is marked valid/invalid by Bootstrap */
+  .form-control.is-valid,
+  .form-control.is-invalid {
+    background-color: var(--bg-field) !important;
+    color: #f1f1f1 !important;
+  }
+
+  /* Kill browser autofill white/yellow background on every field */
+  .form-control:-webkit-autofill,
+  .form-control:-webkit-autofill:hover,
+  .form-control:-webkit-autofill:focus,
+  .form-control:-webkit-autofill:active {
+    -webkit-text-fill-color: #f1f1f1 !important;
+    caret-color: #f1f1f1 !important;
+    box-shadow: 0 0 0 1000px var(--bg-field) inset !important;
+    -webkit-box-shadow: 0 0 0 1000px var(--bg-field) inset !important;
+    transition: background-color 9999s ease-in-out 0s;
+  }
+
   .form-control::-webkit-calendar-picker-indicator {
     filter: invert(1);
     cursor: pointer;
   }
 
+  /* File input button dark theme */
+  .form-control[type="file"]::file-selector-button {
+    background-color: rgba(212,175,55,.15);
+    color: var(--gold);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    padding: .4rem .9rem;
+    margin-right: .8rem;
+    transition: background-color .2s ease;
+  }
+
+  .form-control[type="file"]::file-selector-button:hover {
+    background-color: rgba(212,175,55,.25);
+  }
+
   .invalid-feedback {
     font-size: .78rem;
+  }
+
+  .server-error {
+    font-size: .78rem;
+    color: #ff8080;
+    margin-top: .35rem;
+    display: block;
   }
 
   .btn-gold {
@@ -401,6 +446,24 @@
     .hero-side {
       padding: 2rem 1rem;
     }
+  }
+
+  /* ── STATUS MODAL (registration result popup) ───── */
+  .status-modal-content {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    color: #f1f1f1;
+  }
+
+  .status-modal-content .modal-title {
+    font-weight: 700;
+    font-size: 1.15rem;
+  }
+
+  .status-modal-content .modal-body {
+    font-size: .92rem;
+    color: rgba(255,255,255,.85);
   }
 </style>
 </head>
@@ -513,44 +576,65 @@
 
               <div class="col-md-6 mb-3">
                 <label class="form-label">Full Name</label>
-                <input type="text" class="form-control" name="full_name" id="full_name" placeholder="John Smith" />
+                <input type="text" class="form-control" name="full_name" id="full_name" placeholder="John Smith" value="${hostDTO.full_name}" />
                 <div class="invalid-feedback">Name must contain only letters (minimum 3).</div>
+                <c:if test="${not empty hostNameError}">
+                  <span class="server-error">${hostNameError}</span>
+                </c:if>
               </div>
 
               <div class="col-md-6 mb-3">
                 <label class="form-label">Work Email</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="john@gmail.com" />
+                <input type="email" class="form-control" name="email" id="email" placeholder="john@gmail.com" value="${hostDTO.email}" />
                 <div class="invalid-feedback">Email must be a valid Gmail address.</div>
+                <c:if test="${not empty emailError}">
+                  <span class="server-error">${emailError}</span>
+                </c:if>
               </div>
 
               <div class="col-md-6 mb-3">
                 <label class="form-label">Phone Number</label>
-                <input type="tel" class="form-control" name="phone" id="phone" placeholder="9876543210" />
+                <input type="tel" class="form-control" name="phone" id="phone" placeholder="9876543210" value="${hostDTO.phone}" />
                 <div class="invalid-feedback">Phone must start with 6,7,8,9 and be 10 digits.</div>
+                <c:if test="${not empty phNumberError}">
+                  <span class="server-error">${phNumberError}</span>
+                </c:if>
               </div>
 
               <div class="col-md-6 mb-3">
                 <label class="form-label">Company Name</label>
-                <input type="text" class="form-control" name="company_name" id="company_name" placeholder="Your company name" />
+                <input type="text" class="form-control" name="company_name" id="company_name" placeholder="Your company name" value="${hostDTO.company_name}" />
                 <div class="invalid-feedback">Company Name must contain minimum 4 letters.</div>
+                <c:if test="${not empty companyNameError}">
+                  <span class="server-error">${companyNameError}</span>
+                </c:if>
               </div>
 
               <div class="col-md-6 mb-3">
                 <label class="form-label">Conference Title</label>
-                <input type="text" class="form-control" name="conference_title" id="conference_title" placeholder="Enter conference title" />
+                <input type="text" class="form-control" name="conference_title" id="conference_title" placeholder="Enter conference title" value="${hostDTO.conference_title}" />
                 <div class="invalid-feedback">Title must contain only letters (minimum 3).</div>
+                <c:if test="${not empty titleError}">
+                  <span class="server-error">${titleError}</span>
+                </c:if>
               </div>
 
               <div class="col-md-6 mb-3">
                 <label class="form-label">Conference Date</label>
-                <input type="date" class="form-control" name="conference_date" id="conference_date" />
+                <input type="date" class="form-control" name="conference_date" id="conference_date" value="${hostDTO.conference_date}" />
                 <div class="invalid-feedback">Conference date is required.</div>
+                <c:if test="${not empty conferenceDateError}">
+                  <span class="server-error">${conferenceDateError}</span>
+                </c:if>
               </div>
 
               <div class="col-12 mb-3">
                 <label class="form-label">Venue</label>
-                <textarea class="form-control" name="venue" id="venue" rows="2" placeholder="Enter conference venue"></textarea>
+                <textarea class="form-control" name="venue" id="venue" rows="2" placeholder="Enter conference venue">${hostDTO.venue}</textarea>
                 <div class="invalid-feedback">Venue must contain minimum 4 characters.</div>
+                <c:if test="${not empty venueError}">
+                  <span class="server-error">${venueError}</span>
+                </c:if>
               </div>
 
               <div class="col-12 mb-3">
@@ -568,6 +652,9 @@
                   <i class="bi bi-eye-slash toggle-password" toggle="#password"></i>
                   <div class="invalid-feedback">8-12 chars with uppercase, lowercase, number &amp; special char.</div>
                 </div>
+                <c:if test="${not empty passwordError}">
+                  <span class="server-error">${passwordError}</span>
+                </c:if>
               </div>
 
               <div class="col-md-6 mb-3">
@@ -626,6 +713,38 @@
     &copy; <%= java.time.Year.now() %> Confynex. All rights reserved.
   </footer>
 
+  <!-- ═══════════ REGISTRATION STATUS POPUP (Bootstrap Modal) ═══════════ -->
+  <c:if test="${not empty registerSuccess or not empty registerFailed or not empty existData or not empty confirmPasswordError}">
+    <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content status-modal-content">
+          <div class="modal-header border-0">
+            <h5 class="modal-title" id="statusModalLabel">
+              <c:choose>
+                <c:when test="${not empty registerSuccess}">
+                  <i class="bi bi-check-circle-fill text-success me-2"></i>Registration Successful
+                </c:when>
+                <c:otherwise>
+                  <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Registration Failed
+                </c:otherwise>
+              </c:choose>
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <c:if test="${not empty registerSuccess}">${registerSuccess}</c:if>
+            <c:if test="${not empty registerFailed}">${registerFailed}</c:if>
+            <c:if test="${not empty existData}">${existData}</c:if>
+            <c:if test="${not empty confirmPasswordError}">${confirmPasswordError}</c:if>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-gold" data-bs-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </c:if>
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -646,6 +765,13 @@
       });
     });
 
+    // Show registration status modal on page load, if present
+    var statusModalEl = document.getElementById('statusModal');
+    if (statusModalEl) {
+      var statusModal = new bootstrap.Modal(statusModalEl);
+      statusModal.show();
+    }
+
     // Custom validation rules
     (function () {
       'use strict';
@@ -660,6 +786,16 @@
       var venueRegex = /^.{4,}$/;
       var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,12}$/;
 
+      var fullName = document.getElementById('full_name');
+      var email = document.getElementById('email');
+      var phone = document.getElementById('phone');
+      var company = document.getElementById('company_name');
+      var title = document.getElementById('conference_title');
+      var date = document.getElementById('conference_date');
+      var venue = document.getElementById('venue');
+      var password = document.getElementById('password');
+      var confirmPassword = document.getElementById('confirmPassword');
+
       function setValidity(input, isValid) {
         if (isValid) {
           input.classList.remove('is-invalid');
@@ -670,17 +806,49 @@
         }
       }
 
-      form.addEventListener('submit', function (event) {
-        var fullName = document.getElementById('full_name');
-        var email = document.getElementById('email');
-        var phone = document.getElementById('phone');
-        var company = document.getElementById('company_name');
-        var title = document.getElementById('conference_title');
-        var date = document.getElementById('conference_date');
-        var venue = document.getElementById('venue');
-        var password = document.getElementById('password');
-        var confirmPassword = document.getElementById('confirmPassword');
+      // ── Field-level validation, run when focus leaves a field ──
+      fullName.addEventListener('blur', function () {
+        setValidity(fullName, nameRegex.test(fullName.value.trim()));
+      });
 
+      email.addEventListener('blur', function () {
+        setValidity(email, gmailRegex.test(email.value.trim()));
+      });
+
+      phone.addEventListener('blur', function () {
+        setValidity(phone, phoneRegex.test(phone.value.trim()));
+      });
+
+      company.addEventListener('blur', function () {
+        setValidity(company, companyRegex.test(company.value.trim()));
+      });
+
+      title.addEventListener('blur', function () {
+        setValidity(title, titleRegex.test(title.value.trim()));
+      });
+
+      date.addEventListener('blur', function () {
+        setValidity(date, date.value !== '');
+      });
+
+      venue.addEventListener('blur', function () {
+        setValidity(venue, venueRegex.test(venue.value.trim()));
+      });
+
+      password.addEventListener('blur', function () {
+        setValidity(password, passwordRegex.test(password.value));
+        // Re-check confirm password too, in case it was already filled
+        if (confirmPassword.value !== '') {
+          setValidity(confirmPassword, confirmPassword.value === password.value);
+        }
+      });
+
+      confirmPassword.addEventListener('blur', function () {
+        setValidity(confirmPassword, confirmPassword.value !== '' && confirmPassword.value === password.value);
+      });
+
+      // ── Full validation again on submit (safety net) ──
+      form.addEventListener('submit', function (event) {
         var valid = true;
 
         valid = nameRegex.test(fullName.value.trim()) && (setValidity(fullName, true), true) || (setValidity(fullName, false), false);

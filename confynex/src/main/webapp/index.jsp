@@ -804,7 +804,6 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-7">
-          <div class="hero-tag"><i class="bi bi-stars me-1"></i> Conference Intelligence Platform</div>
           <h1 class="hero-title">
             Manage Every<br /><em>Delegate</em> with<br />Precision & Grace
           </h1>

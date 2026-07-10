@@ -313,44 +313,45 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
         <li class="nav-item">
-          <a class="nav-link active" href="#"><i class="bi bi-house-door me-1"></i>Home</a>
+          <a class="nav-link active" href="index.jsp"><i class="bi bi-house-door me-1"></i>Home</a>
         </li>
 
         <!-- HOST DASHBOARD DROPDOWN (unchanged) -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-building me-1"></i>Host Dashboard
+            <i class="bi bi-building me-1"></i>Host
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-speedometer2 me-2"></i>Overview</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-calendar-event me-2"></i>My Events</a></li>
-            <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="bi bi-people-fill me-2"></i>Manage Delegates <span class="badge badge-nav rounded-pill ms-auto">24</span></a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-send-check me-2"></i>Send Invitations</a></li>
+            <!--<li><a class="dropdown-item" href="#"><i class="bi bi-speedometer2 me-2"></i>Overview</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-calendar-event me-2"></i>My Events</a></li>-->
+            <li><a class="dropdown-item d-flex align-items-center" href="hostRegistration.jsp"><i class="bi bi-people-fill me-2"></i>Host Registration </a></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="hostLogin.jsp"><i class="bi bi-people-fill me-2"></i>Host Login </a></li>
+            <!--<li><a class="dropdown-item" href="#"><i class="bi bi-send-check me-2"></i>Send Invitations</a></li>
             <li><a class="dropdown-item" href="#"><i class="bi bi-clipboard2-check me-2"></i>Attendance Tracker</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#"><i class="bi bi-bar-chart-line me-2"></i>Event Reports</a></li>
             <li><a class="dropdown-item" href="#"><i class="bi bi-chat-square-dots me-2"></i>Feedback & Reviews</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Host Settings</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Host Settings</a></li>-->
           </ul>
         </li>
 
         <!-- COORDINATOR DASHBOARD DROPDOWN (replaces Admin Dashboard) -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-workspace me-1"></i>Coordinator Dashboard
+            <i class="bi bi-person-workspace me-1"></i>Coordinator
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-speedometer2 me-2"></i>Overview</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-calendar2-check me-2"></i>Assigned Events</a></li>
-            <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="bi bi-person-check-fill me-2"></i>Delegate Check-in <span class="badge badge-nav rounded-pill ms-auto">12</span></a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-clipboard2-data me-2"></i>Attendance Tracker</a></li>
+            <!--<li><a class="dropdown-item" href="#"><i class="bi bi-speedometer2 me-2"></i>Overview</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-calendar2-check me-2"></i>Assigned Events</a></li>-->
+            <li><a class="dropdown-item d-flex align-items-center" href="coordinatorsRegistration.jsp"><i class="bi bi-person-check-fill me-2"></i>Coordinator Registration </a></li>
+            <!--<li><a class="dropdown-item" href="#"><i class="bi bi-clipboard2-data me-2"></i>Attendance Tracker</a></li>
             <li><a class="dropdown-item" href="#"><i class="bi bi-list-task me-2"></i>Session Schedule</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#"><i class="bi bi-bar-chart-line me-2"></i>Coordinator Reports</a></li>
             <li><a class="dropdown-item" href="#"><i class="bi bi-chat-square-dots me-2"></i>Feedback & Issues</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Coordinator Settings</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Coordinator Settings</a></li>-->
           </ul>
         </li>
 
@@ -367,12 +368,12 @@
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-            <i class="bi bi-person-badge me-1"></i>Delegates
+            <i class="bi bi-person-badge me-1"></i>Delegate
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-person-plus me-2"></i>Register Delegate</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-card-list me-2"></i>Delegate Directory</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-award me-2"></i>Accreditation</a></li>
+            <li><a class="dropdown-item" href="delegateLogin.jsp"><i class="bi bi-person-plus me-2"></i>Delegate Login</a></li>
+            <!--<li><a class="dropdown-item" href="#"><i class="bi bi-card-list me-2"></i>Delegate Directory</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-award me-2"></i>Accreditation</a></li>-->
           </ul>
         </li>
 
@@ -385,10 +386,10 @@
             <i class="bi bi-person-fill" style="font-size:1.25rem;color:var(--gold);"></i>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#"><i class="bi bi-house-door me-2"></i>Home</a></li>
+            <li><a class="dropdown-item" href="index.jsp"><i class="bi bi-house-door me-2"></i>Home</a></li>
             <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            <li><a class="dropdown-item text-danger" href="index.jsp"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
           </ul>
         </li>
       </ul>
@@ -412,8 +413,8 @@
         <p>You are now securely logged in to the <strong style="color:#fff">Conference Delegate Management System</strong>. Manage events, track delegates, send invitations, and generate reports — all from one place.</p>
         <div class="hero-stats">
           <div class="stat-item">
-            <div class="stat-num">142</div>
-            <div class="stat-lbl">Delegates</div>
+            <div class="stat-num">12K</div>
+            <div class="stat-lbl">Delegates Handled</div>
           </div>
           <div class="stat-item">
             <div class="stat-num">18</div>
