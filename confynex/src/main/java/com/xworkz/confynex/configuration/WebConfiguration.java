@@ -11,7 +11,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -20,8 +23,8 @@ import java.util.Properties;
 @Configuration
 @ComponentScan("com.xworkz.confynex")
 @EnableWebMvc
-public class WebConfiguration {
-    public WebConfiguration(){
+public class WebConfiguration implements WebMvcConfigurer {
+    public WebConfiguration() {
         System.out.println("Configurring...");
     }
 
@@ -75,4 +78,13 @@ public class WebConfiguration {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+        registry.addResourceHandler("swagger-ui/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
 }
